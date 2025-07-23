@@ -17,4 +17,4 @@ Toute utilisation non expressément autorisée par cette licence constitue une v
 
 En accédant à ces infographies, l'utilisateur accepte et s'engage à respecter les termes de cette licence.
 
-© Aurélien DA COSTA, 2025
+© Aurélien DA COSTA, Direction Technique, Proxiserve, 2025
