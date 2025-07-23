@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographie : Suivi des Contrats NIA</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for a modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f2fe; /* Light blue background */
+        }
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #cbd5e1; /* Gray-blue track */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #60a5fa; /* Medium blue thumb */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 md:p-12 lg:p-16 text-gray-800">
+    <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden border border-blue-200">
+        <!-- Header Section -->
+        <header class="bg-gradient-to-r from-blue-700 to-blue-500 text-white p-6 sm:p-8 text-center rounded-t-xl shadow-lg">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2 leading-tight">
+                Le Suivi des Contrats NIA : Un Outil Essentiel <span class="text-yellow-300">🚀</span>
+            </h1>
+            <p class="text-lg sm:text-xl font-light opacity-90">
+                Simplifier la gestion des NIA pour Proxiserve et Prox-Hydro.
+            </p>
+        </header>
+
+        <main class="p-6 sm:p-8 md:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Section 1: Comprendre la NIA et l'Importance du Suivi -->
+            <section class="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400">
+                <h2 class="text-2xl sm:text-3xl font-bold text-blue-800 mb-4 flex items-center">
+                    <span class="text-yellow-500 text-3xl mr-3">💡</span> Comprendre la NIA et l'Importance du Suivi
+                </h2>
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-2">Qu'est-ce que la NIA ?</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        La Note d'Information (NIA) est un document légalement obligatoire. En tant que prestataire (Proxiserve / Prox-Hydro), nous devons l'envoyer à nos clients. Elle détaille la consommation relevée par nos appareils :
+                    </p>
+                    <ul class="list-disc list-inside mt-2 text-gray-700 space-y-1">
+                        <li>Répartiteurs de Frais de Chauffage (RFC)</li>
+                        <li>Compteurs d'Énergie Thermique (CET)</li>
+                        <li>Eau Chaude Sanitaire (ECS)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-700 mb-2">Pourquoi un suivi est-il vital ?</h3>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        En début d'année, une facturation pour cette option est devenue obligatoire pour tous les contrats. Cependant, certains clients peuvent légalement refuser cette option. Il est essentiel de tracer ces refus pour :
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start text-gray-700">
+                            <span class="text-blue-600 text-xl mr-2">⚖️</span>
+                            <span><strong class="text-blue-800">Justifier la non-application</strong> en cas de problème légal.</span>
+                        </li>
+                        <li class="flex items-start text-gray-700">
+                            <span class="text-green-600 text-xl mr-2">✅</span>
+                            <span><strong class="text-blue-800">Assurer notre conformité.</strong></span>
+                        </li>
+                        <li class="flex items-start text-gray-700">
+                            <span class="text-purple-600 text-xl mr-2">🤝</span>
+                            <span><strong class="text-blue-800">Maintenir la transparence</strong> avec nos clients.</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 2: Notre Solution : Le Suivi Centralisé sur Notion -->
+            <section class="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400">
+                <h2 class="text-2xl sm:text-3xl font-bold text-blue-800 mb-4 flex items-center">
+                    <span class="text-purple-500 text-3xl mr-3">🎯</span> Notre Solution : Le Suivi Centralisé sur Notion
+                </h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Pour gérer des milliers de contrats et de refus, la Direction Technique a mis en place un système robuste et facile d'utilisation basé sur <strong class="text-blue-700">Notion</strong>.
+                </p>
+                <h3 class="text-xl font-semibold text-blue-700 mb-2">Une Base Unique, Des Vues Multiples</h3>
+                <p class="text-gray-700 leading-relaxed mb-3">
+                    Tout est centralisé dans une base de données Contrats. Cette base est dupliquée pour chaque agence et contient toutes les vues nécessaires (par client, par groupe, statistiques, etc.).
+                </p>
+                <ul class="space-y-2">
+                    <li class="flex items-start text-gray-700">
+                        <span class="text-blue-600 text-xl mr-2">🔒</span>
+                        <span><strong class="text-blue-800">Sécurité :</strong> Chaque agence accède à sa propre base sécurisée et voit uniquement ses données.</span>
+                    </li>
+                    <li class="flex items-start text-gray-700">
+                        <span class="text-blue-600 text-xl mr-2">📧</span>
+                        <span><strong class="text-blue-800">Accès :</strong> Connectez-vous à Notion avec votre adresse e-mail professionnelle.</span>
+                    </li>
+                    <li class="flex items-start text-gray-700">
+                        <span class="text-blue-600 text-xl mr-2">🤝</span>
+                        <span><strong class="text-blue-800">Responsabilité :</strong> Un contact est désigné par agence pour la mise à jour de ce suivi. Le Directeur d'Agence a également accès en cas de besoin.</span>
+                    </li>
+                    <li class="flex items-start text-gray-700">
+                        <span class="text-blue-600 text-xl mr-2">⚡</span>
+                        <span><strong class="text-blue-800">Efficacité :</strong> Les vues sont pré-configurées pour une utilisation rapide.</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Section 3: Statuts Clairs pour un Suivi Précis -->
+            <section class="lg:col-span-2 bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400">
+                <h2 class="text-2xl sm:text-3xl font-bold text-blue-800 mb-4 flex items-center">
+                    <span class="text-indigo-500 text-3xl mr-3">📊</span> Statuts Clairs pour un Suivi Précis
+                </h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Des statuts spécifiques permettent de suivre l'état de chaque contrat après facturation :
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-green-300 flex items-center">
+                        <span class="text-green-500 text-2xl mr-3">🟢</span>
+                        <span class="font-semibold text-gray-800">NIA Active :</span> Contrat en cours, aucune opposition.
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-orange-300 flex items-center">
+                        <span class="text-orange-500 text-2xl mr-3">🟠</span>
+                        <span class="font-semibold text-gray-800">Refus Unitaire Post-Factu :</span> Refus d'un contrat spécifique ou d'une résidence/groupe.
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-red-300 flex items-center">
+                        <span class="text-red-500 text-2xl mr-3">🔴</span>
+                        <span class="font-semibold text-gray-800">Refus Total Post-Factu :</span> Refus du client pour TOUS ses contrats.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Comment Gérer les Refus ? Le Workflow Pas-à-Pas -->
+            <section class="lg:col-span-2 bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400">
+                <h2 class="text-2xl sm:text-3xl font-bold text-blue-800 mb-4 flex items-center">
+                    <span class="text-gray-600 text-3xl mr-3">⚙️</span> Comment Gérer les Refus ? Le Workflow Pas-à-Pas
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Step 1 -->
+                    <div class="bg-white p-5 rounded-lg shadow-md border border-blue-200 flex flex-col items-center text-center">
+                        <span class="text-blue-500 text-4xl font-bold mb-2">1️⃣</span>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Désactiver Contrat (Unitaire)</h3>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Localisez le contrat, cliquez sur <strong class="text-red-500">Désactiver NIA (❌)</strong>. Confirmez et précisez si la LRAR a été archivée. Le statut passe à <strong class="text-orange-500">Refus Unitaire Post-Factu</strong>.
+                        </p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="bg-white p-5 rounded-lg shadow-md border border-blue-200 flex flex-col items-center text-center">
+                        <span class="text-blue-500 text-4xl font-bold mb-2">2️⃣</span>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Désactiver Tous Contrats Client (Total)</h3>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Recherchez le client (<span class="text-blue-500">🔎</span>). Sélectionnez toutes les lignes (clic sur case à cocher de la 1ère ligne, puis Shift + clic sur la dernière). Modifiez le Statut NIA en <strong class="text-red-500">Refus Total Post-Factu</strong> via la barre flottante.
+                        </p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="bg-white p-5 rounded-lg shadow-md border border-blue-200 flex flex-col items-center text-center">
+                        <span class="text-blue-500 text-4xl font-bold mb-2">3️⃣</span>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Gérer Archivage LRAR</h3>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Dans <strong class="text-blue-700">Mes Lettres de Refus à Archiver</strong> : téléchargez le document dans le champ Lettre de Refus. Cochez la case <strong class="text-green-500">LRAR Archivée ? (☑️)</strong> pour valider.
+                        </p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="bg-white p-5 rounded-lg shadow-md border border-blue-200 flex flex-col items-center text-center">
+                        <span class="text-blue-500 text-4xl font-bold mb-2">4️⃣</span>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Réactiver un Contrat</h3>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Allez dans l'onglet <strong class="text-blue-700">Contrats Inactifs</strong>. Localisez le contrat. Cliquez sur le bouton <strong class="text-green-500">Activer NIA (✅)</strong>. Le statut repasse à <strong class="text-green-500">NIA Active</strong>, et la case LRAR Archivée ? est décochée.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Visualisation et Bénéfices Clés -->
+            <section class="lg:col-span-2 bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-400">
+                <h2 class="text-2xl sm:text-3xl font-bold text-blue-800 mb-4 flex items-center">
+                    <span class="text-green-500 text-3xl mr-3">📊</span> Visualisation et Bénéfices Clés
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Des Tableaux de Bord Clairs</h3>
+                        <p class="text-gray-700 leading-relaxed mb-3">
+                            Chaque agence dispose de son Dashboard Notion avec des vues filtrées :
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-blue-600 text-xl mr-2">👥</span>
+                                <span>Contrats par Client</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-blue-600 text-xl mr-2">🏠</span>
+                                <span>Contrats par Groupe (Résidence)</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-blue-600 text-xl mr-2">📁</span>
+                                <span>Mes Lettres de Refus à Archiver</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-blue-600 text-xl mr-2">📈</span>
+                                <span>Statistiques Agence (Répartition par Statut, par Fluide)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Les Bénéfices pour Proxiserve et Prox-Hydro</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-green-500 text-xl mr-2">✅</span>
+                                <span><strong class="text-blue-800">Conformité Légale :</strong> Justification claire des refus.</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-green-500 text-xl mr-2">⏱️</span>
+                                <span><strong class="text-blue-800">Gain de Temps :</strong> Processus standardisés et efficaces.</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-green-500 text-xl mr-2">🔍</span>
+                                <span><strong class="text-blue-800">Transparence :</strong> Visibilité en temps réel de l'état des contrats.</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-green-500 text-xl mr-2">🛡️</span>
+                                <span><strong class="text-blue-800">Sécurité :</strong> Données centralisées et sécurisées.</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-green-500 text-xl mr-2">📊</span>
+                                <span><strong class="text-blue-800">Analyse :</strong> Statistiques pour une meilleure prise de décision.</span>
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-green-500 text-xl mr-2">🔄</span>
+                                <span><strong class="text-blue-800">Fiabilité :</strong> La fiabilité des données repose sur la mise à jour régulière de ce suivi par chaque agence.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="bg-blue-800 text-blue-100 p-4 sm:p-6 text-center text-sm rounded-b-xl shadow-inner">
+            <p>Proposé par la Direction Technique de Proxiserve et Prox-Hydro.</p>
+            <p class="mt-1">&copy; Copyright 2025 - Reproduction interdite. Usage interne Proxiserve et Prox-Hydro.</p>
+        </footer>
+    </div>
+</body>
+</html>
