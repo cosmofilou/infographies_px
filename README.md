@@ -1,4 +1,4 @@
-# Infographies Professionnelles Proxiserve / Prox-Hydro
+# Infographies Professionnelles
 
 Bienvenue dans le dépôt centralisé des infographies et visualisations de données créées pour les équipes de Proxiserve et Prox-Hydro.
 
@@ -22,7 +22,6 @@ Conformément à la [Licence d'Utilisation](LICENSE.md) de ce dépôt, ces infog
 
 * **Description :** Cette infographie détaille l'importance du suivi des Notes d'Information Annuelle (NIA) et présente la solution de suivi centralisé mise en place sur Notion pour Proxiserve et Prox-Hydro. Elle explique ce qu'est une NIA, pourquoi son suivi est vital, et comment la solution Notion simplifie cette gestion.
 * **Accéder à l'infographie :** [Voir l'infographie "Le Suivi des Contrats NIA"](./le_suivi_des_contrats_nia/index.html)
-    *(Ce lien sera fonctionnel une fois GitHub Pages activé et le dossier créé)*
 
 ---
 
