@@ -143,16 +143,12 @@
                          <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">4</div>
                          <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
                             <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-arrow-up-right-from-square fa-fw mr-3 text-slate-400"></i>Affectation au N2</h3>
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-arrow-right-to-bracket fa-fw mr-3 text-slate-400"></i>Affectation au N2</h3>
                                 <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
                             </summary>
                              <div class="content-wrapper">
                                 <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>Si l'incident dépasse le périmètre du N1, le ticket est transféré au groupe N2 : <strong class="text-slate-700 dark:text-slate-100">Support-DMC-Licorne-N2</strong>.</p>
-                                    <div class="border-l-4 border-red-400 bg-red-50 dark:bg-red-500/10 dark:border-red-500/50 p-4 rounded-r-lg">
-                                        <h4 class="font-bold text-red-800 dark:text-red-200">🚨 Escalade DSI (N3)</h4>
-                                        <p class="text-red-700 dark:text-red-300">L'escalade vers la DSI (Support N3 Licorne) ne doit être effectuée qu'après une analyse approfondie et avec l'aval explicite d'Aurélien DA COSTA. En son absence, assurez-vous de la nécessité de l'escalade : revérifiez les procédures et confirmez qu'il ne s'agit pas d'une erreur de manipulation afin d'éviter toute surcharge inutile du N3.</p>
-                                    </div>
+                                    <p>Lorsque l'incident dépasse le périmètre du N1, le ticket est transféré au groupe N2 : <strong class="text-slate-700 dark:text-slate-100">Support-DMC-Licorne-N2</strong> pour analyse et résolution.</p>
                                 </div>
                             </div>
                         </details>
@@ -162,28 +158,54 @@
                          <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">5</div>
                          <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
                             <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-gears fa-fw mr-3 text-slate-400"></i>Traitement de l'Incident</h3>
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-gears fa-fw mr-3 text-slate-400"></i>Traitement de l'Incident (N2)</h3>
                                 <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
                             </summary>
                              <div class="content-wrapper">
                                 <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>L'équipe N2 analyse et résout l'incident. La communication avec les parties prenantes est essentielle.</p>
+                                    <p>L'équipe N2 procède à une analyse approfondie pour identifier l'origine de l'incident et appliquer la résolution.</p>
                                     <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Vos objectifs opérationnels :</h4>
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Objectifs du N2 :</h4>
                                         <ul class="list-disc list-inside space-y-1">
-                                            <li>Assurer le traitement des incidents de niveau 1 et 2.</li>
-                                            <li>Accompagner les utilisateurs.</li>
-                                            <li>Identifier l'origine (bug vs. erreur de manipulation).</li>
-                                            <li>Analyser contexte, fréquence, données impactées.</li>
+                                            <li>Analyser l'origine : contexte, fréquence, données impactées.</li>
+                                            <li>Identifier s'il s'agit d'un bug technique ou d'une erreur de manipulation.</li>
+                                            <li>Accompagner les utilisateurs et résoudre l'incident.</li>
+                                        </ul>
+                                    </div>
+                                     <div class="border-l-4 border-red-400 bg-red-50 dark:bg-red-500/10 dark:border-red-500/50 p-4 rounded-r-lg">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">🚨 Condition d'escalade au N3</h4>
+                                        <p class="text-red-700 dark:text-red-300">Si la résolution dépasse les compétences du N2 ou requiert des permissions d'administrateur DSI, le ticket doit être escaladé au N3.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <!-- Étape 6 -->
+                     <div class="timeline-item">
+                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">6</div>
+                         <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                            <summary class="p-5 flex justify-between items-center">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-arrow-up-right-from-square fa-fw mr-3 text-slate-400"></i>Escalade & Traitement N3 (DSI)</h3>
+                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
+                            </summary>
+                             <div class="content-wrapper">
+                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
+                                    <p>L'escalade vers la DSI (Support N3 Licorne) doit être validée avant d'être effectuée pour assurer sa pertinence.</p>
+                                     <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Procédure d'escalade N3 :</h4>
+                                        <ul class="list-disc list-inside space-y-1">
+                                             <li>Obtenir l'aval explicite d'<strong class="text-blue-600 dark:text-blue-400">Aurélien DA COSTA</strong>.</li>
+                                             <li>En son absence, se référer à <strong class="text-blue-600 dark:text-blue-400">Jessica BORDENAVE</strong>.</li>
+                                             <li>Dans tous les cas, s'assurer que l'incident n'est pas une erreur de manipulation déjà documentée.</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </details>
                     </div>
-                     <!-- Étape 6 -->
+                     <!-- Étape 7 -->
                      <div class="timeline-item">
-                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">6</div>
+                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">7</div>
                          <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
                             <summary class="p-5 flex justify-between items-center">
                                 <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-magnifying-glass-chart fa-fw mr-3 text-slate-400"></i>Suivi & Analyse Notion</h3>
@@ -239,7 +261,7 @@
                         <div class="space-y-3 pt-2">
                             <p><strong class="text-slate-800 dark:text-slate-200">PDM et Produits Installés (PI) :</strong> Utiliser le fichier <code class="font-mono bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded text-slate-800 dark:text-slate-200">DFSUPPDM.csv</code>.</p>
                             <p><strong class="text-slate-800 dark:text-slate-200">Lieux :</strong> Utiliser le fichier <code class="font-mono bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded text-slate-800 dark:text-slate-200">DFSUPLIEU.csv</code>.</p>
-                            <p><strong class="text-slate-800 dark:text-slate-200">Tous les autres objets :</strong> La demande doit être faite au chef de projet, <strong class="text-blue-600 dark:text-blue-400">Aurélien DA COSTA</strong>.</p>
+                            <p><strong class="text-slate-800 dark:text-slate-200">Tous les autres objets :</strong> La demande doit être faite au chef de projet, <strong class="text-blue-600 dark:text-blue-400">Aurélien DA COSTA</strong> (ou <strong class="text-blue-600 dark:text-blue-400">Jessica BORDENAVE</strong> en son absence).</p>
                         </div>
                         <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg mt-4">
                             <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Procédure pour les utilitaires CSV</h4>
