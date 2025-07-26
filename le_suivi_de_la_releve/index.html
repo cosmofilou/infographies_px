@@ -3,553 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Présentation Licorne: Le Suivi de la Relève</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Le Suivi de la Relève | Proxiserve</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- React & ReactDOM CDN (versions de production pour de meilleures performances) -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Variables CSS pour les thèmes */
-        :root {
-            --bg-color: #f0f4f8; /* Light blue-gray background */
-            --container-bg: #ffffff; /* White background for the presentation */
-            --text-color-primary: #1f2937; /* Dark gray for primary text */
-            --text-color-secondary: #4b5563; /* Medium gray for secondary text */
-            --card-bg: #e0f2fe; /* Lighter blue for section cards */
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --button-bg: #3b82f6; /* Blue for buttons */
-            --button-hover-bg: #2563eb; /* Darker blue for button hover */
-            --icon-circle-bg: #3b82f6; /* Blue for icon circles */
-            --warning-bg: #fee2e2; /* Light red for warning */
-            --warning-border: #ef4444; /* Red border */
-            --warning-text: #b91c1c; /* Darker red text */
-            --accent-color: #3b82f6; /* Accent color for specific text */
-        }
-
-        /* Thème sombre */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #1a202c; /* Dark background */
-                --container-bg: #2d3748; /* Darker background for the presentation */
-                --text-color-primary: #e2e8f0; /* Light gray for primary text */
-                --text-color-secondary: #a0aec0; /* Medium light gray for secondary text */
-                --card-bg: #4a5568; /* Darker gray for section cards */
-                --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
-                --button-bg: #6366f1; /* Indigo for buttons */
-                --button-hover-bg: #4f46e5; /* Darker indigo for button hover */
-                --icon-circle-bg: #6366f1; /* Indigo for icon circles */
-                --warning-bg: #4a2d2d; /* Darker red for warning */
-                --warning-border: #dc2626; /* Red border */
-                --warning-text: #fca5a5; /* Lighter red text */
-                --accent-color: #818cf8; /* Lighter indigo for accent text */
-            }
-        }
-
+        /* Style de base */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 1rem; /* Reduced base padding for very small screens */
-            box-sizing: border-box;
-            color: var(--text-color-primary); /* Apply primary text color */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .presentation-container {
-            max-width: 960px;
-            width: 100%;
-            background-color: var(--container-bg);
-            border-radius: 1.5rem;
-            box-shadow: var(--card-shadow);
-            padding: 1.5rem; /* Base padding for mobile */
-            box-sizing: border-box;
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
+        
+        /* Style pour les accordéons interactifs */
+        details summary {
+            cursor: pointer;
+            list-style: none; /* Supprime la flèche par défaut */
         }
-        /* Responsive padding for container */
-        @media (min-width: 640px) { /* sm breakpoint */
-            .presentation-container {
-                padding: 2.5rem;
-            }
+        details summary::-webkit-details-marker {
+            display: none;
         }
-        @media (min-width: 768px) { /* md breakpoint */
-            .presentation-container {
-                padding: 3.5rem;
-            }
+        details .icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        details[open] .icon {
+            transform: rotate(90deg);
+        }
+        
+        /* Animation pour le contenu de l'accordéon */
+        details .content-wrapper {
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
         }
 
-        .section-card {
-            background-color: var(--card-bg);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.2s ease-in-out;
+        /* Micro-interaction pour les cartes d'information */
+        .info-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
-        .section-card:hover {
+        .info-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-        .icon-circle {
-            background-color: var(--icon-circle-bg);
-            color: white;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 9999px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            margin-right: 1rem;
-            flex-shrink: 0;
-        }
-        .warning-box {
-            background-color: var(--warning-bg);
-            border-left: 5px solid var(--warning-border);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            color: var(--warning-text);
-            text-align: left;
-        }
-        .warning-box ul {
-            padding-left: 1rem;
-        }
-        .slide-content {
-            flex-grow: 1;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1rem 0;
-            color: var(--text-color-secondary); /* Apply secondary text color */
-        }
-        .slide-content h1, .slide-content h2, .slide-content h3 {
-            color: var(--text-color-primary); /* Ensure headings use primary text color */
-        }
-        .slide-content ul {
-            text-align: left;
-            width: 100%;
-            padding-left: 1.5rem; /* Reduced base indent for mobile */
-        }
-        /* Responsive padding for lists */
-        @media (min-width: 640px) { /* sm breakpoint */
-            .slide-content ul {
-                padding-left: 2rem;
-            }
-        }
-        .slide-content li {
-            margin-bottom: 0.75rem;
-        }
-        .slide-content h3 {
-            margin-bottom: 0.5rem;
-        }
-        .list-item-visual {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 0.75rem;
-        }
-        .list-item-visual .icon {
-            font-size: 1.6em;
-            margin-right: 0.6rem;
-            flex-shrink: 0;
-            line-height: 1.2;
-            padding-top: 0.125rem;
-        }
-        /* Responsive icon font size */
-        @media (min-width: 640px) { /* sm breakpoint */
-            .list-item-visual .icon {
-                font-size: 1.8em;
-                margin-right: 0.75rem;
-            }
-        }
-        /* Button styles using CSS variables */
-        .btn-primary {
-            background-color: var(--button-bg);
-            color: white;
-            font-weight: bold;
-            padding: 0.5rem 1rem; /* Base padding */
-            border-radius: 9999px; /* Full rounded */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-            transform: scale(1);
-            outline: none;
-            cursor: pointer;
-            font-size: 0.875rem; /* Base font size */
-        }
-        .btn-primary:hover {
-            background-color: var(--button-hover-bg);
-            transform: scale(1.05);
-        }
-        .btn-primary:focus {
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* Focus ring */
-        }
-        /* Responsive button padding and font size */
-        @media (min-width: 640px) { /* sm breakpoint */
-            .btn-primary {
-                padding: 0.75rem 1.5rem;
-                font-size: 1rem;
-            }
+        .dark .info-card:hover {
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
         }
     </style>
 </head>
-<body>
-    <div id="root" class="w-full h-full flex justify-center items-center"></div>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-500">
 
-    <script type="text/javascript">
-        // Using React and ReactDOM from global scope (loaded via CDN)
-        const { useState } = React;
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
 
-        const App = () => {
-            const [currentSlide, setCurrentSlide] = useState(0);
+        <!-- En-tête -->
+        <header class="text-center mb-12">
+            <div class="inline-block p-4 bg-blue-100 dark:bg-blue-500/10 rounded-2xl mb-4">
+                <i class="fa-solid fa-magnifying-glass-chart fa-3x text-blue-500 dark:text-blue-400"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-2">Le Suivi de la Relève : Votre Guide Simplifié</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-300">Comprenez comment les relevés de compteurs sont traités, de la planification à la mise à disposition de vos documents.</p>
+        </header>
+        
+        <div class="text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12">
+             <p class="text-base text-slate-600 dark:text-slate-300">Cette infographie vous guide à travers les étapes clés du processus de suivi de la relève. Découvrez le parcours complet d'un index, depuis le terrain jusqu'à votre espace client.</p>
+        </div>
 
-            const slides = [
-                {
-                    title: "📊 Le Suivi de la Relève : Votre Guide Simplifié pour Licorne ! 🚀",
-                    subtitle: "Comprenez en un coup d'œil comment les relevés de compteurs sont traités, de la planification à la mise à disposition de vos documents !",
-                    content: React.createElement(
-                        "div",
-                        { className: "text-center" },
-                        React.createElement(
-                            "p",
-                            { className: "text-base sm:text-lg mb-4" }, // Responsive font size, text color inherited from parent
-                            "Cette présentation vous guidera à travers les étapes clés du processus de suivi de la relève."
-                        ),
-                        React.createElement(
-                            "p",
-                            { className: "text-lg sm:text-xl font-semibold", style: { color: 'var(--accent-color)' } }, // Responsive font size, uses accent color
-                            "Prêt à découvrir ?"
-                        )
-                    )
-                },
-                {
-                    title: "1. La Planification des Relevés 🗓️",
-                    content: React.createElement(
-                        "ul",
-                        { className: "list-none space-y-4" }, // Text color inherited
-                        React.createElement(
-                            "li",
-                            { className: "list-item-visual" },
-                            React.createElement("span", { className: "icon" }, "👥"),
-                            React.createElement(
-                                "div",
-                                null,
-                                React.createElement("h3", { className: "text-lg sm:text-xl font-semibold" }, "Organisation des équipes :"), // Responsive font size, text color inherited
-                                React.createElement("p", { className: "text-sm sm:text-base" }, "Les relevés sont planifiés par semaine et par équipe pour optimiser les tournées et garantir une couverture efficace.") // Responsive font size
-                            )
-                        ),
-                        React.createElement(
-                            "li",
-                            { className: "list-item-visual" },
-                            React.createElement("span", { className: "icon" }, "📱"),
-                            React.createElement(
-                                "div",
-                                null,
-                                React.createElement("h3", { className: "text-lg sm:text-xl font-semibold" }, "Création des supports numériques :"), // Responsive font size
-                                React.createElement("p", { className: "text-sm sm:text-base" }, "Des supports (applications sur smartphones ou tablettes) sont préparés pour les releveurs, contenant toutes les informations nécessaires pour leur mission.") // Responsive font size
-                            )
-                        )
-                    )
-                },
-                {
-                    title: "2. La Collecte des Données 📲",
-                    content: React.createElement(
-                        "ul",
-                        { className: "list-none space-y-4" }, // Text color inherited
-                        React.createElement(
-                            "li",
-                            { className: "list-item-visual" },
-                            React.createElement("span", { className: "icon" }, "🚶‍♂️"),
-                            React.createElement(
-                                "div",
-                                null,
-                                React.createElement("h3", { className: "text-lg sm:text-xl font-semibold" }, "Sur le terrain (Mobilité) :"),
-                                React.createElement("p", { className: "text-sm sm:text-base" }, "Nos releveurs équipés de leurs appareils mobiles saisissent directement les index des compteurs lors de leurs visites.")
-                            )
-                        ),
-                        React.createElement(
-                            "li",
-                            { className: "list-item-visual" },
-                            React.createElement("span", { className: "icon" }, "📡"),
-                            React.createElement(
-                                "div",
-                                null,
-                                React.createElement("h3", { className: "text-lg sm:text-xl font-semibold" }, "À distance (Télérelevé GPRS) :"),
-                                React.createElement("p", { className: "text-sm sm:text-base" }, "Pour les compteurs équipés de modules de télérelevé, les index sont collectés automatiquement via des capteurs et des réseaux dédiés, sans intervention humaine directe.")
-                            )
-                        )
-                    )
-                },
-                {
-                    title: "3. L'Intégration des Index 🔄",
-                    content: React.createElement(
-                        "ul",
-                        { className: "list-none space-y-4" }, // Text color inherited
-                        React.createElement(
-                            "li",
-                            { className: "list-item-visual" },
-                            React.createElement("span", { className: "icon" }, "⬇️"),
-                            React.createElement(
-                                "div",
-                                null,
-                                React.createElement("h3", { className: "text-lg sm:text-xl font-semibold" }, "Déchargement des données :"),
-                                React.createElement("p", { className: "text-sm sm:text-base" }, "Une fois les relevés effectués (sur le terrain) ou collectés (à distance), les données sont transférées de manière sécurisée dans le système Licorne.")
-                            )
-                        ),
-                        React.createElement(
-                            "li",
-                            { className: "list-item-visual" },
-                            React.createElement("span", { className: "icon" }, "⚙️"),
-                            React.createElement(
-                                "div",
-                                null,
-                                React.createElement("h3", { className: "text-lg sm:text-xl font-semibold" }, "Intégration automatique :"),
-                                React.createElement(
-                                    "ul",
-                                    { className: "list-none ml-6 sm:ml-8 mt-2 space-y-2" }, // Responsive margin
-                                    React.createElement(
-                                        "li",
-                                        { className: "list-item-visual" },
-                                        React.createElement("span", { className: "icon" }, "📅"),
-                                        React.createElement(
-                                            "div",
-                                            null,
-                                            React.createElement("h4", { className: "text-base sm:text-lg font-medium" }, "Hebdomadaire :"), // Responsive font size
-                                            React.createElement("p", { className: "text-sm sm:text-base" }, "Chaque vendredi, les données des télérelevés sont automatiquement intégrées, assurant une mise à jour régulière.") // Responsive font size
-                                        )
-                                    ),
-                                    React.createElement(
-                                        "li",
-                                        { className: "list-item-visual" },
-                                        React.createElement("span", { className: "icon" }, "📍"),
-                                        React.createElement(
-                                            "div",
-                                            null,
-                                            React.createElement("h4", { className: "text-base sm:text-lg font-medium" }, "À date imposée :"), // Responsive font size
-                                            React.createElement("p", { className: "text-sm sm:text-base" }, "Dans certains cas spécifiques, une date précise est définie pour l'intégration des données, offrant une flexibilité accrue.") // Responsive font size
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                },
-                {
-                    title: "4. La Validation Automatique : La Magie Opère ! ✅",
-                    content: React.createElement(
-                        "div",
-                        null,
-                        React.createElement(
-                            "p",
-                            { className: "text-sm sm:text-base mb-4" }, // Responsive font size
-                            "Pour garantir la fiabilité et la justesse de vos données, Licorne vérifie automatiquement chaque relevé selon des règles strictes avant de le valider.",
-                            React.createElement("strong", { className: "text-green-700" }, "Pourquoi c'est génial ?"),
-                            " Cela minimise les erreurs humaines, accélère le traitement et assure la qualité des informations !"
-                        ),
-                        React.createElement("h3", { className: "text-base sm:text-xl font-medium mb-3" }, "Critères clés vérifiés (automatiquement !) :"), // Responsive font size
-                        React.createElement(
-                            "div",
-                            { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, // Text color inherited
-                            React.createElement(
-                                "ul",
-                                { className: "list-none space-y-2" },
-                                React.createElement(
-                                    "li",
-                                    { className: "list-item-visual" },
-                                    React.createElement("span", { className: "icon" }, "📄✔️"),
-                                    React.createElement("div", null, React.createElement("strong", null, "Contrat valide :"), " L'affaire est toujours active et non résiliée.")
-                                ),
-                                React.createElement(
-                                    "li",
-                                    { className: "list-item-visual" },
-                                    React.createElement("span", { className: "icon" }, "🔢⬆️"),
-                                    React.createElement("div", null, React.createElement("strong", null, "Index cohérents :"), " L'index actuel est logiquement supérieur au précédent, mais inférieur à 999 000.")
-                                ),
-                                React.createElement(
-                                    "li",
-                                    { className: "list-item-visual" },
-                                    React.createElement("span", { className: "icon" }, "🚫🐛"),
-                                    React.createElement("div", null, React.createElement("strong", null, "Pas d'anomalies :"), " Absence de codes d'anomalie spécifiques (\"IC\", \"IJ\").")
-                                )
-                            ),
-                            React.createElement(
-                                "ul",
-                                { className: "list-none space-y-2" },
-                                React.createElement(
-                                    "li",
-                                    { className: "list-item-visual" },
-                                    React.createElement("span", { className: "icon" }, "❌💧"),
-                                    React.createElement("div", null, React.createElement("strong", null, "Pas de compteur \"déposé\" :"), " Aucun compteur général déclaré hors service.")
-                                ),
-                                React.createElement(
-                                    "li",
-                                    { className: "list-item-visual" },
-                                    React.createElement("span", { className: "icon" }, "📉💧"),
-                                    React.createElement("div", null, React.createElement("strong", null, "Consommations normales :"), " Consommations annuelles (eau froide/chaude) sous les seuils définis.")
-                                )
-                                ,
-                                React.createElement(
-                                    "li",
-                                    { className: "list-item-visual" },
-                                    React.createElement("span", { className: "icon" }, "🔓"),
-                                    React.createElement("div", null, React.createElement("strong", null, "Validation débloquée :"), " Le compte gestionnaire n'a pas de blocage automatique activé.")
-                                )
-                            )
-                        )
-                    )
-                },
-                {
-                    title: "5. Le Dépôt des Documents (Éditiques) 📤",
-                    content: React.createElement(
-                        "ul",
-                        { className: "list-none space-y-4" }, // Text color inherited
-                        React.createElement(
-                            "li",
-                            { className: "list-item-visual" },
-                            React.createElement("span", { className: "icon" }, "☁️"),
-                            React.createElement(
-                                "div",
-                                null,
-                                React.createElement("h3", { className: "text-lg sm:text-xl font-semibold" }, "Sur Accès Pro :"),
-                                React.createElement("p", { className: "text-sm sm:text-base" }, "Une fois les relevés validés, les documents officiels (appelés \"éditiques\", comme vos relevés de consommation ou factures) sont automatiquement déposés sur votre espace client sécurisé Accès Pro. Vous y accédez 24h/24, 7j/7.")
-                            )
-                        ),
-                        React.createElement(
-                            "li",
-                            { className: "list-item-visual" },
-                            React.createElement("span", { className: "icon" }, "📊"),
-                            React.createElement(
-                                "div",
-                                null,
-                                React.createElement("h3", { className: "text-lg sm:text-xl font-semibold" }, "Fichiers EDI (Échange de Données Informatisées) :"),
-                                React.createElement("p", { className: "text-sm sm:text-base" }, "Si votre compte gestionnaire est configuré, un fichier EDI est généré et déposé sur Accès Pro pour l'échange de données structurées avec nos partenaires.")
-                            )
-                        ),
-                        React.createElement(
-                            "li",
-                            { className: "list-item-visual" },
-                            React.createElement("span", { className: "icon" }, "📧❌"),
-                            React.createElement(
-                                "div",
-                                null,
-                                React.createElement("h3", { className: "text-lg sm:text-xl font-semibold" }, "Adieu les e-mails !"),
-                                React.createElement("p", { className: "text-sm sm:text-base" }, "Pour une meilleure sécurité et traçabilité, l'envoi des éditiques par e-mail est remplacé par le dépôt direct sur Accès Pro.")
-                            )
-                        )
-                    )
-                },
-                {
-                    title: "⚠️ Que se passe-t-il si la validation échoue ou en cas de traitement manuel ?",
-                    content: React.createElement(
-                        "div",
-                        { className: "warning-box" },
-                        React.createElement(
-                            "ul",
-                            { className: "list-none space-y-4" },
-                            React.createElement(
-                                "li",
-                                { className: "list-item-visual" },
-                                React.createElement("span", { className: "icon" }, "🛑"),
-                                React.createElement(
-                                    "div",
-                                    null,
-                                    React.createElement("h3", { className: "text-lg sm:text-xl font-bold" }, "Validation KO (Critères Non OK) :"), // Responsive font size
-                                    React.createElement("p", { className: "text-sm sm:text-base" }, "Si un ou plusieurs critères de validation automatique ne sont pas respectés, le relevé est marqué \"Validation Auto KO\". Il ne sera pas validé automatiquement et nécessitera une révision et une intervention manuelle par nos équipes pour corriger l'anomalie.") // Responsive font size
-                                )
-                            ),
-                            React.createElement(
-                                "li",
-                                { className: "list-item-visual" },
-                                React.createElement("span", { className: "icon" }, "✍️"),
-                                React.createElement(
-                                    "div",
-                                    null,
-                                    React.createElement("h3", { className: "text-lg sm:text-xl font-bold" }, "Traitement manuel :"), // Responsive font size
-                                    React.createElement("p", { className: "text-sm sm:text-base" }, "Même si une demande de travail (DT) est traitée manuellement en dehors du processus de validation automatique, soyez assuré que l'éditique final sera quand même déposé sur Accès Pro.") // Responsive font size
-                                )
-                            )
-                        )
-                    )
+        <!-- Section principale -->
+        <main class="space-y-8">
+
+            <!-- Flux Principal : Suivi de la Relève -->
+            <section id="processus-releve">
+                <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-sitemap fa-fw mr-4 text-blue-500 dark:text-blue-400"></i>Flux Principal : Le Suivi de la Relève</h2>
+                <div class="space-y-4 relative pl-8 border-l-2 border-dashed border-slate-300 dark:border-slate-700">
+                    <!-- Étape 1 -->
+                    <div class="timeline-item">
+                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">1</div>
+                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                            <summary class="p-5 flex justify-between items-center">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-calendar-days fa-fw mr-3 text-slate-400"></i>Planification des Relevés</h3>
+                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
+                            </summary>
+                            <div class="content-wrapper">
+                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
+                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-users fa-fw mr-2 text-blue-500"></i>Organisation des équipes</h4>
+                                        <p>Les relevés sont planifiés par semaine et par équipe pour optimiser les tournées et garantir une couverture efficace.</p>
+                                    </div>
+                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-mobile-screen-button fa-fw mr-2 text-blue-500"></i>Création des supports numériques</h4>
+                                        <p>Des supports (applications sur smartphones ou tablettes) sont préparés pour les releveurs, contenant toutes les informations nécessaires pour leur mission.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <!-- Étape 2 -->
+                     <div class="timeline-item">
+                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">2</div>
+                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                            <summary class="p-5 flex justify-between items-center">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-download fa-fw mr-3 text-slate-400"></i>Collecte des Données</h3>
+                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
+                            </summary>
+                            <div class="content-wrapper">
+                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
+                                    <p>La collecte des index s'effectue de deux manières complémentaires :</p>
+                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-person-walking fa-fw mr-2 text-green-500"></i>Sur le terrain (Mobilité)</h4>
+                                        <p>Nos releveurs équipés de leurs appareils mobiles saisissent directement les index des compteurs lors de leurs visites.</p>
+                                    </div>
+                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-tower-broadcast fa-fw mr-2 text-purple-500"></i>À distance (Télérelevé GPRS)</h4>
+                                        <p>Pour les compteurs équipés, les index sont collectés automatiquement via des capteurs et des réseaux dédiés, sans intervention humaine directe.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <!-- Étape 3 -->
+                    <div class="timeline-item">
+                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">3</div>
+                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                            <summary class="p-5 flex justify-between items-center">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-arrows-rotate fa-fw mr-3 text-slate-400"></i>Intégration des Index</h3>
+                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
+                            </summary>
+                            <div class="content-wrapper">
+                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
+                                    <p>Une fois les relevés effectués, les données sont transférées de manière sécurisée dans le système Licorne pour être intégrées automatiquement selon un calendrier précis.</p>
+                                     <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Fréquence d'intégration :</h4>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li><strong class="text-blue-600 dark:text-blue-400">Hebdomadaire :</strong> Chaque vendredi, les données des télérelevés sont automatiquement intégrées, assurant une mise à jour régulière.</li>
+                                            <li><strong class="text-blue-600 dark:text-blue-400">À date imposée :</strong> Dans certains cas spécifiques, une date précise est définie pour l'intégration des données, offrant une flexibilité accrue.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <!-- Étape 4 -->
+                     <div class="timeline-item">
+                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">4</div>
+                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                            <summary class="p-5 flex justify-between items-center">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-robot fa-fw mr-3 text-slate-400"></i>Validation Automatique</h3>
+                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
+                            </summary>
+                            <div class="content-wrapper">
+                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
+                                    <p>Pour garantir la fiabilité de vos données, Licorne vérifie automatiquement chaque relevé selon des règles strictes avant de le valider. Cela minimise les erreurs, accélère le traitement et assure la qualité des informations.</p>
+                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Critères clés vérifiés :</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 mt-2">
+                                            <div class="flex items-start"><i class="fa-solid fa-file-circle-check fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Contrat valide :</strong> L'affaire est active.</span></div>
+                                            <div class="flex items-start"><i class="fa-solid fa-arrow-up-9-1 fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Index cohérent :</strong> Supérieur au précédent.</span></div>
+                                            <div class="flex items-start"><i class="fa-solid fa-ban-bug fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Pas d'anomalie :</strong> Absence de codes bloquants.</span></div>
+                                            <div class="flex items-start"><i class="fa-solid fa-droplet-slash fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Compteur non déposé :</strong> Le compteur général est en service.</span></div>
+                                            <div class="flex items-start"><i class="fa-solid fa-chart-simple fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Consommation normale :</strong> Sous les seuils d'alerte.</span></div>
+                                            <div class="flex items-start"><i class="fa-solid fa-lock-open fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Validation débloquée :</strong> Pas de blocage manuel activé.</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <!-- Étape 5 -->
+                     <div class="timeline-item">
+                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">5</div>
+                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                            <summary class="p-5 flex justify-between items-center">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-file-arrow-up fa-fw mr-3 text-slate-400"></i>Dépôt des Documents (Éditiques)</h3>
+                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
+                            </summary>
+                            <div class="content-wrapper">
+                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
+                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-cloud-arrow-up fa-fw mr-2 text-blue-500"></i>Sur Accès Pro</h4>
+                                        <p>Une fois les relevés validés, les documents officiels (relevés, factures...) sont automatiquement déposés sur votre espace client sécurisé Accès Pro, accessible 24h/24 et 7j/7.</p>
+                                    </div>
+                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-file-invoice fa-fw mr-2 text-blue-500"></i>Fichiers EDI</h4>
+                                        <p>Si votre compte est configuré pour l'Échange de Données Informatisé, un fichier EDI est généré et déposé sur Accès Pro pour une intégration directe dans vos systèmes.</p>
+                                    </div>
+                                     <div class="border-l-4 border-green-400 bg-green-50 dark:bg-green-500/10 dark:border-green-500/50 p-4 rounded-r-lg">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">Adieu les e-mails !</h4>
+                                        <p class="text-green-700 dark:text-green-300">Pour une meilleure sécurité et traçabilité, l'envoi des éditiques par e-mail est remplacé par le dépôt direct sur Accès Pro.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Anomalies -->
+            <section id="anomalies" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-triangle-exclamation fa-fw mr-3 text-yellow-500 dark:text-yellow-400"></i>Gestion des Anomalies</h2>
+                <div class="space-y-4 text-slate-600 dark:text-slate-300">
+                    <p>Que se passe-t-il si la validation automatique échoue ou en cas de traitement manuel ?</p>
+                    <div class="border-l-4 border-red-400 bg-red-50 dark:bg-red-500/10 dark:border-red-500/50 p-4 rounded-r-lg flex items-start">
+                        <i class="fa-solid fa-circle-stop fa-lg text-red-500 dark:text-red-400 mr-4 mt-1"></i>
+                        <div>
+                            <h4 class="font-bold text-red-800 dark:text-red-200">Validation KO (Critères Non OK)</h4>
+                            <p class="text-red-700 dark:text-red-300">Si un critère de validation n'est pas respecté, le relevé est marqué "Validation Auto KO". Il ne sera pas validé et nécessitera une révision et une intervention manuelle par nos équipes pour corriger l'anomalie.</p>
+                        </div>
+                    </div>
+                    <div class="border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-500/10 dark:border-yellow-500/50 p-4 rounded-r-lg flex items-start">
+                        <i class="fa-solid fa-pencil fa-lg text-yellow-500 dark:text-yellow-400 mr-4 mt-1"></i>
+                        <div>
+                            <h4 class="font-bold text-yellow-800 dark:text-yellow-200">Traitement manuel</h4>
+                            <p class="text-yellow-700 dark:text-yellow-400">Même si une demande de travail (DT) est traitée manuellement en dehors du processus automatique, soyez assuré que l'éditique final sera quand même déposé sur Accès Pro une fois le cas résolu.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Pied de page -->
+        <footer class="text-center mt-16 pt-8 border-t border-slate-200 dark:border-slate-700">
+            <p class="text-sm text-slate-500 dark:text-slate-400">Document confidentiel à usage interne.</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">© 2025 Proxiserve Comptage | Tous droits réservés. Reproduction interdite.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Script pour la gestion du mode sombre/clair et les animations
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // Gestion du thème (respecte les préférences système)
+            const updateTheme = () => {
+                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
                 }
-            ];
-
-            const goToNextSlide = () => {
-                setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
             };
+            
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
+            updateTheme();
 
-            const goToPreviousSlide = () => {
-                setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-            };
+            // Gestion des accordéons pour une animation fluide
+            const detailsElements = document.querySelectorAll('details');
+            detailsElements.forEach((details) => {
+                const summary = details.querySelector('summary');
+                const content = details.querySelector('.content-wrapper');
 
-            const currentSlideContent = slides[currentSlide];
-
-            return React.createElement(
-                "div",
-                { className: "presentation-container" },
-                React.createElement(
-                    "h1",
-                    { className: "text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4" }, // Responsive font size, text color inherited
-                    currentSlideContent.title
-                ),
-                currentSlideContent.subtitle &&
-                    React.createElement(
-                        "p",
-                        { className: "text-base sm:text-lg text-center mb-8" }, // Responsive font size, text color inherited
-                        currentSlideContent.subtitle
-                    ),
-                React.createElement(
-                    "div",
-                    { className: "slide-content" },
-                    currentSlideContent.content
-                ),
-                React.createElement(
-                    "div",
-                    { className: "flex justify-between w-full mt-8" },
-                    React.createElement(
-                        "button",
-                        {
-                            onClick: goToPreviousSlide,
-                            className: "btn-primary text-sm sm:text-base" // Use custom class for responsive buttons
-                        },
-                        "Précédent"
-                    ),
-                    React.createElement(
-                        "span",
-                        { className: "text-sm sm:text-lg flex items-center", style: { color: 'var(--text-color-secondary)' } }, // Responsive font size
-                        "Diapositive ",
-                        currentSlide + 1,
-                        " / ",
-                        slides.length
-                    ),
-                    React.createElement(
-                        "button",
-                        {
-                            onClick: goToNextSlide,
-                            className: "btn-primary text-sm sm:text-base" // Use custom class for responsive buttons
-                        },
-                        "Suivant"
-                    )
-                ),
-                React.createElement(
-                    "p",
-                    { className: "text-xs sm:text-sm text-center mt-8", style: { color: 'var(--text-color-secondary)' } }, // Responsive font size
-                    React.createElement("strong", null, "Licorne : Capitaliser nos compétences"),
-                    React.createElement("br", null),
-                    React.createElement("em", null, "Document à usage interne - Version 2025.04")
-                )
-            );
-        };
-
-        // Render the App component
-        ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App, null));
+                summary.addEventListener('click', (event) => {
+                    // Empêche le comportement par défaut pour gérer l'animation nous-mêmes
+                    event.preventDefault();
+                    
+                    if (details.hasAttribute('open')) {
+                        // Fermeture
+                        const closingAnimation = content.animate({ maxHeight: [content.scrollHeight + 'px', 0] }, { duration: 300, easing: 'ease-out' });
+                        closingAnimation.onfinish = () => {
+                            details.removeAttribute('open');
+                        };
+                    } else {
+                        // Ouverture
+                        details.setAttribute('open', '');
+                        content.animate({ maxHeight: [0, content.scrollHeight + 'px'] }, { duration: 400, easing: 'ease-in-out' });
+                    }
+                });
+            });
+        });
     </script>
+
 </body>
 </html>
