@@ -290,9 +290,26 @@
                 <section id="suppressions" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
                     <h2 class="text-2xl font-bold mb-4 flex items-center"><i class="fa-solid fa-trash-can fa-fw mr-3 text-red-500"></i>Gestion des Suppressions Salesforce</h2>
                     <div class="space-y-4 text-gray-600 dark:text-gray-300">
-                        <p><strong class="text-gray-800 dark:text-gray-200">Produits Installés (PI) :</strong> Suppression autorisée pour l'Assistant IT via procédure standard.</p>
-                        <p><strong class="text-gray-800 dark:text-gray-200">PDM et Lieux :</strong> Suppression via utilitaires CSV. <strong class="accent-text">Important :</strong> fermer le fichier CSV après dépôt sur le serveur.</p>
-                        <p><strong class="text-gray-800 dark:text-gray-200">Entrées et Bâtiments :</strong> Suppression réservée à la Direction Technique. Contacter Aurélien DA COSTA.</p>
+                        <div class="border-l-4 border-yellow-500 bg-yellow-50 dark:bg-yellow-900/40 p-4 rounded-r-lg flex items-start">
+                            <i class="fa-solid fa-triangle-exclamation fa-lg text-yellow-600 dark:text-yellow-400 mr-4 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-yellow-800 dark:text-yellow-200">Important : Accès à la suppression</h4>
+                                <p class="text-yellow-700 dark:text-yellow-300">Les utilisateurs n'ont pas accès à la fonction de suppression directement dans Salesforce. Les opérations doivent passer par les utilitaires dédiés.</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3 pt-2">
+                            <p><strong class="text-gray-800 dark:text-gray-200">PDM et Produits Installés (PI) :</strong> Utiliser le fichier <code class="font-mono bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded">DFSUPPDM.csv</code>.</p>
+                            <p><strong class="text-gray-800 dark:text-gray-200">Lieux :</strong> Utiliser le fichier <code class="font-mono bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded">DFSUPLIEU.csv</code>.</p>
+                            <p><strong class="text-gray-800 dark:text-gray-200">Tous les autres objets :</strong> La demande doit être faite au chef de projet, <strong class="accent-text">Aurélien DA COSTA</strong>.</p>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700/50 p-4 rounded-lg mt-4">
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Procédure pour les utilitaires CSV</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Le format <strong class="accent-text">CSV est obligatoire</strong>.</li>
+                                <li>Déposer le fichier sur le serveur Jetform.</li>
+                                <li>Un batch automatique traite les fichiers déposés toutes les 10 minutes.</li>
+                            </ul>
+                        </div>
                     </div>
                 </section>
             </div>
