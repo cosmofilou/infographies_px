@@ -37,6 +37,18 @@
             overflow: hidden;
             transition: max-height 0.5s ease-in-out;
         }
+
+        /* Micro-interaction pour les cartes d'information */
+        .info-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .dark .info-card:hover {
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+        }
     </style>
 </head>
 <body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-500">
@@ -61,7 +73,7 @@
             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white">Vos 3 Qualités Essentielles</h2>
             <div class="grid md:grid-cols-3 gap-6 text-center">
                 <!-- Rigueur -->
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
+                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
                     <div class="inline-block p-3 bg-blue-100 dark:bg-blue-500/10 rounded-xl mb-4">
                         <i class="fa-solid fa-list-check fa-2x text-blue-500 dark:text-blue-400"></i>
                     </div>
@@ -69,7 +81,7 @@
                     <p class="text-slate-600 dark:text-slate-400 text-sm">Appliquez les procédures avec précision pour garantir la traçabilité et la fiabilité de chaque action.</p>
                 </div>
                 <!-- Bienveillance -->
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
+                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
                     <div class="inline-block p-3 bg-teal-100 dark:bg-teal-500/10 rounded-xl mb-4">
                          <i class="fa-solid fa-hand-holding-heart fa-2x text-teal-500 dark:text-teal-400"></i>
                     </div>
@@ -77,7 +89,7 @@
                     <p class="text-slate-600 dark:text-slate-400 text-sm">Abordez chaque demande avec empathie et patience pour offrir un support de qualité.</p>
                 </div>
                 <!-- Proactivité -->
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
+                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
                     <div class="inline-block p-3 bg-yellow-100 dark:bg-yellow-500/10 rounded-xl mb-4">
                         <i class="fa-solid fa-bolt fa-2x text-yellow-500 dark:text-yellow-400"></i>
                     </div>
@@ -250,12 +262,12 @@
                                     </div>
                                     <p><strong class="text-slate-700 dark:text-slate-200">Outil :</strong> <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-purple-100 text-purple-800 dark:bg-purple-500/10 dark:text-purple-300">Notion</span></p>
                                     <div class="flex flex-wrap gap-2 mt-2">
-                                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800 dark:bg-red-500/10 dark:text-red-300">🔴 Dysfonctionnement</span>
-                                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-500/10 dark:text-green-300">✅ Corrections</span>
-                                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-500/10 dark:text-blue-300">🧑‍💻 Erreurs utilisateurs</span>
-                                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-300">✨ Évolution</span>
-                                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800 dark:bg-purple-500/10 dark:text-purple-300">🔍 GAP Analysis</span>
-                                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-800 dark:bg-slate-500/10 dark:text-slate-300">⏳ Délais synchro</span>
+                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-red-100 text-red-800 dark:bg-red-500/10 dark:text-red-300">🔴 Dysfonctionnement</span>
+                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-500/10 dark:text-green-300">✅ Corrections</span>
+                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-500/10 dark:text-blue-300">🧑‍💻 Erreurs utilisateurs</span>
+                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-300">✨ Évolution</span>
+                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-purple-100 text-purple-800 dark:bg-purple-500/10 dark:text-purple-300">🔍 GAP Analysis</span>
+                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-slate-100 text-slate-800 dark:bg-slate-500/10 dark:text-slate-300">⏳ Délais synchro</span>
                                     </div>
                                 </div>
                             </div>
@@ -420,23 +432,31 @@
             <section id="pourquoi" class="mt-12">
                 <h2 class="text-3xl font-bold text-center mb-8 text-slate-900 dark:text-white">Pourquoi ce suivi est-il CRUCIAL ?</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <i class="fa-solid fa-crosshairs fa-3x mb-4 text-blue-500 dark:text-blue-400"></i>
+                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
+                        <div class="inline-block p-3 bg-blue-100 dark:bg-blue-500/10 rounded-xl mb-4">
+                            <i class="fa-solid fa-crosshairs fa-2x text-blue-500 dark:text-blue-400"></i>
+                        </div>
                         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Ciblage Précis</h3>
                         <p class="text-slate-600 dark:text-slate-400 text-sm">Identifier les besoins en formation.</p>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <i class="fa-solid fa-lightbulb fa-3x mb-4 text-yellow-500 dark:text-yellow-400"></i>
+                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
+                        <div class="inline-block p-3 bg-yellow-100 dark:bg-yellow-500/10 rounded-xl mb-4">
+                            <i class="fa-solid fa-lightbulb fa-2x text-yellow-500 dark:text-yellow-400"></i>
+                        </div>
                         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Compréhension</h3>
                         <p class="text-slate-600 dark:text-slate-400 text-sm">Mieux cerner les difficultés des utilisateurs.</p>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <i class="fa-solid fa-bolt fa-3x mb-4 text-green-500 dark:text-green-400"></i>
+                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
+                        <div class="inline-block p-3 bg-green-100 dark:bg-green-500/10 rounded-xl mb-4">
+                            <i class="fa-solid fa-bolt fa-2x text-green-500 dark:text-green-400"></i>
+                        </div>
                         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Détection Rapide</h3>
                         <p class="text-slate-600 dark:text-slate-400 text-sm">Repérer les modules instables.</p>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <i class="fa-solid fa-chart-line fa-3x mb-4 text-red-500 dark:text-red-400"></i>
+                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
+                        <div class="inline-block p-3 bg-red-100 dark:bg-red-500/10 rounded-xl mb-4">
+                            <i class="fa-solid fa-chart-line fa-2x text-red-500 dark:text-red-400"></i>
+                        </div>
                         <h3 class="font-bold text-lg text-slate-900 dark:text-white">Améliorations</h3>
                         <p class="text-slate-600 dark:text-slate-400 text-sm">Argumenter les évolutions auprès de la DSI.</p>
                     </div>
