@@ -23,10 +23,10 @@ Conformément à la [Licence d'Utilisation](LICENSE.md) de ce dépôt, ces infog
 * **Description :** Cette infographie détaille l'importance du suivi des Notes d'Information Annuelle (NIA) et présente la solution de suivi centralisé mise en place sur Notion pour Proxiserve et Prox-Hydro. Elle explique ce qu'est une NIA, pourquoi son suivi est vital, et comment la solution Notion simplifie cette gestion.
 * **Accéder à l'infographie :** [Voir l'infographie "Le Suivi des Contrats NIA"](https://cosmofilou.github.io/infographies_px/le_suivi_des_contrats_nia/index.html)
 
-### 2. Le Parcours du Ticket Licorne
+### 2. Le Guide Ultime de l'Assistant IT Salesforce Licorne
 
-* **Description :** Une feuille de route visuelle pour la gestion des incidents et des évolutions IT Salesforce chez Proxiserve. Cette infographie décrit le cycle de vie d'un incident ou d'une demande d'évolution Licorne, de sa détection à sa résolution.
-* **Accéder à l'infographie :** [Voir l'infographie "Le Parcours du Ticket Licorne"](https://cosmofilou.github.io/infographies_px/le_parcours_du_ticket_licorne/index.html)
+* **Description :** Une feuille de route complète pour la gestion des incidents, évolutions, suppressions et la documentation sur Salesforce chez Proxiserve. Découvrez les processus clés de cette mission, de la gestion des incidents et demandes d'évolution à la maîtrise des suppressions de données et la mise à jour de votre base de connaissances.
+* **Accéder à l'infographie :** [Voir l'infographie "Guide Assistant IT Salesforce Licorne"](./le_guide_ultime_assistant_it_salesforce_licorne/index.html)
 
 ### 3. Le Suivi de la Relève : Votre Guide Simplifié pour Licorne
 
