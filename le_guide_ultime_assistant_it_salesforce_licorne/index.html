@@ -238,12 +238,45 @@
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Demandes d'Évolution -->
                 <section id="evolutions" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-lightbulb fa-fw mr-3 text-green-500 dark:text-green-400"></i>Cas Spécifique : Demandes d'Évolution</h2>
+                    <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-lightbulb fa-fw mr-3 text-green-500 dark:text-green-400"></i>Cas Spécifique : Demandes d'Évolution (OUV)</h2>
                     <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                        <p><strong class="text-slate-800 dark:text-slate-200">Point d'entrée :</strong> Email détaillé à Aurélien DA COSTA (Chef de Projet) avec l'Assistant IT en copie.</p>
-                        <p><strong class="text-slate-800 dark:text-slate-200">Enregistrement :</strong> Obligatoire dans la base de données <strong class="text-blue-600 dark:text-blue-400">"Pipeline des remontées utilisateurs"</strong> sur Notion pour centraliser et suivre les demandes.</p>
-                        <p><strong class="text-slate-800 dark:text-slate-200">Analyse & Décision :</strong> La Direction Technique analyse la faisabilité, priorise et planifie les développements.</p>
-                        <p><strong class="text-slate-700 dark:text-slate-200">Outil principal :</strong> <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-purple-100 text-purple-800 dark:bg-purple-500/10 dark:text-purple-300">Notion</span></p>
+                         <ol class="relative border-l border-slate-200 dark:border-slate-600 space-y-6 pl-6">
+                            <li>
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                                    <i class="fa-solid fa-envelope text-blue-800 dark:text-blue-300"></i>
+                                </span>
+                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">1. Point d'entrée : Email</h3>
+                                <p>La demande est initiée par un email détaillé au Chef de Projet (Aurélien DA COSTA) avec l'Assistant IT en copie.</p>
+                            </li>
+                            <li>
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-purple-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-purple-900">
+                                     <i class="fa-solid fa-database text-purple-800 dark:text-purple-300"></i>
+                                </span>
+                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">2. Enregistrement sur Notion</h3>
+                                <p>L'Assistant IT enregistre la demande (appelée "OUV") dans le "Pipeline des remontées utilisateurs" avec la catégorisation <strong class="text-yellow-600 dark:text-yellow-400">"✨ Évolution"</strong>.</p>
+                            </li>
+                            <li>
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-slate-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-slate-700">
+                                    <i class="fa-solid fa-users text-slate-800 dark:text-slate-300"></i>
+                                </span>
+                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">3. Analyse & Discussion</h3>
+                                <p>Le Chef de Projet et l'Assistant IT discutent de la pertinence et des contours de la demande pour une première qualification.</p>
+                            </li>
+                            <li>
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-green-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-green-900">
+                                    <i class="fa-solid fa-check-double text-green-800 dark:text-green-300"></i>
+                                </span>
+                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">4. Validation par la Direction Technique</h3>
+                                <p>La demande est présentée à la Direction Technique pour validation, priorisation et planification.</p>
+                            </li>
+                            <li>
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-sky-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-sky-900">
+                                    <i class="fa-brands fa-jira text-sky-800 dark:text-sky-300"></i>
+                                </span>
+                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">5. Spécification & Soumission Jira</h3>
+                                <p>Après validation, le Chef de Projet rédige l'expression du besoin et la soumet via un ticket sur l'outil <strong class="text-sky-600 dark:text-sky-400">Jira</strong>.</p>
+                            </li>
+                        </ol>
                     </div>
                 </section>
 
