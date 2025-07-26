@@ -26,7 +26,7 @@ Conformément à la [Licence d'Utilisation](LICENSE.md) de ce dépôt, ces infog
 ### 2. Le Guide Ultime de l'Assistant IT Salesforce Licorne
 
 * **Description :** Une feuille de route complète pour la gestion des incidents, évolutions, suppressions et la documentation sur Salesforce chez Proxiserve. Découvrez les processus clés de cette mission, de la gestion des incidents et demandes d'évolution à la maîtrise des suppressions de données et la mise à jour de votre base de connaissances.
-* **Accéder à l'infographie :** [Voir l'infographie "Guide Assistant IT Salesforce Licorne"](./le_guide_ultime_assistant_it_salesforce_licorne/index.html)
+* **Accéder à l'infographie :** [Voir l'infographie "Guide Assistant IT Salesforce Licorne"](https://cosmofilou.github.io/infographies_px/le_guide_ultime_assistant_it_salesforce_licorne/index.html)
 
 ### 3. Le Suivi de la Relève : Votre Guide Simplifié pour Licorne
 
