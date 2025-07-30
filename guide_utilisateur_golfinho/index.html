@@ -152,20 +152,42 @@
             <section id="installation">
                 <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-cogs fa-fw mr-4 text-blue-500"></i>Installation & Ressources</h2>
                 <div class="grid lg:grid-cols-2 gap-8 items-start">
-                    <div class="space-y-4">
-                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-rocket fa-fw mr-3 text-slate-400"></i>Première Installation</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary>
-                            <div class="content-wrapper"><div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300"><ol class="list-decimal list-inside space-y-2"><li>Copiez l'intégralité du dossier <strong>Golfinho v2.80</strong> depuis le Drive partagé sur votre poste.</li><li>Ouvrez le fichier principal <strong>PXS_Golfinho.xlsm</strong>.</li><li><strong>Configurez les chemins (obligatoire) :</strong><ul class="list-disc list-inside ml-6 mt-1"><li>Cliquez sur le <span class="font-mono text-blue-500">✏️</span> à côté de "Chemin du serveur".</li><li>Cliquez sur le <span class="font-mono text-blue-500">✏️</span> à côté de "Dossier source".</li></ul></li><li><strong>Sauvegardez et redémarrez.</strong></li></ol></div></div>
-                        </details>
-                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-cloud-arrow-up fa-fw mr-3 text-slate-400"></i>Mise à Jour</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary>
-                            <div class="content-wrapper"><div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300"><p>Écrasez simplement votre ancien fichier <strong>PXS_Golfinho.xlsm</strong> par le nouveau disponible sur le Drive et vérifiez les chemins au redémarrage.</p></div></div>
-                        </details>
+                    <!-- Colonne de gauche : Instructions -->
+                    <div class="space-y-6">
+                        <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3"><i class="fa-solid fa-rocket fa-fw mr-3 text-slate-400"></i>Première Installation</h3>
+                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                                <li>Copiez l'intégralité du dossier <strong>Golfinho v2.80</strong> depuis le Drive partagé sur votre poste.</li>
+                                <li>Ouvrez le fichier principal <strong>PXS_Golfinho.xlsm</strong>.</li>
+                                <li><strong>Configurez les chemins (obligatoire) :</strong>
+                                    <ul class="list-disc list-inside ml-6 mt-1">
+                                        <li>Cliquez sur le <span class="font-mono text-blue-500">✏️</span> à côté de "Chemin du serveur".</li>
+                                        <li>Cliquez sur le <span class="font-mono text-blue-500">✏️</span> à côté de "Dossier source".</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Sauvegardez et redémarrez.</strong></li>
+                            </ol>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                           <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3"><i class="fa-solid fa-cloud-arrow-up fa-fw mr-3 text-slate-400"></i>Mise à Jour</h3>
+                           <p class="text-slate-600 dark:text-slate-300">Écrasez simplement votre ancien fichier <strong>PXS_Golfinho.xlsm</strong> par le nouveau disponible sur le Drive et vérifiez les chemins au redémarrage.</p>
+                           <div class="mt-3 border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-500/10 dark:border-yellow-500/50 p-3 rounded-r-lg text-sm">
+                                <p class="text-yellow-800 dark:text-yellow-200"><strong>Attention :</strong> Pensez à télécharger également tout nouvel utilitaire ajouté dans le dossier des ressources (ex: `DFMAJRAD.xlsx`).</p>
+                           </div>
+                        </div>
                     </div>
+                    <!-- Colonne de droite : Téléchargements -->
                     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 text-center">
                         <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Télécharger les Ressources</h3>
-                        <p class="text-slate-600 dark:text-slate-300 mb-6">Accédez au dossier partagé pour télécharger la dernière version de Golfinho et tous les fichiers nécessaires.</p>
-                        <a href="https://drive.google.com/drive/folders/1SEJmTkL9cObMl3g2793b_sYJSRg7LyiD?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-transform transform hover:scale-105 shadow-lg"><i class="fa-solid fa-cloud-download-alt mr-2"></i>Accéder au Drive</a>
+                        <p class="text-slate-600 dark:text-slate-300 mb-6">Le dossier principal contient la dernière version de Golfinho, les utilitaires et les templates.</p>
+                        <a href="https://drive.google.com/drive/folders/1SEJmTkL9cObMl3g2793b_sYJSRg7LyiD?usp=sharing" target="_blank" rel="noopener noreferrer" class="w-full block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-transform transform hover:scale-105 shadow-lg"><i class="fa-solid fa-cloud-download-alt mr-2"></i>Dossier Principal</a>
+                        <div class="mt-6">
+                            <h4 class="font-semibold text-slate-800 dark:text-slate-200 mb-3">Accès Rapides</h4>
+                            <div class="flex gap-4 justify-center">
+                                <a href="https://drive.google.com/open?id=1gTjtXrAppvOHYNBJOnpkF_XxUF_flSHP&usp=drive_fs" target="_blank" rel="noopener noreferrer" class="flex-1 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition"><i class="fa-solid fa-wrench mr-2"></i>Utilitaires</a>
+                                <a href="https://drive.google.com/open?id=1IjYoQTKqZVk9wTwqhqBz1d-bcn14w1Nc&usp=drive_fs" target="_blank" rel="noopener noreferrer" class="flex-1 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg transition"><i class="fa-solid fa-file-lines mr-2"></i>Templates</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
