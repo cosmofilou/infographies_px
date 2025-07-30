@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Utilisateur : Golfinho | La Bible de l'Utilisateur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Style de base */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Correction pour la navigation rapide */
+        section[id] {
+            scroll-margin-top: 6rem; /* Ajustez cette valeur si la hauteur de la nav change */
+        }
+
+        /* Style pour les accordéons interactifs */
+        details summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details .icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        details[open] .icon {
+            transform: rotate(90deg);
+        }
+        
+        /* Animation pour le contenu de l'accordéon */
+        details .content-wrapper {
+            overflow: hidden;
+        }
+
+        /* Style pour les boutons simulés dans le texte */
+        .btn-like {
+            background-color: #f1f5f9; /* slate-100 */
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.125rem 0.5rem; /* py-0.5 px-2 */
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            color: #1e293b; /* slate-800 */
+            display: inline-block;
+            line-height: 1.4;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .dark .btn-like {
+            background-color: #334155; /* slate-700 */
+            border-color: #475569; /* slate-600 */
+            color: #f1f5f9; /* slate-100 */
+        }
+        
+        /* Micro-interaction pour les cartes d'information */
+        .info-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .dark .info-card:hover {
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-500">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <!-- En-tête -->
+        <header class="text-center mb-12">
+            <div class="inline-block p-3 bg-blue-100 dark:bg-blue-500/10 rounded-full mb-4 shadow-inner">
+                <span class="text-6xl">🐬</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-2">Guide Utilisateur : Golfinho</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-300">Plongez dans l'efficacité. Automatisez vos tâches, maîtrisez vos données.</p>
+        </header>
+        
+        <div class="text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12">
+             <p class="text-base text-slate-600 dark:text-slate-300">Inspiré par l'intelligence et l'efficacité du dauphin, Golfinho a pour objectif de fiabiliser les données, d'accélérer les traitements et de transformer des extractions brutes en analyses claires. Concentrez-vous sur l'essentiel.</p>
+             <div class="mt-4 text-xs text-slate-400 dark:text-slate-500">
+                <span><i class="fa-solid fa-file-excel mr-1"></i> Microsoft Excel (VBA)</span>
+                <span class="mx-2">|</span>
+                <span><i class="fa-solid fa-user mr-1"></i> Aurélien DA COSTA, Direction Technique</span>
+                <span class="mx-2">|</span>
+                <span><i class="fa-solid fa-code-branch mr-1"></i> v2.80 (30/07/2025)</span>
+             </div>
+        </div>
+        
+        <!-- Section des Piliers de Golfinho -->
+        <section id="pillars" class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-slate-900 dark:text-white">Les Piliers de Golfinho</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <!-- Fiabilité -->
+                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                    <div class="inline-block p-4 bg-blue-100 dark:bg-blue-500/10 rounded-full mb-4">
+                        <i class="fa-solid fa-check-double fa-2x text-blue-500 dark:text-blue-400"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-white">Fiabilité</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mt-2">Assurez la cohérence et la justesse de vos données en limitant les erreurs de saisie manuelle.</p>
+                </div>
+                <!-- Rapidité -->
+                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                    <div class="inline-block p-4 bg-teal-100 dark:bg-teal-500/10 rounded-full mb-4">
+                         <i class="fa-solid fa-bolt-lightning fa-2x text-teal-500 dark:text-teal-400"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-white">Rapidité</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mt-2">Accélérez les traitements de fichiers volumineux et gagnez un temps précieux au quotidien.</p>
+                </div>
+                <!-- Clarté -->
+                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                    <div class="inline-block p-4 bg-yellow-100 dark:bg-yellow-500/10 rounded-full mb-4">
+                        <i class="fa-solid fa-chart-bar fa-2x text-yellow-500 dark:text-yellow-400"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-white">Clarté</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mt-2">Transformez des extractions brutes en rapports d'analyse lisibles et immédiatement exploitables.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu de Navigation Rapide -->
+        <nav class="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm p-3 rounded-xl shadow-md sticky top-4 z-10 mb-12 border border-slate-200 dark:border-slate-700">
+            <div class="flex flex-wrap justify-center items-center gap-x-2 md:gap-x-6 text-sm font-semibold">
+                <a href="#pillars" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Piliers</a>
+                <a href="#installation" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Installation</a>
+                <a href="#workflows" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Workflows</a>
+                <a href="#outils" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Outils</a>
+                <a href="#infos-utiles" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Aide</a>
+                <a href="#glossaire" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Glossaire</a>
+            </div>
+        </nav>
+
+
+        <!-- Section principale -->
+        <main class="space-y-12">
+
+            <!-- Installation, Configuration & Ressources -->
+            <section id="installation">
+                <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-cogs fa-fw mr-4 text-blue-500"></i>Installation & Ressources</h2>
+                <div class="grid lg:grid-cols-2 gap-8 items-start">
+                    <div class="space-y-4">
+                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                            <summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-rocket fa-fw mr-3 text-slate-400"></i>Première Installation</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary>
+                            <div class="content-wrapper"><div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300"><ol class="list-decimal list-inside space-y-2"><li>Copiez l'intégralité du dossier <strong>Golfinho v2.80</strong> depuis le Drive partagé sur votre poste.</li><li>Ouvrez le fichier principal <strong>PXS_Golfinho.xlsm</strong>.</li><li><strong>Configurez les chemins (obligatoire) :</strong><ul class="list-disc list-inside ml-6 mt-1"><li>Cliquez sur le <span class="font-mono text-blue-500">✏️</span> à côté de "Chemin du serveur".</li><li>Cliquez sur le <span class="font-mono text-blue-500">✏️</span> à côté de "Dossier source".</li></ul></li><li><strong>Sauvegardez et redémarrez.</strong></li></ol></div></div>
+                        </details>
+                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                            <summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-cloud-arrow-up fa-fw mr-3 text-slate-400"></i>Mise à Jour</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary>
+                            <div class="content-wrapper"><div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300"><p>Écrasez simplement votre ancien fichier <strong>PXS_Golfinho.xlsm</strong> par le nouveau disponible sur le Drive et vérifiez les chemins au redémarrage.</p></div></div>
+                        </details>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 text-center">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Télécharger les Ressources</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-6">Accédez au dossier partagé pour télécharger la dernière version de Golfinho et tous les fichiers nécessaires.</p>
+                        <a href="https://drive.google.com/drive/folders/1SEJmTkL9cObMl3g2793b_sYJSRg7LyiD?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-transform transform hover:scale-105 shadow-lg"><i class="fa-solid fa-cloud-download-alt mr-2"></i>Accéder au Drive</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Workflows d'Analyse -->
+            <section id="workflows">
+                <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-sitemap fa-fw mr-4 text-blue-500"></i>Les Grands Workflows de Traitement</h2>
+                
+                <div class="bg-blue-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-blue-200 dark:border-slate-700 mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white"><i class="fa-solid fa-file-import mr-2 text-blue-500"></i>Étape 0 : L'Import de Données</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-4">Pour que les workflows fonctionnent, Golfinho doit être alimenté. Placez vos fichiers sources dans votre "Dossier source" puis utilisez les boutons d'import pour les charger.</p>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-white dark:bg-slate-700 p-4 rounded-lg shadow"><h4 class="font-bold text-blue-600 dark:text-blue-400">DFLGEST</h4><p class="text-xs text-slate-500 dark:text-slate-400">Importe <strong>DFLGEST_actif.xlsx</strong>. C'est la base de la plupart des analyses et rapports.</p></div>
+                        <div class="bg-white dark:bg-slate-700 p-4 rounded-lg shadow"><h4 class="font-bold text-blue-600 dark:text-blue-400">MBW</h4><p class="text-xs text-slate-500 dark:text-slate-400">Importe en masse les relevés <strong>MBWGPRS*.txt</strong> pour l'analyse des écarts.</p></div>
+                        <div class="bg-white dark:bg-slate-700 p-4 rounded-lg shadow"><h4 class="font-bold text-blue-600 dark:text-blue-400">AccèsPro</h4><p class="text-xs text-slate-500 dark:text-slate-400">Importe les extractions d'index depuis <strong>accespro.proxiserve.fr</strong>.</p></div>
+                    </div>
+                </div>
+
+                <div class="relative pl-8 space-y-10">
+                    <div class="absolute left-12 top-0 h-full border-l-2 border-dashed border-slate-300 dark:border-slate-600"></div>
+                    
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow">1</div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Analyse des Écarts (Centrales vs BDD)</h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Identifiez les problèmes de cohérence de votre parc radio.</p><ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300"><li>Importer votre <strong>DFLGEST</strong> et vos fichiers <strong>MBW</strong>.</li><li>Cliquez sur <span class="btn-like">Fusion fichiers MBW</span> pour préparer l'analyse.</li><li>Cliquez sur <span class="btn-like">Création du fichier d’analyse</span> pour générer le rapport.</li></ol></div></div>
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow">2</div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Analyseur de Fichier d'Index Manuel</h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Validez votre fichier <strong>void.csv</strong> et évitez les rejets d'intégration.</p><ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300"><li>Placez <strong>void.csv</strong> dans le dossier `\Données à traiter`.</li><li>Cliquez sur <span class="btn-like">Lancer l'analyse</span>. Le rapport est instantané.</li></ol></div></div>
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow">3</div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Création d'Analyses et Rapports de Pose</h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Mettez en forme un DFLGEST brut en un rapport lisible en un clic.</p><ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300"><li>Importer un <strong>DFLGEST_actif.xlsx</strong>.</li><li>Choisissez une analyse (<span class="btn-like">Patrimoine</span>, <span class="btn-like">RFC</span>, <span class="btn-like">Bailleur</span>) ou un rapport (<span class="btn-like">EAU/CET v2</span>, <span class="btn-like">RFC v2</span>).</li><li>Cliquez sur le bouton correspondant pour générer le document.</li></ol></div></div>
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow">4</div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Nettoyage Export Accès Pro</h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Préparez un fichier d'index pour une importation sans erreur dans Licorne.</p><ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300"><li>Cliquez sur <span class="btn-like">AccèsPro</span> pour importer le fichier `Exporter les derniers index.csv`.</li><li>Cliquez sur <span class="btn-like">Nettoyage export Accès Pro</span>.</li><li>Golfinho crée le fichier `Exporter les derniers index_GoImport.csv`, prêt à l'emploi.</li></ol></div></div>
+                </div>
+            </section>
+            
+            <!-- Boîte à Outils -->
+            <section id="outils">
+                <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-toolbox fa-fw mr-4 text-blue-500"></i>La Boîte à Outils Licorne</h2>
+                <p class="text-slate-600 dark:text-slate-300 -mt-4 mb-6">Interagissez avec Licorne. Le principe : cliquez sur un bouton, complétez le fichier Excel, puis cliquez sur <span class="btn-like">Transfert</span> pour l'envoyer. Pour chaque opération, un fichier de sauvegarde est créé dans `\Utilitaires\Backup`.</p>
+                <div class="space-y-4">
+                    <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700"><summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-file-export fa-fw mr-3 text-slate-400"></i>Extraction de Patrimoine</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary><div class="content-wrapper"><div class="px-5 pb-5 space-y-3 text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-700 pt-4"><p class="text-sm italic mb-4">Par exemple, pour extraire tout le patrimoine de la cité 12345, utilisez l'outil Cité(s).</p><div class="grid md:grid-cols-2 gap-4"><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold"><i class="fa-solid fa-star text-yellow-400 mr-1"></i> Cité(s) / Multi-cités</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">LISTCITE.xlsx</code></p></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold">Gestionnaire</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">LISTGEST.xlsx</code></p></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold">PRCGEST</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">PRCGEST.xlsx</code></p></div></div></div></div></details>
+                    <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700"><summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-plus-square fa-fw mr-3 text-slate-400"></i>Création de Patrimoine</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary><div class="content-wrapper"><div class="px-5 pb-5 space-y-3 text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-700 pt-4"><p class="text-sm italic mb-4">Par exemple, pour ajouter de nouveaux appartements dans un immeuble, utilisez l'outil Lieux.</p><div class="grid md:grid-cols-2 gap-4"><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold"><i class="fa-solid fa-star text-yellow-400 mr-1"></i> Lieux</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">DFCREAPT.xlsx</code></p></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold"><i class="fa-solid fa-star text-yellow-400 mr-1"></i> P.D.M.</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">DFCREAPL.xlsx</code></p></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold">Produits (Dépose/pose)</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">DFDEPOSE.xlsx</code></p></div></div></div></div></details>
+                    <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700"><summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-edit fa-fw mr-3 text-slate-400"></i>Mise à Jour de la Base</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary><div class="content-wrapper"><div class="px-5 pb-5 space-y-3 text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-700 pt-4"><p class="text-sm italic mb-4">Par exemple, pour mettre à jour les informations d'un appartement, utilisez l'outil Lieux.</p><div class="grid md:grid-cols-2 gap-4"><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold"><i class="fa-solid fa-star text-yellow-400 mr-1"></i> Histo. 14</p><p class="text-xs text-slate-500 dark:text-slate-400">Mise à jour de l'historique de relevé.</p></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold"><i class="fa-solid fa-star text-yellow-400 mr-1"></i> Lieux</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">DFMAJAPT.xlsx</code></p></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold">Réf. P.D.M.</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">DFMAJREF.xlsx</code></p></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold">Coefficient Sit.</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">DFMAJKS.xlsx</code></p></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><p class="font-semibold">Informations Radiateurs</p><p class="text-xs text-slate-500 dark:text-slate-400">Fichier: <code class="text-xs">DFMAJRAD.xlsx</code></p></div></div></div></div></details>
+                </div>
+            </section>
+            
+            <!-- Dépannage et Infos -->
+            <section id="infos-utiles">
+                 <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-life-ring fa-fw mr-4 text-blue-500"></i>Aide & Support</h2>
+                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border-2 border-blue-200 dark:border-blue-800 shadow-lg mb-6 flex items-center gap-6">
+                    <i class="fa-solid fa-headset text-4xl text-blue-500 dark:text-blue-400"></i>
+                    <div>
+                        <h3 class="font-bold text-xl text-slate-800 dark:text-slate-100 mb-1">Un problème avec une automatisation ?</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Le premier réflexe est de me contacter. Je suis votre interlocuteur privilégié pour toute question ou anomalie liée à Golfinho : <strong class="text-slate-800 dark:text-slate-200">Aurélien DA COSTA</strong>.</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                        <summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-question-circle fa-fw mr-3 text-slate-400"></i>Dépannage Rapide (FAQ)</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary>
+                        <div class="content-wrapper"><div class="px-5 pb-5 pt-4 border-t border-slate-200 dark:border-slate-700"><ul class="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300"><li><strong>"Fichier introuvable" ?</strong> Vérifiez que les chemins (✏️) sont corrects et que le fichier source est dans `\Données à traiter`.</li><li><strong>"L'analyse des écarts ne marche pas" ?</strong> Assurez-vous d'avoir fait les 3 étapes dans l'ordre : Importer, Fusionner, Analyser.</li><li><strong>"Puis-je renommer void.csv" ?</strong> Non, le nom doit être exact pour que la macro le trouve.</li></ul></div></div>
+                    </details>
+                    <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                        <summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-check-double fa-fw mr-3 text-slate-400"></i>Bonnes Pratiques & Support</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary>
+                        <div class="content-wrapper"><div class="px-5 pb-5 pt-4 border-t border-slate-200 dark:border-slate-700"><ul class="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300"><li><strong>Ticket au support ?</strong> En cas de blocage, créez un ticket Freshservice et joignez-y impérativement le fichier de sauvegarde présent dans le dossier `\Utilitaires\Backup`.</li><li><strong>Accès rapide :</strong> Les boutons dans l'en-tête de Golfinho sont des raccourcis vers les dossiers importants (Utilitaires, Backup, Exports...).</li></ul></div></div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- Glossaire -->
+            <section id="glossaire">
+                <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-book-open fa-fw mr-4 text-blue-500"></i>Glossaire</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"><div class="text-center transition-opacity duration-300 group-hover:opacity-0"><h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">DFLGEST</h4><p class="text-xs text-slate-400 mt-1">Passez la souris pour voir</p></div><div class="absolute inset-0 bg-white dark:bg-slate-800 p-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><p class="text-sm text-center text-slate-600 dark:text-slate-300">Extraction de patrimoine (lieux, appareils...), souvent générée via un utilitaire <code class="text-xs">LISTCITE</code>.</p></div></div>
+                    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"><div class="text-center transition-opacity duration-300 group-hover:opacity-0"><h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">P.D.M.</h4><p class="text-xs text-slate-400 mt-1">Passez la souris pour voir</p></div><div class="absolute inset-0 bg-white dark:bg-slate-800 p-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><p class="text-sm text-center text-slate-600 dark:text-slate-300">Acronyme pour "Point De Mesure".</p></div></div>
+                    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"><div class="text-center transition-opacity duration-300 group-hover:opacity-0"><h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">RFC</h4><p class="text-xs text-slate-400 mt-1">Passez la souris pour voir</p></div><div class="absolute inset-0 bg-white dark:bg-slate-800 p-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><p class="text-sm text-center text-slate-600 dark:text-slate-300">Acronyme pour "Répartiteurs de Frais de Chauffage".</p></div></div>
+                    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"><div class="text-center transition-opacity duration-300 group-hover:opacity-0"><h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">Jetform</h4><p class="text-xs text-slate-400 mt-1">Passez la souris pour voir</p></div><div class="absolute inset-0 bg-white dark:bg-slate-800 p-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><p class="text-sm text-center text-slate-600 dark:text-slate-300">Le nom de notre serveur de traitement de fichiers où les utilitaires sont envoyés pour interagir avec Licorne.</p></div></div>
+                </div>
+            </section>
+
+             <section id="service-mode" class="mt-12">
+                 <div class="bg-slate-200 dark:bg-slate-800 border-l-4 border-red-500 p-6 rounded-r-lg flex items-center">
+                    <i class="fa-solid fa-user-shield fa-3x text-red-500 dark:text-red-400 mr-6"></i>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Service Mode</h2>
+                        <p class="text-slate-600 dark:text-slate-300">Ce module, protégé par mot de passe, est réservé à des opérations d'administration avancées et n'est pas destiné à l'utilisation quotidienne.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Pied de page -->
+        <footer class="text-center mt-16 pt-8 border-t border-slate-200 dark:border-slate-700">
+            <p class="text-sm text-slate-500 dark:text-slate-400">Développeur : Aurélien DA COSTA, Chef de projet - Direction Technique.</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">© 2023-2025, Proxiserve-Prox-Hydro. Tous droits réservés. Usage interne. Reproduction interdite.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Script pour la gestion des animations d'accordéon
+        document.addEventListener('DOMContentLoaded', function () {
+            const detailsElements = document.querySelectorAll('details');
+
+            detailsElements.forEach((details) => {
+                const summary = details.querySelector('summary');
+                const content = details.querySelector('.content-wrapper');
+
+                if (!summary || !content) {
+                    return;
+                }
+
+                summary.addEventListener('click', (event) => {
+                    // Empêche le comportement par défaut pour gérer l'animation
+                    event.preventDefault();
+                    
+                    if (details.open) {
+                        // Fermeture
+                        const closingAnimation = content.animate([
+                            { maxHeight: content.scrollHeight + 'px' },
+                            { maxHeight: '0px' }
+                        ], {
+                            duration: 300,
+                            easing: 'ease-out'
+                        });
+                        
+                        closingAnimation.onfinish = () => {
+                            details.open = false;
+                        };
+
+                    } else {
+                        // Ouverture
+                        details.open = true;
+                        const openingAnimation = content.animate([
+                            { maxHeight: '0px' },
+                            { maxHeight: content.scrollHeight + 'px' }
+                        ], {
+                            duration: 400,
+                            easing: 'ease-in-out'
+                        });
+                        
+                        openingAnimation.onfinish = () => {
+                            content.style.maxHeight = 'auto'; // Permet au contenu de s'adapter si la fenêtre change
+                        };
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
