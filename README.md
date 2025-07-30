@@ -1,4 +1,4 @@
-# Infographies Professionnelles Proxiserve / Prox-Hydro
+# Infographies Professionnelles PXS/PXH
 
 Bienvenue dans le dépôt centralisé des infographies et visualisations de données créées pour les équipes de Proxiserve et Prox-Hydro.
 
@@ -33,6 +33,11 @@ Conformément à la [Licence d'Utilisation](LICENSE.md) de ce dépôt, ces infog
 * **Description :** Cette infographie simplifie la compréhension du traitement des relevés de compteurs, de la planification à la mise à disposition des documents. C'est un guide pas à pas des étapes clés du processus de suivi de la relève.
 * **Accéder à l'infographie :** [Voir l'infographie "Le Suivi de la Relève"](https://cosmofilou.github.io/infographies_px/le_suivi_de_la_releve/index.html)
 
+### 4. Guide Utilisateur : Golfinho
+
+* **Description :** Plongez dans l'efficacité avec Golfinho ! Cette infographie présente cet outil conçu pour fiabiliser les données, accélérer les traitements et transformer des extractions brutes en analyses claires. Découvrez les piliers de Golfinho : Fiabilité, Rapidité et Clarté.
+* **Accéder à l'infographie :** [Voir l'infographie "Guide Utilisateur Golfinho"](https://cosmofilou.github.io/infographies_px/guide_utilisateur_golfinho/index.html)
+  
 ---
 
 ## Contact
