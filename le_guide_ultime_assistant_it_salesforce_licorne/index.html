@@ -334,25 +334,19 @@
                 <section id="suppressions" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
                     <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-trash-can fa-fw mr-3 text-red-500 dark:text-red-400"></i>Gestion des Suppressions Salesforce</h2>
                     <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                        <div class="border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-500/10 dark:border-yellow-500/50 p-4 rounded-r-lg flex items-start">
-                            <i class="fa-solid fa-triangle-exclamation fa-lg text-yellow-500 dark:text-yellow-400 mr-4 mt-1"></i>
-                            <div>
-                                <h4 class="font-bold text-yellow-800 dark:text-yellow-200">Important : Accès à la suppression</h4>
-                                <p class="text-yellow-700 dark:text-yellow-400">Les utilisateurs n'ont pas accès à la fonction de suppression directement dans Salesforce. Les opérations doivent passer par les utilitaires dédiés.</p>
-                            </div>
+                        <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-cogs fa-fw mr-2 text-blue-500 dark:text-blue-400"></i>Suppression via l'outil Golfinho</h3>
+                            <p class="mb-3">La suppression des PDM et des Lieux est simplifiée via la fonctionnalité <code class="font-mono bg-slate-200 dark:bg-slate-600 px-1 py-0.5 rounded">Service Mode</code> de l'outil Golfinho.</p>
+                            <ol class="list-decimal list-inside space-y-1">
+                                <li>Activer le "Service Mode" (protégé par mot de passe).</li>
+                                <li>Cliquer sur "Synchro PDM" ou "Synchro Lieux".</li>
+                                <li>Coller les données à supprimer dans la fenêtre de saisie.</li>
+                                <li>Valider. Le résultat est envoyé par mail après traitement.</li>
+                            </ol>
                         </div>
-                        <div class="space-y-3 pt-2">
-                            <p><strong class="text-slate-800 dark:text-slate-200">PDM et Produits Installés (PI) :</strong> Utiliser le fichier <code class="font-mono bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded text-slate-800 dark:text-slate-200">DFSUPPDM.csv</code>.</p>
-                            <p><strong class="text-slate-800 dark:text-slate-200">Lieux :</strong> Utiliser le fichier <code class="font-mono bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded text-slate-800 dark:text-slate-200">DFSUPLIEU.csv</code>.</p>
-                            <p><strong class="text-slate-800 dark:text-slate-200">Tous les autres objets :</strong> La demande doit être faite au chef de projet, <strong class="text-blue-600 dark:text-blue-400">Aurélien DA COSTA</strong>. En son absence et uniquement pour une demande de suppression jugée <strong class="text-red-500 dark:text-red-400">urgente</strong>, escalader le ticket à la DSI N3.</p>
-                        </div>
-                        <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg mt-4">
-                            <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Procédure pour les utilitaires CSV</h4>
-                            <ul class="list-disc list-inside space-y-1">
-                                <li>Le format <strong class="text-blue-600 dark:text-blue-400">CSV est obligatoire</strong>.</li>
-                                <li>Déposer le fichier sur le serveur Jetform.</li>
-                                <li>Un batch automatique traite les fichiers déposés toutes les 10 minutes.</li>
-                            </ul>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
+                            <h3 class="font-semibold text-slate-800 dark:text-slate-100">Autres objets</h3>
+                             <p>La demande doit être faite au chef de projet, <strong class="text-blue-600 dark:text-blue-400">Aurélien DA COSTA</strong>. En son absence et uniquement pour une demande jugée <strong class="text-red-500 dark:text-red-400">urgente</strong>, escalader le ticket à la DSI N3.</p>
                         </div>
                     </div>
                 </section>
