@@ -16,8 +16,28 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        
-        /* Style pour les accordéons interactifs (si utilisés) */
+
+        /* Micro-interaction pour les cartes d'information */
+        .info-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .dark .info-card:hover {
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Styles pour les onglets */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Style pour les accordéons interactifs */
         details summary {
             cursor: pointer;
             list-style: none; /* Supprime la flèche par défaut */
@@ -36,18 +56,6 @@
         details .content-wrapper {
             overflow: hidden;
             transition: max-height 0.5s ease-in-out;
-        }
-
-        /* Micro-interaction pour les cartes d'information */
-        .info-card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .dark .info-card:hover {
-             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
         }
     </style>
 </head>
@@ -150,43 +158,96 @@
                 </div>
             </section>
 
-            <!-- Workflow de gestion des refus -->
-            <section id="workflow">
-                <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-sitemap fa-fw mr-4 text-blue-500 dark:text-blue-400"></i>Comment Gérer les Refus ?</h2>
-                <div class="space-y-4 relative pl-8 border-l-2 border-dashed border-slate-300 dark:border-slate-700">
-                    <!-- Étape 1 -->
-                    <div class="timeline-item">
-                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">1</div>
-                        <div class="bg-white dark:bg-slate-800 shadow-md rounded-xl p-5 border border-slate-200 dark:border-slate-700">
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-ban fa-fw mr-3 text-slate-400"></i>Désactiver un Contrat (Unitaire)</h3>
-                            <p class="text-slate-600 dark:text-slate-300">Localisez le contrat, cliquez sur <strong class="text-red-500">Désactiver NIA (❌)</strong>. Confirmez et précisez si la <span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">LRAR</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Lettre Recommandée avec Accusé de Réception</span></span> est archivée. Le statut passe à <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire</strong>.</p>
+            <!-- Workflow de gestion des refus avec onglets -->
+            <section id="workflow" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                <h2 class="text-3xl font-bold mb-4 text-slate-900 dark:text-white"><i class="fa-solid fa-sitemap fa-fw mr-3 text-blue-500"></i>Comment Gérer les Refus ?</h2>
+                <p class="text-slate-600 dark:text-slate-300 mb-6">La procédure de désactivation varie légèrement selon la vue utilisée dans Notion. Sélectionnez l'onglet correspondant à votre cas.</p>
+                
+                <!-- Onglets -->
+                <div class="mb-4 flex border-b border-slate-200 dark:border-slate-700">
+                    <button data-tab="client" class="tab-button px-4 py-2 -mb-px font-semibold text-slate-800 dark:text-white border-b-2 border-blue-500">
+                        <i class="fa-solid fa-user-gear fa-fw mr-2"></i>Vue par Client
+                    </button>
+                    <button data-tab="groupe" class="tab-button px-4 py-2 font-semibold text-slate-500 dark:text-slate-400 border-b-2 border-transparent">
+                        <i class="fa-solid fa-users-gear fa-fw mr-2"></i>Vue par Groupe
+                    </button>
+                </div>
+
+                <!-- Contenu des onglets -->
+                <div>
+                    <!-- Contenu Vue par Client -->
+                    <div id="tab-client" class="tab-content active space-y-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-file-circle-minus fa-fw mr-3 text-slate-400"></i>Désactiver un seul contrat</h3>
+                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                                <li>Localisez le contrat et cliquez sur le bouton <strong class="text-red-500">Désactiver NIA (❌)</strong>.</li>
+                                <li>Confirmez, puis précisez si la <span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">LRAR</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Lettre Recommandée avec Accusé de Réception</span></span> est archivée ou non.</li>
+                                <li>Le statut passe à <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire Post-Factu</strong>.</li>
+                                <li>Le contrat apparaît dans "Mes Lettres de Refus à Archiver" si nécessaire.</li>
+                            </ol>
+                        </div>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-folder-minus fa-fw mr-3 text-slate-400"></i>Désactiver tous les contrats d'un client</h3>
+                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                                <li>Recherchez le client pour filtrer la vue.</li>
+                                <li>Sélectionnez tous les contrats affichés via la case à cocher principale.</li>
+                                <li>Dans la barre flottante, changez le "Statut NIA" pour <strong class="text-red-500">Refus Total Post-Factu</strong>.</li>
+                                <li>Archivez la <span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">LRAR</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Lettre Recommandée avec Accusé de Réception</span></span> globale sur une seule ligne, puis cochez "LRAR Archivée (☑️)" pour tous les contrats du client.</li>
+                            </ol>
                         </div>
                     </div>
-                    <!-- Étape 2 -->
-                    <div class="timeline-item">
-                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">2</div>
-                        <div class="bg-white dark:bg-slate-800 shadow-md rounded-xl p-5 border border-slate-200 dark:border-slate-700">
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-layer-group fa-fw mr-3 text-slate-400"></i>Désactiver Tous les Contrats (Total)</h3>
-                            <p class="text-slate-600 dark:text-slate-300">Recherchez le client. Sélectionnez tous ses contrats et modifiez le statut en <strong class="text-red-500">Refus Total</strong> via la barre flottante de Notion.</p>
+
+                    <!-- Contenu Vue par Groupe -->
+                    <div id="tab-groupe" class="tab-content space-y-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-file-circle-minus fa-fw mr-3 text-slate-400"></i>Désactiver un contrat unitairement</h3>
+                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                                <li>Localisez le contrat et cliquez sur le bouton <strong class="text-red-500">Désactiver NIA (❌)</strong>.</li>
+                                <li>Confirmez, puis précisez si la <span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">LRAR</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Lettre Recommandée avec Accusé de Réception</span></span> est archivée ou non.</li>
+                                <li>Le statut passe à <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire Post-Factu</strong>.</li>
+                                <li>Le contrat apparaît dans "Mes Lettres de Refus à Archiver" si nécessaire.</li>
+                            </ol>
                         </div>
-                    </div>
-                    <!-- Étape 3 -->
-                    <div class="timeline-item">
-                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">3</div>
-                        <div class="bg-white dark:bg-slate-800 shadow-md rounded-xl p-5 border border-slate-200 dark:border-slate-700">
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-box-archive fa-fw mr-3 text-slate-400"></i>Gérer l'Archivage LRAR</h3>
-                            <p class="text-slate-600 dark:text-slate-300">Dans la vue "Mes Lettres de Refus à Archiver", téléchargez le document dans le champ dédié, puis cochez la case <strong class="text-green-500">LRAR Archivée ? (☑️)</strong>.</p>
-                        </div>
-                    </div>
-                    <!-- Étape 4 -->
-                    <div class="timeline-item">
-                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">4</div>
-                        <div class="bg-white dark:bg-slate-800 shadow-md rounded-xl p-5 border border-slate-200 dark:border-slate-700">
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-circle-check fa-fw mr-3 text-slate-400"></i>Réactiver un Contrat</h3>
-                            <p class="text-slate-600 dark:text-slate-300">Dans la vue "Contrats Inactifs", localisez le contrat et cliquez sur le bouton <strong class="text-green-500">Activer NIA (✅)</strong>. Le statut repasse à <strong class="text-green-600 dark:text-green-400">NIA Active</strong>.</p>
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-building-circle-xmark fa-fw mr-3 text-slate-400"></i>Désactiver tout un groupe</h3>
+                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                                <li>Recherchez le groupe (résidence) pour filtrer la vue.</li>
+                                <li>Sélectionnez tous les contrats du groupe via la case à cocher principale.</li>
+                                <li>Dans la barre flottante, changez le "Statut NIA" pour <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire Post-Factu</strong>.</li>
+                                <li>Rendez-vous dans "Mes Lettres de Refus à Archiver" pour finaliser le processus d'archivage.</li>
+                            </ol>
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <!-- Section Archivage -->
+            <section id="archivage">
+                <details class="bg-white dark:bg-slate-800 shadow-lg rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                    <summary class="p-5 flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center">
+                            <i class="fa-solid fa-box-archive fa-fw mr-3 text-indigo-500 dark:text-indigo-400"></i>
+                            Finaliser l'Archivage des Lettres de Refus
+                        </h2>
+                        <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
+                    </summary>
+                    <div class="content-wrapper">
+                        <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <p>
+                                Cette étape est essentielle pour conserver une preuve du refus. La vue <strong>"Mes Lettres de Refus à Archiver"</strong> liste tous les contrats pour lesquels l'archivage n'a pas encore été effectué.
+                            </p>
+                            <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Procédure d'archivage :</h4>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Cliquez directement à l'intérieur du champ de la colonne <strong>"Lettre de Refus"</strong>.</li>
+                                    <li>Sélectionnez "Choisir un fichier" pour téléverser le document depuis votre ordinateur.</li>
+                                    <li>Une fois le document chargé, cliquez sur le bouton <strong>"LRAR Archivée ☑️"</strong> à droite de la ligne du contrat.</li>
+                                    <li>Le contrat disparaîtra alors de cette vue de suivi.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </details>
             </section>
             
             <!-- Bénéfices Clés -->
@@ -227,8 +288,8 @@
             <!-- Contacts Clés -->
             <section id="contacts" class="mt-8 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
                 <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-headset fa-fw mr-3 text-green-500 dark:text-green-400"></i>Contacts Clés</h2>
-                <div class="text-slate-600 dark:text-slate-300 md:flex items-center justify-center text-center md:text-left">
-                    <p class="mb-4 md:mb-0 md:mr-4">Pour toute question ou en cas de blocage sur cet outil, n'hésitez pas à contacter :</p>
+                <div class="text-slate-600 dark:text-slate-300 text-center">
+                    <p class="mb-4">Pour toute question ou en cas de blocage sur cet outil, n'hésitez pas à contacter :</p>
                     <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg inline-block">
                         <p class="font-bold text-slate-800 dark:text-slate-100">Thomas RAMBAUD ou Aurélien DA COSTA</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400">Membres de la Direction Technique</p>
@@ -247,7 +308,6 @@
     </div>
 
     <script>
-        // Script pour la gestion du mode sombre/clair
         document.addEventListener('DOMContentLoaded', function () {
             
             // Gestion du thème
@@ -259,11 +319,62 @@
                 }
             };
             
-            // Écoute les changements de préférence système
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
-            
-            // Applique le thème au chargement
             updateTheme();
+
+            // Gestion des onglets
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+
+                    // Gérer l'état des boutons
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-slate-800', 'dark:text-white', 'border-blue-500');
+                        btn.classList.add('text-slate-500', 'dark:text-slate-400', 'border-transparent');
+                    });
+                    button.classList.add('text-slate-800', 'dark:text-white', 'border-blue-500');
+                    button.classList.remove('text-slate-500', 'dark:text-slate-400', 'border-transparent');
+
+                    // Gérer l'affichage du contenu
+                    tabContents.forEach(content => {
+                        if (content.id === `tab-${tabId}`) {
+                            content.classList.add('active');
+                        } else {
+                            content.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // Gestion des accordéons pour une animation fluide
+            const detailsElements = document.querySelectorAll('details');
+            detailsElements.forEach((details) => {
+                const summary = details.querySelector('summary');
+                const content = details.querySelector('.content-wrapper');
+
+                summary.addEventListener('click', (event) => {
+                    // Empêche le comportement par défaut pour gérer l'animation nous-mêmes
+                    event.preventDefault();
+                    
+                    if (details.hasAttribute('open')) {
+                        // Fermeture
+                        const closingAnimation = content.animate({ maxHeight: [content.scrollHeight + 'px', 0] }, { duration: 300, easing: 'ease-out' });
+                        closingAnimation.onfinish = () => {
+                            details.removeAttribute('open');
+                        };
+                    } else {
+                        // Ouverture
+                        details.setAttribute('open', '');
+                        const openingAnimation = content.animate({ maxHeight: [0, content.scrollHeight + 'px'] }, { duration: 400, easing: 'ease-in-out' });
+                        openingAnimation.onfinish = () => {
+                           content.style.maxHeight = 'none'; // Permet au contenu de s'adapter si la taille change
+                        };
+                    }
+                });
+            });
         });
     </script>
 
