@@ -1,134 +1,380 @@
-Public Sub LancerNettoyageFichierSYM()
-    ' Macro principale qui orchestre le nettoyage du fichier SYM.
-    ' VERSION ROBUSTE AVEC LECTURE LIGNE PAR LIGNE
-    
-    Dim folderPath As String, sourcePath As String, outputPath As String
-    Dim FSO As Object, sourceFile As Object, outputFile As Object
-    Dim summaryReport As String
-    
-    On Error GoTo ErrorHandler
-    
-    ' --- Étape 1 : Confirmation utilisateur ---
-    
-    Dim userResponse As VbMsgBoxResult
-    Dim promptMsg As String
-    
-    promptMsg = "Cette opération va nettoyer le fichier des déposes RFC (SYM)." & vbNewLine & vbNewLine & _
-                "Veuillez confirmer que le fichier suivant est bien présent :" & vbNewLine & _
-                "- Fichier : Fichier_SYM_original.txt" & vbNewLine & _
-                "- Emplacement : \Données à traiter\" & vbNewLine & vbNewLine & _
-                "Voulez-vous continuer ?"
-                
-    userResponse = MsgBox(promptMsg, vbYesNo + vbQuestion, "Golfinho - Confirmation")
-    If userResponse = vbNo Then
-        MsgBox "Opération annulée.", vbInformation
-        Exit Sub
-    End If
-    
-    Application.ScreenUpdating = False
-    Application.StatusBar = "Traitement du fichier SYM en cours..."
-    
-    ' --- Étape 2 : Lecture et préparation des fichiers ---
-    
-    folderPath = ThisWorkbook.Path & "\Données à traiter\"
-    sourcePath = folderPath & "Fichier_SYM_original.txt"
-    
-    If Dir(sourcePath) = "" Then
-        MsgBox "Le fichier 'Fichier_SYM_original.txt' est introuvable dans le dossier 'Données à traiter'.", vbCritical, "Golfinho - Erreur"
-        GoTo Cleanup
-    End If
-    
-    Set FSO = CreateObject("Scripting.FileSystemObject")
-    
-    If FSO.GetFile(sourcePath).Size = 0 Then
-        MsgBox "Le fichier 'Fichier_SYM_original.txt' est vide. Traitement annulé.", vbExclamation, "Golfinho - Fichier Vide"
-        GoTo Cleanup
-    End If
-    
-    ' --- Étape 3 : Traitement des données ligne par ligne ---
-    
-    Dim dateReleve As String
-    Dim linesDeleted As Long, linesTransformed As Long
-    Dim previousLineWasDeleted As Boolean
-    Dim currentLine As String, parts As Variant
-    
-    ' On ouvre le fichier une première fois juste pour lire la date
-    Set sourceFile = FSO.OpenTextFile(sourcePath, 1) ' ForReading
-    If Not sourceFile.AtEndOfStream Then
-        parts = Split(sourceFile.ReadLine, ";")
-        If UBound(parts) >= 3 Then
-            dateReleve = Trim(parts(3))
-            If Not (Len(dateReleve) = 8 And IsNumeric(dateReleve)) Then dateReleve = "SANS_DATE"
-        Else
-            dateReleve = "SANS_DATE"
-        End If
-    Else
-        dateReleve = "SANS_DATE"
-    End If
-    sourceFile.Close
-    
-    outputPath = folderPath & "Fichier_SYM_original_modifie_" & dateReleve & ".txt"
-    
-    ' On ouvre les fichiers pour le traitement principal
-    Set sourceFile = FSO.OpenTextFile(sourcePath, 1)
-    Set outputFile = FSO.CreateTextFile(outputPath, True) ' ForWriting, Overwrite
-    
-    previousLineWasDeleted = False
-    Do While Not sourceFile.AtEndOfStream
-        currentLine = sourceFile.ReadLine
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Utilisateur : Golfinho | La Bible de l'Utilisateur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Style de base */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .font-agency-fb {
+            font-family: 'Anton', sans-serif;
+        }
         
-        If Trim(currentLine) <> "" Then
-            parts = Split(currentLine, ";")
+        /* Correction pour la navigation rapide */
+        section[id] {
+            scroll-margin-top: 6rem; /* Ajustez cette valeur si la hauteur de la nav change */
+        }
+
+        /* Style pour les accordéons interactifs */
+        details summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details .icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        details[open] .icon {
+            transform: rotate(90deg);
+        }
+        
+        /* Animation pour le contenu de l'accordéon */
+        details .content-wrapper {
+            overflow: hidden;
+        }
+
+        /* Style pour les boutons simulés dans le texte */
+        .btn-like {
+            background-color: #f1f5f9; /* slate-100 */
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.125rem 0.5rem; /* py-0.5 px-2 */
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            color: #1e293b; /* slate-800 */
+            display: inline-block;
+            line-height: 1.4;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .dark .btn-like {
+            background-color: #334155; /* slate-700 */
+            border-color: #475569; /* slate-600 */
+            color: #f1f5f9; /* slate-100 */
+        }
+        
+        /* Micro-interaction pour les cartes d'information */
+        .info-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .dark .info-card:hover {
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Effet glossy pour l'image de l'interface */
+        .glossy-container {
+            position: relative;
+            display: block;
+            line-height: 0;
+        }
+        .glossy-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem; /* Correspond à rounded-xl */
+            background: linear-gradient(to bottom, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0) 50%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-500">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <!-- En-tête -->
+        <header class="text-center mb-12">
+            <div class="inline-block p-3 bg-blue-100 dark:bg-blue-500/10 rounded-full mb-4 shadow-inner">
+                <span class="text-6xl">🐬</span>
+            </div>
+            <h1 class="text-8xl md:text-9xl font-agency-fb tracking-wider text-slate-900 dark:text-white uppercase">Golfinho</h1>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-700 dark:text-slate-200 mt-1">Guide Utilisateur</h2>
+            <p class="text-lg text-slate-600 dark:text-slate-300 mt-4">Plongez dans l'efficacité. Automatisez vos tâches, maîtrisez vos données.</p>
+        </header>
+        
+        <div class="text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12">
+             <p class="text-base text-slate-600 dark:text-slate-300">Inspiré par l'intelligence et l'efficacité du dauphin, Golfinho a pour objectif de fiabiliser les données, d'accélérer les traitements et de transformer des extractions brutes en analyses claires. Concentrez-vous sur l'essentiel.</p>
+             <div class="mt-4 text-xs text-slate-400 dark:text-slate-500">
+                <span><i class="fa-solid fa-file-excel mr-1"></i> Microsoft Excel (VBA)</span>
+                <span class="mx-2">|</span>
+                <span><i class="fa-solid fa-user mr-1"></i> Aurélien DA COSTA, Direction Technique</span>
+                <span class="mx-2">|</span>
+                <span><i class="fa-solid fa-code-branch mr-1"></i> v2.90 (29/08/2025)</span>
+             </div>
+        </div>
+        
+        <!-- Section des Piliers de Golfinho -->
+        <section id="pillars" class="mb-12">
+            <h2 class="text-4xl font-agency-fb tracking-wider uppercase text-center mb-8 text-slate-900 dark:text-white">Les Piliers de Golfinho</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700"><div class="inline-block p-4 bg-blue-100 dark:bg-blue-500/10 rounded-full mb-4"><i class="fa-solid fa-check-double fa-2x text-blue-500 dark:text-blue-400"></i></div><h3 class="font-bold text-xl text-slate-900 dark:text-white">Fiabilité</h3><p class="text-slate-600 dark:text-slate-400 mt-2">Assurez la cohérence et la justesse de vos données en limitant les erreurs de saisie manuelle.</p></div>
+                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700"><div class="inline-block p-4 bg-teal-100 dark:bg-teal-500/10 rounded-full mb-4"><i class="fa-solid fa-bolt-lightning fa-2x text-teal-500 dark:text-teal-400"></i></div><h3 class="font-bold text-xl text-slate-900 dark:text-white">Rapidité</h3><p class="text-slate-600 dark:text-slate-400 mt-2">Accélérez les traitements de fichiers volumineux et gagnez un temps précieux au quotidien.</p></div>
+                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700"><div class="inline-block p-4 bg-yellow-100 dark:bg-yellow-500/10 rounded-full mb-4"><i class="fa-solid fa-chart-bar fa-2x text-yellow-500 dark:text-yellow-400"></i></div><h3 class="font-bold text-xl text-slate-900 dark:text-white">Clarté</h3><p class="text-slate-600 dark:text-slate-400 mt-2">Transformez des extractions brutes en rapports d'analyse lisibles et immédiatement exploitables.</p></div>
+            </div>
+        </section>
+
+        <!-- Menu de Navigation Rapide -->
+        <nav class="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm p-3 rounded-xl shadow-md sticky top-4 z-10 mb-12 border border-slate-200 dark:border-slate-700">
+            <div class="flex flex-wrap justify-center items-center gap-x-2 md:gap-x-6 text-sm font-semibold">
+                <a href="#pillars" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Piliers</a>
+                <a href="#interface" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Interface</a>
+                <a href="#installation" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Installation</a>
+                <a href="#workflows" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Workflows</a>
+                <a href="#outils" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Outils</a>
+                <a href="#infos-utiles" class="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400 transition px-3 py-1 rounded-lg">Aide</a>
+            </div>
+        </nav>
+
+
+        <!-- Section principale -->
+        <main class="space-y-12">
+
+            <!-- Tour d'Horizon de l'Interface -->
+            <section id="interface">
+                <h2 class="text-4xl font-agency-fb tracking-wider uppercase text-center mb-8 text-slate-900 dark:text-white">Tour d'Horizon de l'Interface</h2>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                    <p class="text-center text-slate-600 dark:text-slate-300 mb-4 px-4">Voici l'environnement principal de Golfinho. Chaque bloc de fonctions est conçu pour vous guider intuitivement vers l'outil dont vous avez besoin.</p>
+                    <div class="glossy-container">
+                        <img src="https://raw.githubusercontent.com/cosmofilou/infographies_px/main/guide_utilisateur_golfinho/infographie_golfinho.png" alt="Interface de l'application Golfinho" class="rounded-xl shadow-md w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/1200x675/e2e8f0/334155?text=Erreur+de+chargement+de+l%27image';">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Installation, Configuration & Ressources -->
+            <section id="installation">
+                <h2 class="text-4xl font-agency-fb tracking-wider uppercase mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-cogs fa-fw mr-4 text-blue-500"></i>Installation & Ressources</h2>
+                <div class="space-y-8">
+                    <div class="grid lg:grid-cols-2 gap-8 items-start">
+                        <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3"><i class="fa-solid fa-rocket fa-fw mr-3 text-slate-400"></i>Première Installation</h3>
+                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                                <li>Copiez l'intégralité du dossier <strong>Golfinho v2.90</strong> depuis le Drive partagé.</li>
+                                <li>Ouvrez le fichier principal <strong>PXS_Golfinho.xlsm</strong>.</li>
+                                <li><strong>Configurez les chemins (obligatoire) :</strong>
+                                    <ul class="list-disc list-inside ml-6 mt-1">
+                                        <li>Cliquez sur le <span class="font-mono text-blue-500">✏️</span> à côté de "Chemin du serveur".</li>
+                                        <li>Cliquez sur le <span class="font-mono text-blue-500">✏️</span> à côté de "Dossier source".</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Sauvegardez et redémarrez.</strong></li>
+                            </ol>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                           <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3"><i class="fa-solid fa-cloud-arrow-up fa-fw mr-3 text-slate-400"></i>Mise à Jour</h3>
+                           <p class="text-slate-600 dark:text-slate-300">Écrasez simplement votre ancien fichier <strong>PXS_Golfinho.xlsm</strong> par le nouveau disponible sur le Drive.</p>
+                           <div class="mt-3 border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-500/10 dark:border-yellow-500/50 p-3 rounded-r-lg text-sm">
+                                <strong class="text-yellow-800 dark:text-yellow-200">Important :</strong>
+                                <ul class="list-disc list-inside mt-1 text-yellow-700 dark:text-yellow-300">
+                                    <li>Après la mise à jour, vous devrez obligatoirement renseigner de nouveau vos chemins serveur et source.</li>
+                                    <li>N'oubliez pas de copier également les éventuels nouveaux utilitaires (ex: `DFMAJRAD.xlsx`) disponibles dans le dossier des ressources.</li>
+                                </ul>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Télécharger les Ressources</h3>
+                            <p class="text-slate-600 dark:text-slate-300 mb-6">Accédez aux dossiers partagés pour la dernière version, les utilitaires et les templates.</p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="https://drive.google.com/drive/folders/1SEJmTkL9cObMl3g2793b_sYJSRg7LyiD?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105 shadow-lg"><i class="fa-solid fa-cloud-download-alt mr-2"></i>Dossier Principal</a>
+                            <a href="https://drive.google.com/open?id=1gTjtXrAppvOHYNBJOnpkF_XxUF_flSHP&usp=drive_fs" target="_blank" rel="noopener noreferrer" class="flex-1 text-center bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition"><i class="fa-solid fa-wrench mr-2"></i>Utilitaires</a>
+                            <a href="https://drive.google.com/open?id=1IjYoQTKqZVk9wTwqhqBz1d-bcn14w1Nc&usp=drive_fs" target="_blank" rel="noopener noreferrer" class="flex-1 text-center bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg transition"><i class="fa-solid fa-file-lines mr-2"></i>Templates</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
             
-            Dim processedLine As String
-            processedLine = currentLine
-            
-            If UBound(parts) >= 5 And Left(currentLine, 1) = "2" Then
-                If Trim(parts(5)) = "99999999" Then
-                    ' C'est une ligne fictive, on la supprime (en ne l'écrivant pas)
-                    linesDeleted = linesDeleted + 1
-                    previousLineWasDeleted = True
-                Else
-                    previousLineWasDeleted = False
-                End If
-            ElseIf Left(currentLine, 1) = "4" And previousLineWasDeleted Then
-                ' C'est une ligne '4' qui suit une suppression, on la transforme
-                processedLine = "2" & Mid(currentLine, 2)
-                linesTransformed = linesTransformed + 1
-                previousLineWasDeleted = False
-            Else
-                previousLineWasDeleted = False
-            End If
-            
-            ' On écrit la ligne si elle n'a pas été supprimée
-            If Not (Left(currentLine, 1) = "2" And UBound(parts) >= 5 And Trim(parts(5)) = "99999999") Then
-                outputFile.WriteLine processedLine
-            End If
-        End If
-    Loop
-    
-    sourceFile.Close
-    outputFile.Close
-    
-    ' --- Étape 4 : Rapport final ---
-    
-    summaryReport = "Traitement du fichier SYM terminé avec succès !" & vbNewLine & vbNewLine & _
-                    "   - Lignes de répartiteurs fictifs supprimées : " & linesDeleted & vbNewLine & _
-                    "   - Lignes '4' transformées en '2' : " & linesTransformed & vbNewLine & vbNewLine & _
-                    "Le fichier modifié a été enregistré sous :" & vbNewLine & outputPath
+            <!-- Workflows d'Analyse -->
+            <section id="workflows">
+                <h2 class="text-4xl font-agency-fb tracking-wider uppercase mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-sitemap fa-fw mr-4 text-blue-500"></i>Les Grands Workflows</h2>
+                
+                <div class="bg-blue-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-blue-200 dark:border-slate-700 mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white"><i class="fa-solid fa-file-import mr-2 text-blue-500"></i>Étape 0 : L'Import de Données</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-4">Pour que les workflows fonctionnent, Golfinho doit être alimenté. Placez vos fichiers sources dans votre "Dossier source" puis utilisez les boutons d'import pour les charger.</p>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-white dark:bg-slate-700 p-4 rounded-lg shadow"><h4 class="font-bold text-blue-600 dark:text-blue-400">DFLGEST</h4><p class="text-xs text-slate-500 dark:text-slate-400">Importe <strong>DFLGEST_actif.xlsx</strong>. C'est la base de la plupart des analyses et rapports.</p></div>
+                        <div class="bg-white dark:bg-slate-700 p-4 rounded-lg shadow"><h4 class="font-bold text-blue-600 dark:text-blue-400">MBW</h4><p class="text-xs text-slate-500 dark:text-slate-400">Importe en masse les relevés <strong>MBWGPRS*.txt</strong> pour l'analyse des écarts.</p></div>
+                        <div class="bg-white dark:bg-slate-700 p-4 rounded-lg shadow"><h4 class="font-bold text-blue-600 dark:text-blue-400">AccèsPro</h4><p class="text-xs text-slate-500 dark:text-slate-400">Importe les extractions d'index depuis <strong>accespro.proxiserve.fr</strong>.</p></div>
+                    </div>
+                </div>
+
+                <div class="relative pl-8 space-y-10">
+                    <div class="absolute left-12 top-0 h-full border-l-2 border-dashed border-slate-300 dark:border-slate-600"></div>
                     
-    MsgBox summaryReport, vbInformation, "Golfinho - Traitement Terminé"
-    
-Cleanup:
-    Application.StatusBar = False
-    Application.ScreenUpdating = True
-    On Error Resume Next ' Ignore les erreurs pendant le nettoyage
-    If Not sourceFile Is Nothing Then sourceFile.Close
-    If Not outputFile Is Nothing Then outputFile.Close
-    Set FSO = Nothing
-    Exit Sub
-    
-ErrorHandler:
-    MsgBox "Une erreur critique est survenue : " & Err.Description, vbCritical, "Golfinho - Erreur"
-    GoTo Cleanup
-End Sub
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow"><i class="fa-solid fa-magnifying-glass-chart"></i></div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Analyse des Écarts (Centrales vs BDD)</h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Identifiez les problèmes de cohérence de votre parc radio.</p><div class="text-slate-600 dark:text-slate-300 space-y-2"><div><strong class="text-slate-800 dark:text-slate-100">1. Importer les fichiers :</strong> Cliquez sur <span class="btn-like">MBW</span> pour importer tous les fichiers `MBWGPRS*.txt`. N'oubliez pas d'importer également le `DFLGEST_actif.xlsx` à analyser.</div><div><strong class="text-slate-800 dark:text-slate-100">2. Fusionner :</strong> Cliquez sur <span class="btn-like">Fusion fichiers MBW</span>. Golfinho fusionne, nettoie les doublons et prépare un fichier d'analyse.</div><div><strong class="text-slate-800 dark:text-slate-100">3. Analyser :</strong> Cliquez sur <span class="btn-like">Création du fichier d’analyse</span>. Un rapport coloré est généré et un résumé des anomalies s'affiche à la fin.</div></div><div class="mt-4 space-x-2"><span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-yellow-200 text-yellow-800 dark:bg-yellow-500/20 dark:text-yellow-300">Non déclarés en BDD</span><span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-red-200 text-red-800 dark:bg-red-500/20 dark:text-red-300">Déclarés mais non captés</span></div></div></div>
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow"><i class="fa-solid fa-file-csv"></i></div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Analyseur de Fichier d'Index Manuel</h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Validez votre fichier <strong>void.csv</strong> et évitez les rejets d'intégration.</p><div class="text-slate-600 dark:text-slate-300 space-y-2"><div><strong class="text-slate-800 dark:text-slate-100">1. Placer le fichier :</strong> Mettez votre `void.csv` dans le dossier `\Données à traiter`.</div><div><strong class="text-slate-800 dark:text-slate-100">2. Lancer l'analyse :</strong> Cliquez sur <span class="btn-like">Lancer l'analyse</span>. Golfinho indique si le fichier est conforme ou liste les erreurs, et nettoie les lignes "fantômes" (;;;).</div></div></div></div>
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow"><i class="fa-solid fa-file-invoice"></i></div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Création d'Analyses et Rapports de Pose</h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Mettez en forme un DFLGEST brut en un rapport lisible en un clic.</p><div class="text-slate-600 dark:text-slate-300 space-y-2"><div><strong class="text-slate-800 dark:text-slate-100">1. Prérequis :</strong> Générez un DFLGEST compatible via un utilitaire d'extraction (<span class="btn-like">Extraction cité(s)</span> ou <span class="btn-like">Extraction patrimoine client</span>).</div><div><strong class="text-slate-800 dark:text-slate-100">2. Générer :</strong> Choisissez une analyse (<span class="btn-like">Patrimoine</span>, <span class="btn-like">RFC</span>, <span class="btn-like">Bailleur</span>) ou un rapport (<span class="btn-like">EAU/CET v2</span>, <span class="btn-like">RFC v2</span>) et cliquez pour créer le document.</div></div></div></div>
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow"><i class="fa-solid fa-fire-flame-curved"></i></div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white flex items-center gap-3">Ajustement des Index Chauffage EDI <span class="text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-500/20 dark:text-green-300 px-2 py-1 rounded-full">NOUVEAUTÉ</span></h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Met les index de chauffage CET sur 6 caractères (au lieu des 5 prévus en standard) pour garantir leur conformité.</p><div class="text-slate-600 dark:text-slate-300 space-y-2"><div><strong class="text-slate-800 dark:text-slate-100">1. Prérequis :</strong> Placez `modifier_fichier.txt` et `EnregistrementAModifier.csv` dans `\Données à traiter\`.</div><div><strong class="text-slate-800 dark:text-slate-100">2. Lancer :</strong> Cliquez sur le bouton d'ajustement.</div><div><strong class="text-slate-800 dark:text-slate-100">3. Résultat :</strong> Golfinho génère un fichier `Proxiserve_Index de chauffage_...txt` prêt à l'emploi et un rapport de conformité.</div></div></div></div>
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow"><i class="fa-solid fa-tags"></i></div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white flex items-center gap-3">Traitement des Codes Spécifiques EDI (44 & 98) <span class="text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-500/20 dark:text-green-300 px-2 py-1 rounded-full">NOUVEAUTÉ</span></h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Supprime le code "F" sur les lignes des PDM listés dans les fichiers des codes 44 et 98.</p><div class="text-slate-600 dark:text-slate-300 space-y-2"><div><strong class="text-slate-800 dark:text-slate-100">1. Prérequis :</strong> Placez `Fichier_EDI.txt`, `PDM_Code_44.txt`, et `PDM_Code_98.txt` dans `\Données à traiter\`.</div><div><strong class="text-slate-800 dark:text-slate-100">2. Lancer :</strong> Cliquez sur le bouton de traitement des codes EDI.</div><div><strong class="text-slate-800 dark:text-slate-100">3. Résultat :</strong> Golfinho génère le fichier `Fichier_EDI_modifie.txt` et affiche un résumé des modifications.</div><div class="mt-2 border-t border-slate-200 dark:border-slate-700 pt-2 text-sm"><strong class="text-slate-800 dark:text-slate-100">Note :</strong> Si aucune modification n'est nécessaire pour un code (44 ou 98), placez simplement un fichier texte vide portant le nom attendu dans le dossier.</div></div></div></div>
+                    <div class="relative"><div class="absolute -left-1 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow"><i class="fa-solid fa-broom"></i></div><div class="ml-12 pl-8 py-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"><h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white flex items-center gap-3">Nettoyage des Déposes RFC (Fichier SYM) <span class="text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-500/20 dark:text-green-300 px-2 py-1 rounded-full">NOUVEAUTÉ</span></h3><p class="mb-4 text-slate-500 dark:text-slate-400">➡️ <strong class="text-slate-700 dark:text-slate-200">Bénéfice :</strong> Préparez vos fichiers de dépose RFC pour une intégration correcte en supprimant les répartiteurs fictifs.</p><div class="text-slate-600 dark:text-slate-300 space-y-2"><div><strong class="text-slate-800 dark:text-slate-100">1. Prérequis :</strong> Placez le fichier `Fichier_SYM_original.txt` dans votre dossier `\Données à traiter\`.</div><div><strong class="text-slate-800 dark:text-slate-100">2. Lancer :</strong> Cliquez sur le bouton de nettoyage du fichier SYM.</div><div><strong class="text-slate-800 dark:text-slate-100">3. Résultat :</strong> Golfinho supprime les lignes de répartiteurs fictifs, corrige les lignes suivantes et génère un fichier `Fichier_SYM_original_modifie_[date].txt`. Un résumé des opérations s'affiche.</div></div></div></div>
+                </div>
+            </section>
+            
+            <!-- Boîte à Outils -->
+            <section id="outils">
+                <h2 class="text-4xl font-agency-fb tracking-wider uppercase mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-toolbox fa-fw mr-4 text-blue-500"></i>La Boîte à Outils Licorne</h2>
+                <p class="text-slate-600 dark:text-slate-300 -mt-4 mb-6">Interagissez avec Licorne. Le principe : cliquez sur un bouton, complétez le fichier Excel, puis cliquez sur <span class="btn-like">Transfert</span> pour l'envoyer. Pour chaque opération, un fichier de sauvegarde est créé dans `\Utilitaires\Backup`.</p>
+                <div class="border-l-4 border-teal-400 bg-teal-50 dark:bg-teal-500/10 p-4 rounded-r-lg flex items-start gap-4 mb-6">
+                    <i class="fa-solid fa-envelope-circle-check fa-2x text-teal-500 dark:text-teal-400 mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-teal-800 dark:text-teal-200">Confirmation par Email</h4>
+                        <p class="text-sm text-teal-700 dark:text-teal-300">Après chaque transfert, vous recevrez un email de confirmation. En cas de succès, le traitement est terminé. En cas d'échec, l'email listera les anomalies à corriger. Vous devrez alors corriger votre fichier et le déposer à nouveau sur le serveur.</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700"><summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-file-export fa-fw mr-3 text-slate-400"></i>Extraction de Patrimoine</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary><div class="content-wrapper"><div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-700 pt-4"><div class="border-l-4 border-blue-400 bg-blue-50 dark:bg-blue-500/10 p-3 rounded-r-lg text-sm"><strong>Note :</strong> Les numéros de cité doivent être sur 7 caractères (ajoutez un "0" devant si besoin).</div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><div class="flex justify-between items-center"><strong>Extraction cité(s)</strong><i class="fa-solid fa-star text-yellow-400"></i></div><p class="text-sm mt-1">Extraction unitaire (séparer par ;) ou en masse (copier/coller). Golfinho formate et dédoublonne.</p><code class="text-xs bg-slate-200 dark:bg-slate-600 px-1 rounded-sm">LISTCITE.csv</code></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><div class="flex justify-between items-center"><strong>Extraction patrimoine client</strong></div><p class="text-sm mt-1">Extrait tout le patrimoine d'un gestionnaire via son ID client.</p><code class="text-xs bg-slate-200 dark:bg-slate-600 px-1 rounded-sm">LISTGEST.csv</code></div></div></div></details>
+                    <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700"><summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-plus-square fa-fw mr-3 text-slate-400"></i>Création de Patrimoine</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary><div class="content-wrapper"><div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-700 pt-4"><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><div class="flex justify-between items-center"><strong>Lieux</strong><i class="fa-solid fa-star text-yellow-400"></i></div><p class="text-sm mt-1">Création en masse. Prérequis : la cité doit exister. Le traitement n'ajoute que les nouveaux appartements.</p><code class="text-xs bg-slate-200 dark:bg-slate-600 px-1 rounded-sm">DFCREAPT.csv</code></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><div class="flex justify-between items-center"><strong>P.D.M.</strong><i class="fa-solid fa-star text-yellow-400"></i></div><p class="text-sm mt-1">Création en masse des points de mesure et produits installés.</p><code class="text-xs bg-slate-200 dark:bg-slate-600 px-1 rounded-sm">DFCREAPL.csv</code></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><div class="flex justify-between items-center"><strong>Produits (Dépose/pose)</strong></div><p class="text-sm mt-1">Dépose en masse d'appareils. Prérequis : les appartements doivent exister.</p><code class="text-xs bg-slate-200 dark:bg-slate-600 px-1 rounded-sm">DFDEPOSE.csv</code></div></div></div></details>
+                    <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700"><summary class="p-5 flex justify-between items-center"><h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-edit fa-fw mr-3 text-slate-400"></i>Mise à Jour de la Base</h3><i class="fa-solid fa-chevron-right icon text-slate-500"></i></summary><div class="content-wrapper"><div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-700 pt-4"><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><div class="flex justify-between items-center"><strong>Histo 14</strong><i class="fa-solid fa-star text-yellow-400"></i></div><p class="text-sm mt-1">Met à jour le dernier historique (index, code relevé, date) avec de nombreuses règles de contrôle.</p><code class="text-xs bg-slate-200 dark:bg-slate-600 px-1 rounded-sm">DFINTE14.csv</code></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><div class="flex justify-between items-center"><strong>Réf. P.D.M.</strong></div><p class="text-sm mt-1">Met à jour la référence appareil des P.D.M.</p><code class="text-xs bg-slate-200 dark:bg-slate-600 px-1 rounded-sm">DFMAJREF.csv</code></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><div class="flex justify-between items-center"><strong>Coefficient Sit.</strong></div><p class="text-sm mt-1">Met à jour les informations de situation pour le calcul du KS (Etage, Facade_nord, etc.).</p><code class="text-xs bg-slate-200 dark:bg-slate-600 px-1 rounded-sm">DFMAJKS.csv</code></div><div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><div class="flex justify-between items-center"><strong>Infos Radiateurs</strong></div><p class="text-sm mt-1">Met à jour les données des radiateurs (KQ, KA, KC, Famille, Matériaux, etc.).</p><code class="text-xs bg-slate-200 dark:bg-slate-600 px-1 rounded-sm">DFMAJRAD.csv</code></div></div></div></details>
+                </div>
+            </section>
+            
+            <!-- Dépannage et Infos -->
+            <section id="infos-utiles">
+                 <h2 class="text-4xl font-agency-fb tracking-wider uppercase mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-life-ring fa-fw mr-4 text-blue-500"></i>Aide & Support</h2>
+                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border-2 border-blue-200 dark:border-blue-800 shadow-lg mb-6 flex items-center gap-6">
+                    <i class="fa-solid fa-headset text-4xl text-blue-500 dark:text-blue-400"></i>
+                    <div>
+                        <h3 class="font-bold text-xl text-slate-800 dark:text-slate-100 mb-1">Un problème avec une automatisation ?</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Le premier réflexe est de me contacter. Je suis votre interlocuteur privilégié pour toute question ou anomalie liée à Golfinho : <strong class="text-slate-800 dark:text-slate-200">Aurélien DA COSTA</strong>.</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Dépannage Rapide (FAQ)</h3>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <p class="font-semibold text-slate-800 dark:text-slate-200">"Fichier introuvable" ?</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Vérifiez que les chemins (✏️) sont corrects et que le fichier source est dans `\Données à traiter`.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <p class="font-semibold text-slate-800 dark:text-slate-200">Un utilitaire est bloqué ?</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Parfois, un fichier de traitement reste ouvert en arrière-plan et crée des erreurs. La solution est de forcer la fermeture de toutes les fenêtres Excel via le gestionnaire des tâches.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <p class="font-semibold text-slate-800 dark:text-slate-200">Un rapport contient d'anciennes données ?</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Vous avez peut-être enregistré des données sur le template par erreur. Retéléchargez le template vierge depuis les "Ressources" et écrasez votre version locale.</p>
+                        </div>
+                    </div>
+                     <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Bonnes Pratiques</h3>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <p class="font-semibold text-slate-800 dark:text-slate-200">Ticket pour un utilitaire ?</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">En cas de blocage avec un utilitaire, créez un ticket Freshservice et joignez-y impérativement le fichier de sauvegarde présent dans le dossier `\Utilitaires\Backup`.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <p class="font-semibold text-slate-800 dark:text-slate-200">Ticket pour un fichier `void.csv` ?</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Si un blocage persiste malgré l'analyse, précisez dans le ticket que le fichier a été créé manuellement.</p>
+                        </div>
+                         <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <p class="font-semibold text-slate-800 dark:text-slate-200">Accès rapide aux dossiers</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Les boutons dans l'en-tête de Golfinho sont des raccourcis vers les dossiers importants (Utilitaires, Backup, Exports...).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossaire -->
+            <section id="glossaire">
+                <h2 class="text-4xl font-agency-fb tracking-wider uppercase mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-book-open fa-fw mr-4 text-blue-500"></i>Glossaire</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"><div class="text-center transition-opacity duration-300 group-hover:opacity-0"><h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">DFLGEST</h4><p class="text-xs text-slate-400 mt-1">Passez la souris pour voir</p></div><div class="absolute inset-0 bg-white dark:bg-slate-800 p-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><p class="text-sm text-center text-slate-600 dark:text-slate-300">Extraction de patrimoine (lieux, appareils...), souvent générée via un utilitaire <code class="text-xs">LISTCITE</code>.</p></div></div>
+                    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"><div class="text-center transition-opacity duration-300 group-hover:opacity-0"><h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">P.D.M.</h4><p class="text-xs text-slate-400 mt-1">Passez la souris pour voir</p></div><div class="absolute inset-0 bg-white dark:bg-slate-800 p-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><p class="text-sm text-center text-slate-600 dark:text-slate-300">Acronyme pour "Point De Mesure".</p></div></div>
+                    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"><div class="text-center transition-opacity duration-300 group-hover:opacity-0"><h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">RFC</h4><p class="text-xs text-slate-400 mt-1">Passez la souris pour voir</p></div><div class="absolute inset-0 bg-white dark:bg-slate-800 p-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><p class="text-sm text-center text-slate-600 dark:text-slate-300">Acronyme pour "Répartiteurs de Frais de Chauffage".</p></div></div>
+                    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"><div class="text-center transition-opacity duration-300 group-hover:opacity-0"><h4 class="font-bold text-lg text-blue-600 dark:text-blue-400">Jetform</h4><p class="text-xs text-slate-400 mt-1">Passez la souris pour voir</p></div><div class="absolute inset-0 bg-white dark:bg-slate-800 p-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><p class="text-sm text-center text-slate-600 dark:text-slate-300">Le nom de notre serveur de traitement de fichiers où les utilitaires sont envoyés pour interagir avec Licorne.</p></div></div>
+                </div>
+            </section>
+
+             <section id="service-mode" class="mt-12">
+                 <div class="bg-slate-200 dark:bg-slate-800 border-l-4 border-red-500 p-6 rounded-r-lg flex items-center">
+                    <i class="fa-solid fa-user-shield fa-3x text-red-500 dark:text-red-400 mr-6"></i>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Service Mode</h2>
+                        <p class="text-slate-600 dark:text-slate-300">Ce module, protégé par mot de passe, est réservé à des opérations d'administration avancées et n'est pas destiné à l'utilisation quotidienne.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Pied de page -->
+        <footer class="text-center mt-16 pt-8 border-t border-slate-200 dark:border-slate-700">
+            <p class="text-sm text-slate-500 dark:text-slate-400">Développeur : Aurélien DA COSTA, Chef de projet - Direction Technique.</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">© 2023-2025, Proxiserve-Prox-Hydro. Tous droits réservés. Usage interne. Reproduction interdite.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Script pour la gestion des animations d'accordéon
+        document.addEventListener('DOMContentLoaded', function () {
+            const detailsElements = document.querySelectorAll('details');
+
+            detailsElements.forEach((details) => {
+                const summary = details.querySelector('summary');
+                const content = details.querySelector('.content-wrapper');
+
+                if (!summary || !content) {
+                    return;
+                }
+
+                summary.addEventListener('click', (event) => {
+                    // Empêche le comportement par défaut pour gérer l'animation
+                    event.preventDefault();
+                    
+                    if (details.open) {
+                        // Fermeture
+                        const closingAnimation = content.animate([
+                            { maxHeight: content.scrollHeight + 'px' },
+                            { maxHeight: '0px' }
+                        ], {
+                            duration: 300,
+                            easing: 'ease-out'
+                        });
+                        
+                        closingAnimation.onfinish = () => {
+                            details.open = false;
+                        };
+
+                    } else {
+                        // Ouverture
+                        details.open = true;
+                        const openingAnimation = content.animate([
+                            { maxHeight: '0px' },
+                            { maxHeight: content.scrollHeight + 'px' }
+                        ], {
+                            duration: 400,
+                            easing: 'ease-in-out'
+                        });
+                        
+                        openingAnimation.onfinish = () => {
+                            content.style.maxHeight = 'auto'; // Permet au contenu de s'adapter si la fenêtre change
+                        };
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+
