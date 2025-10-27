@@ -37,7 +37,13 @@ Conformément à la [Licence d'Utilisation](LICENSE.md) de ce dépôt, ces infog
 
 * **Description :** Plongez dans l'efficacité avec Golfinho ! Cette infographie présente cet outil conçu pour fiabiliser les données, accélérer les traitements et transformer des extractions brutes en analyses claires. Découvrez les piliers de Golfinho : Fiabilité, Rapidité et Clarté.
 * **Accéder à l'infographie :** [Voir l'infographie "Guide Utilisateur Golfinho"](https://cosmofilou.github.io/infographies_px/guide_utilisateur_golfinho/index.html)
-  
+
+### 5. Projet Licorne : Chaîne de Relevés 100% Automatisée
+
+* **Description :** Cette infographie présente les résultats du projet Licorne sur l'automatisation de la chaîne de relevés. Elle inclut le bilan du pilote et des gains opérationnels majeurs.
+* **Accéder à l'infographie :** [Voir l'infographie "Projet Licorne : Automatisation des Relevés"](https://cosmofilou.github.io/infographies_px/projet_licorne_chaine_releves_automatisee/index.html)
+    *(Ce lien sera fonctionnel une fois le dossier et le fichier HTML créés)*
+
 ---
 
 ## Contact
