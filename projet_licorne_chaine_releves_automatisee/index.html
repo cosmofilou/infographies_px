@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Licorne - Bilan Pilote Validation Auto</title>
+    
+    <!-- Importation des polices (Lexend pour les titres, Inter pour le corps) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Lexend:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Importation de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* --- 1. Configuration du Thème (Dark/Light) --- */
+        :root {
+            /* Mode Sombre (Défaut) */
+            --bg-primary: #0F172A; /* Fond principal (slate-900) */
+            --bg-secondary: #1E293B; /* Couleur de base des cartes (slate-800) */
+            --bg-glass: rgba(30, 41, 59, 0.7); /* Fond de carte "Glassmorphism" */
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --border-color: #334155; /* Bordure (slate-700) */
+            --text-primary: #F1F5F9; /* Titres (slate-100) */
+            --text-secondary: #94A3B8; /* Paragraphes (slate-400) */
+            --accent-primary: #38BDF8; /* Bleu (sky-400) */
+            --accent-green: #22C55E; /* Vert (green-500) */
+            --accent-red: #F43F5E; /* Rouge (rose-500) */
+            --accent-yellow: #EAB308; /* Jaune (yellow-500) */
+            --accent-purple: #8B5CF6; /* Violet (pour fond Aurora) */
+            
+            --chart-grid-color: #334155;
+            --chart-text-color: #94A3B8;
+            
+            --font-body: 'Inter', sans-serif;
+            --font-display: 'Lexend', sans-serif;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-primary: #F1F5F9; /* Fond principal (slate-100) */
+                --bg-secondary: #FFFFFF; /* Couleur de base des cartes (white) */
+                --bg-glass: rgba(255, 255, 255, 0.7); /* Fond de carte "Glassmorphism" */
+                --border-glass: rgba(0, 0, 0, 0.1);
+                --border-color: #E2E8F0; /* Bordure (slate-200) */
+                --text-primary: #1E293B; /* Titres (slate-800) */
+                --text-secondary: #475569; /* Paragraphes (slate-600) */
+                --accent-primary: #0EA5E9; /* Bleu (sky-500) */
+                --accent-green: #16A34A; /* Vert (green-600) */
+                --accent-red: #E11D48; /* Rouge (rose-600) */
+                --accent-yellow: #D97706; /* Jaune (yellow-600) */
+                --accent-purple: #9333EA; /* Violet */
+                
+                --chart-grid-color: #E2E8F0;
+                --chart-text-color: #475569;
+            }
+        }
+
+        /* --- 2. Styles de Base --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            /* Suppression du gradient radial statique, remplacé par Aurora */
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; /* Empêche tout débordement horizontal */
+        }
+
+        /* AXE 1 : FOND "VIVANT" AURORA */
+        .aurora-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: var(--bg-primary); /* Fallback */
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px); /* Flou très prononcé */
+            opacity: 0.2; /* Très subtil */
+            will-change: transform, opacity;
+        }
+
+        .aurora-blob-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-primary);
+            animation: animate-blob-1 25s infinite alternate;
+        }
+
+        .aurora-blob-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-purple);
+            animation: animate-blob-2 30s infinite alternate;
+        }
+        
+        @keyframes animate-blob-1 {
+            0% { transform: translate(10vw, 10vh) scale(1); }
+            100% { transform: translate(40vw, 60vh) scale(1.2); }
+        }
+
+        @keyframes animate-blob-2 {
+            0% { transform: translate(80vw, 70vh) scale(1.2); }
+            100% { transform: translate(20vw, 30vh) scale(0.8); }
+        }
+        /* Fin Axe 1 */
+
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            flex-grow: 1;
+            z-index: 2; /* S'assure que le contenu est au-dessus du fond */
+            position: relative;
+        }
+
+        /* --- 3. Bannière de Confidentialité --- */
+        .banner {
+            background-color: var(--accent-yellow);
+            color: #0F172A;
+            text-align: center;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            z-index: 10; /* S'assurer qu'elle est au-dessus */
+            position: relative;
+        }
+        
+        /* NOUVEAU : Menu de Navigation */
+        .main-nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background-color: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glass);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+        }
+        
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .main-nav li {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease, font-weight 0.3s ease;
+        }
+        
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        /* Fin Menu */
+
+        /* --- 4. En-tête --- */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+        }
+
+        header h1 {
+            font-family: var(--font-display);
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        header .subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* SUPPRESSION DE .hero-section */
+
+        /* --- 5. Structure et Cartes "Glassmorphism" --- */
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section h2 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
+            z-index: 1;
+        }
+        
+        section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-primary);
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            border-radius: 2px;
+        }
+
+
+        .card {
+            /* Style Glassmorphism */
+            background-color: var(--bg-glass);
+            backdrop-filter: blur(16px); /* Flou plus prononcé */
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            
+            border-radius: 1.25rem; /* 20px */
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            
+            /* AXE 3 : PRÉPARATION EFFET 3D TILT */
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            /* Transition plus douce pour le retour */
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+            will-change: transform;
+        }
+        
+        /* Animation au défilement (IntersectionObserver) */
+        .hidden-initial {
+            opacity: 0;
+            transform: perspective(1000px) translateY(30px); /* Ajout de perspective */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .is-visible {
+            opacity: 1;
+            transform: perspective(1000px) translateY(0);
+        }
+
+        /* L'effet de lévitation au survol est maintenant géré par le JS 3D Tilt */
+        .card:hover {
+             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+             /* Le transform est géré par JS */
+        }
+        /* Fin Axe 3 (Setup) */
+
+
+        .grid-container {
+            display: grid;
+            gap: 1.75rem;
+        }
+
+        /* --- 6. Styles des Composants Spécifiques --- */
+        
+        /* NOUVELLE SECTION KPI FOCUS (DONUT PLEINE LARGEUR + 2 CARTES) */
+        .kpi-focus-section {
+            display: grid;
+            grid-template-columns: 1fr; /* Une seule colonne */
+            gap: 1.75rem;
+            align-items: stretch;
+            margin-bottom: 4rem;
+        }
+        
+        .kpi-focus-section .chart-card {
+            grid-column: 1 / -1; /* Prend toute la largeur */
+            height: 500px; /* Plus haut pour un grand donut */
+        }
+
+        .kpi-summary-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 1 colonne sur mobile */
+            gap: 1.75rem;
+        }
+
+        @media (min-width: 768px) {
+            .kpi-summary-grid {
+                grid-template-columns: 1fr 1fr; /* 2 colonnes sur desktop */
+            }
+        }
+        /* FIN NOUVELLE SECTION KPI */
+
+
+        /* Grille des KPIs (supprimée, styles de .stat-card conservés) */
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2.5rem 2rem;
+        }
+        
+        .stat-card .stat-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .stat-card .stat-icon svg { width: 2rem; height: 2rem; color: #fff; }
+        .stat-card .icon-green { background-color: var(--accent-green); }
+        .stat-card .icon-red { background-color: var(--accent-red); }
+
+        .stat-card h3 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            min-height: 64px;
+        }
+        
+        .stat-card .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .chart-card {
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        /* NOUVELLE SECTION 3 PILIERS */
+        .pillars-grid {
+            grid-template-columns: 1fr;
+            gap: 1.75rem;
+        }
+        
+        .pillar-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+        }
+        
+        .pillar-card .icon-circle {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .pillar-card .icon-circle svg { width: 2rem; height: 2rem; color: #fff; }
+        
+        .pillar-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .pillar-card p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        @media (min-width: 900px) { /* Passage à 3 colonnes sur écrans larges */
+            .pillars-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        /* FIN SECTION 3 PILIERS */
+
+
+        /* AXE 2 : BENTO GRID (Roadmap) */
+        .roadmap-grid {
+            grid-template-columns: 1fr; /* 1 colonne par défaut */
+            gap: 1.75rem;
+        }
+        
+        /* Sur desktop, on passe en grille asymétrique */
+        @media (min-width: 1024px) {
+            .roadmap-grid {
+                grid-template-columns: 1fr 1fr; /* Grille 2 colonnes */
+            }
+            .roadmap-card-large {
+                grid-column: 1 / -1; /* La carte large prend 2 colonnes */
+            }
+        }
+        
+        /* Carte large spéciale */
+        .roadmap-card-large {
+            display: flex;
+            flex-direction: column; /* Par défaut sur mobile */
+            gap: 2rem;
+        }
+        
+        .roadmap-card-large .large-card-content {
+             display: flex;
+             flex-direction: column; /* Mobile first */
+             gap: 2rem;
+        }
+        
+        .roadmap-card-large .large-card-section {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.75rem;
+        }
+        
+        @media (min-width: 768px) {
+             .roadmap-card-large .large-card-content {
+                 flex-direction: row; /* Côte à côte sur tablette+ */
+             }
+        }
+
+        /* Styles de carte normaux (réutilisés) */
+        .roadmap-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.75rem;
+        }
+        
+        .roadmap-card .icon-circle, .large-card-section .icon-circle {
+            flex-shrink: 0;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .roadmap-card .icon-circle svg, .large-card-section .icon-circle svg { width: 1.75rem; height: 1.75rem; color: #fff; }
+        .icon-blue { background-color: var(--accent-primary); }
+        .icon-yellow { background-color: var(--accent-yellow); }
+        .icon-green { background-color: var(--accent-green); }
+        .icon-red { background-color: var(--accent-red); }
+
+        .roadmap-card h3, .large-card-section h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+        
+        .roadmap-card p, .large-card-section p { 
+            font-size: 1rem; 
+            color: var(--text-secondary); 
+            line-height: 1.7; 
+        }
+        .roadmap-card strong, .large-card-section strong { 
+            color: var(--text-primary); 
+            font-weight: 600; 
+        }
+        /* Fin Axe 2 */
+        
+        /* Flux Logique "High-Tech" */
+        .flow-container {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+        
+        .flow-step {
+            flex: 1;
+            min-width: 200px;
+            max-width: 240px;
+            text-align: center;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+        }
+        
+        .flow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 2.15rem;
+            right: -50%;
+            width: 100%;
+            transform: translateX(50%);
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-primary), var(--border-color));
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        .flow-step .icon-circle {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-primary);
+            border: 3px solid var(--accent-primary);
+            box-shadow: 0 0 0 5px rgba(var(--accent-primary-rgb), 0.2);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .flow-step .icon-circle svg { width: 2rem; height: 2rem; color: var(--accent-primary); }
+
+        .flow-step h4 {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 0.5rem;
+            line-height: 1.3;
+            z-index: 2;
+        }
+        
+        .flow-step p { display: none; }
+        .flow-arrow { display: none; }
+
+        /* --- 7. Pied de page --- */
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        footer p { margin-bottom: 0.5rem; }
+
+        /* --- 8. Responsive --- */
+        @media (min-width: 768px) {
+            .kpi-grid { grid-template-columns: 2fr 1fr 1fr; } /* Ce style n'est plus utilisé */
+            padding: 0.5rem; }
+             .flow-step:not(:last-child)::after { display: none; }
+        }
+        
+        /* Responsive Nav */
+        @media (max-width: 767px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .main-nav ul {
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+                justify-content: flex-start;
+                gap: 1.25rem;
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+            }
+            .main-nav ul::-webkit-scrollbar {
+                display: none; /* Chrome, Safari */
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- AXE 1 : FOND "VIVANT" AURORA -->
+    <div class="aurora-background">
+        <div class="aurora-blob aurora-blob-1"></div>
+        <div class="aurora-blob aurora-blob-2"></div>
+    </div>
+
+    <!-- Bannière de Confidentialité -->
+    <div class="banner">
+        Document à usage interne - Reproduction interdite
+    </div>
+
+    <!-- NOUVEAU : Menu de Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <span class="nav-logo">PROJET LICORNE</span>
+            <ul>
+                <li><a href="#pilote">Pilote</a></li>
+                <li><a href="#piliers">Bénéfices</a></li>
+                <li><a href="#processus">Processus</a></li>
+                <li><a href="#analyse">Analyse</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <header>
+            <h1>Projet Licorne : La Chaîne de Relevés est 100% Automatisée.</h1>
+            <p class="subtitle">Bilan du pilote et gains opérationnels majeurs.</p>
+        </header>
+
+        <!-- SUPPRESSION DE LA SECTION HERO TEXTUELLE -->
+
+        <main>
+            <!-- NOUVELLE SECTION 1: KPI FOCUS -->
+            <section class="kpi-focus-section" id="pilote">
+                
+                <!-- Carte 1: Graphique Donut (Pleine largeur) -->
+                <div class="card chart-card hidden-initial" id="success-chart-card">
+                    <canvas id="successChart"></canvas>
+                </div>
+
+                <!-- Grille 2 cartes (Succès / Échecs) -->
+                <div class="kpi-summary-grid">
+                    <!-- Carte 2: Succès -->
+                    <div class="card stat-card hidden-initial">
+                        <div class="stat-icon icon-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </div>
+                        <h3 data-target="140">0</h3>
+                        <span class="stat-label">Relevés Validés Automatiquement</span>
+                    </div>
+                    
+                    <!-- Carte 3: Échecs -->
+                    <div class="card stat-card hidden-initial">
+                        <div class="stat-icon icon-red">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                            </svg>
+                        </div>
+                        <h3 data-target="141">0</h3>
+                        <span class="stat-label">Relevés Nécessitant Intervention</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- NOUVELLE SECTION 2: LES 3 PILIERS -->
+            <section class="section-pillars" id="piliers">
+                <h2>Une Révolution Opérationnelle : Les 3 Piliers du Succès</h2>
+                <div class="grid-container pillars-grid">
+                    
+                    <!-- Pilier 1: Fiabilité -->
+                    <div class="card pillar-card hidden-initial">
+                        <div class="icon-circle icon-blue">
+                             <!-- heroicons: cpu-chip -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 16.5V21m3.75-18v1.5m0 16.5V21m-9.75-8.25h1.5a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1-.75-.75V9a.75.75 0 0 1 .75-.75Zm6.75 0h1.5a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1-.75-.75V9a.75.75 0 0 1 .75-.75Z" />
+                            </svg>
+                        </div>
+                        <h3>Fiabilité & Performance</h3>
+                        <p>Le système traite, valide et publie 100% des relevés. 1 cas sur 2 est validé sans aucune intervention humaine.</p>
+                    </div>
+                    
+                    <!-- Pilier 2: Gain de Temps -->
+                    <div class="card pillar-card hidden-initial">
+                        <div class="icon-circle icon-green">
+                             <!-- heroicons: clock -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </div>
+                        <h3>Gain de Temps Stratégique</h3>
+                        <p>Nos équipes en agence sont libérées des tâches manuelles à faible valeur ajoutée. Un gain de temps précieux.</p>
+                    </div>
+                    
+                    <!-- Pilier 3: Focus Qualité -->
+                    <div class="card pillar-card hidden-initial">
+                        <div class="icon-circle icon-yellow">
+                             <!-- heroicons: sparkles -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
+                            </svg>
+                        </div>
+                        <h3>Focus sur la Qualité</h3>
+                        <p>Le temps gagné est réalloué au traitement des cas complexes (les 141 échecs) et à l'amélioration continue de la qualité.</p>
+                    </div>
+                    
+                </div>
+            </section>
+            
+            <!-- Section 3: Logique de la "Validation Auto" -->
+            <section class="section-logic" id="processus">
+                <!-- Titre narratif MIS A JOUR -->
+                <h2>Rappel du Processus de la Validation AUTO</h2>
+                <div class="card hidden-initial">
+                    <div class="flow-container">
+                        
+                        <!-- Étape 1: Intégration des Relevés -->
+                        <div class="flow-step">
+                            <div class="icon-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+                                </svg>
+                            </div>
+                            <h4>Intégration des Relevés</h4>
+                        </div>
+
+                        <!-- Étape 2: Validation Auto -->
+                        <div class="flow-step">
+                            <div class="icon-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.745 3.745 0 0 1 3.296-1.043A3.745 3.745 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.745 3.745 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                                </svg>
+                            </div>
+                            <h4>Validation Auto</h4>
+                        </div>
+                        
+                        <!-- Étape 3: Dépôt Accès Pro -->
+                        <div class="flow-step">
+                            <div class="icon-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M8.25 3v1.875m6 0V3m-6 6.75h.008v.008H8.25v-.008Zm0 3h.008v.008H8.25v-.008Zm0 3h.008v.008H8.25v-.008Zm3-6h.008v.008H11.25v-.008Zm0 3h.008v.008H11.25v-.008Zm0 3h.008v.008H11.25v-.008Zm3-6h.008v.008H14.25v-.008Zm0 3h.008v.008H14.25v-.008Zm0 3h.008v.008H14.25v-.008Z" />
+                                </svg>
+                            </div>
+                            <h4>Dépôt Accès Pro</h4>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Analyse des Échecs -->
+            <section class="section-failures" id="analyse">
+                <!-- Titre narratif -->
+                <h2>Les points de friction : Comment atteindre 90% ?</h2>
+                <!-- ID ajouté pour le ciblage par l'observer -->
+                <div class="card hidden-initial" id="failure-chart-card" style="height: 480px;">
+                    <canvas id="failureChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Section 5: Objectifs et Prérequis (BENTO GRID) -->
+            <section class="section-roadmap" id="roadmap">
+                <!-- Titre narratif -->
+                <h2>Feuille de Route : Déploiement & Modernisation</h2>
+                <div class="grid-container roadmap-grid">
+                    
+                    <!-- Carte Large (Bento) : Objectif + Prérequis -->
+                    <div class="card roadmap-card-large hidden-initial">
+                        <div class="large-card-content">
+                            <!-- Section 1 de la carte large -->
+                            <div class="large-card-section">
+                                <div class="icon-circle icon-blue">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3>Déploiement National</h3>
+                                    <p>Ouverture progressive aux agences <strong>Nord, Est, et Centre-Est</strong>. Cible : <strong>Novembre 2025 confirmée</strong>.</p>
+                                </div>
+                            </div>
+                             <!-- Section 2 de la carte large -->
+                            <div class="large-card-section">
+                                <div class="icon-circle icon-yellow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a3 3 0 0 1-3 3m0 0a3 3 0 0 1-3 3m3-3a3 3 0 0 1-3-3m-3.75 0a3 3 0 0 1 3-3m-3 3a3 3 0 0 1-3 3m0 0a3 3 0 0 1-3-3m3 3a3 3 0 0 1 3 3m-3-3h.008v.008H12v-.008Z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3>Accès Pro : Levier Commercial</h3>
+                                    <p>Un argument commercial stratégique. L'adoption du portail par les syndics est un <strong>vecteur clé de gains d'efficacité</strong>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Carte: Bénéfice -->
+                    <div class="card roadmap-card hidden-initial">
+                        <div class="icon-circle icon-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.53-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Gains pour les Agences</h3>
+                            <p>Réduction significative des tâches manuelles pour nos <strong>équipes en agence</strong>, améliorant la fiabilité des données et la qualité du service client.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Carte: Point de Vigilance -->
+                    <div class="card roadmap-card hidden-initial">
+                        <div class="icon-circle icon-red">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.248 24.248 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Espace Client Modernisé</h3>
+                            <p>Dépôt sur un espace dédié, avec <strong>notification e-mail</strong> au client lors d'un nouveau document. Une évolution logique et attendue.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Proposé par la Direction Technique de Proxiserve et Prox-Hydro.</p>
+            <p>&copy; 2025 Proxiserve & Prox-Hydro | Tous droits réservés.</p>
+        </footer>
+        
+    </div>
+
+    <script>
+        // --- Variables Globales ---
+        let chartTextColor, chartGridColor, textPrimaryColor, accentPrimaryRgb;
+        let donutChart, barChart;
+        let tiltAf; // Pour l'animation frame de l'effet Tilt
+
+        // --- Fonctions de création des graphiques (AXE 4) ---
+        
+        <!-- Plugin Chart.js pour texte au centre du Donut -->
+        const donutCenterText = {
+            id: 'donutCenterText',
+            afterDraw(chart, args, options) {
+                if (chart.config.type !== 'doughnut') return;
+                
+                const { ctx, chartArea: { top, right, bottom, left, width, height } } = chart;
+                ctx.save();
+                
+                const dataTotal = chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                const successValue = chart.data.datasets[0].data[0];
+                const percentage = ((successValue / dataTotal) * 100).toFixed(1) + '%';
+                
+                // Ligne 1: Pourcentage
+                ctx.font = `bold 5.5rem var(--font-display)`; /* MODIFICATION : Taille ENCORE augmentée (était 4.5rem) */
+                ctx.fillStyle = textPrimaryColor;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(percentage, width / 2 + left, height / 2 + top - 25); /* MODIFICATION : Ajustement vertical */
+                
+                // Ligne 2: Label
+                ctx.font = `500 1.3rem var(--font-body)`; /* MODIFICATION : Légèrement plus grand */
+                ctx.fillStyle = chartTextColor;
+                ctx.fillText('Succès', width / 2 + left, height / 2 + top + 40); /* MODIFICATION : "Succès Auto" -> "Succès" */
+                
+                ctx.restore();
+            }
+        };
+
+        function initDonutChart() {
+            const ctxDonut = document.getElementById('successChart').getContext('2d');
+            const successData = {
+                labels: ['Succès', 'Échecs'], /* MODIFICATION : Labels simplifiés */
+                datasets: [{
+                    label: 'Total Événements',
+                    data: [140, 141],
+                    backgroundColor: [
+                        getComputedStyle(document.documentElement).getPropertyValue('--accent-green').trim(),
+                        getComputedStyle(document.documentElement).getPropertyValue('--accent-red').trim()
+                    ],
+                    borderColor: getComputedStyle(document.documentElement).getPropertyValue('--bg-glass').trim(),
+                    borderWidth: 6,
+                    hoverOffset: 8
+                }]
+            };
+
+            donutChart = new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: successData,
+                plugins: [donutCenterText],
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1200 // Durée de l'animation
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { padding: 25, usePointStyle: true, pointStyle: 'circle' }
+                        },
+                        title: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.label}: ${context.raw}`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initBarChart() {
+            const ctxBar = document.getElementById('failureChart').getContext('2d');
+            const failureData = {
+                labels: [
+                    '95% de relevés non atteint (60)', 
+                    'Seuil forte consommation (EF/ECS) dépassé (48)', 
+                    'Présence de code relève IC/IJ (17)', 
+                    'Présence d\'index à blanc (14)', 
+                    'Index actuel non supérieur (ou > 999000) (2)'
+                ],
+                datasets: [{
+                    label: 'Nombre d\'échecs (sur 141)',
+                    data: [60, 48, 17, 14, 2],
+                    backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim(),
+                    borderRadius: 6,
+                    barThickness: 24,
+                    hoverBackgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim() + 'cc'
+                }]
+            };
+
+            barChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: failureData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1200,
+                        easing: 'easeInOutCubic', // Effet d'animation
+                        from: 0, // Commence de la gauche
+                        delay: 200 // Petit délai
+                    },
+                    scales: {
+                        x: { beginAtZero: true, grid: { color: chartGridColor, drawBorder: false }, ticks: { color: chartTextColor, font: { size: 12 } } },
+                        y: { grid: { display: false, drawBorder: false }, ticks: { color: chartTextColor, font: { size: 13, weight: '500' } } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Causes principales des 141 "AUTO KO"',
+                            font: { size: 18, weight: '700', family: "'Lexend', sans-serif" },
+                            color: textPrimaryColor,
+                            padding: { bottom: 25 }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(30, 41, 59, 0.9)',
+                            titleColor: '#F1F5F9',
+                            bodyColor: '#94A3B8',
+                            borderColor: '#334155',
+                            borderWidth: 1,
+                            cornerRadius: 6,
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    const total = 141;
+                                    const value = context.parsed.x;
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${context.label.split('(')[0].trim()} : ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Fonction de mise à jour des couleurs ---
+        function updateChartColors() {
+            chartTextColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-text-color').trim();
+            chartGridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid-color').trim();
+            textPrimaryColor = getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim();
+            const newBgGlass = getComputedStyle(document.documentElement).getPropertyValue('--bg-glass').trim();
+            const newAccentPrimary = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim();
+            
+            Chart.defaults.color = chartTextColor;
+            Chart.defaults.borderColor = chartGridColor;
+            
+            if (donutChart) {
+                donutChart.data.datasets[0].borderColor = newBgGlass;
+                donutChart.update();
+            }
+            if (barChart) {
+                barChart.options.plugins.title.color = textPrimaryColor;
+                barChart.options.scales.x.grid.color = chartGridColor;
+                barChart.options.scales.x.ticks.color = chartTextColor;
+                barChart.options.scales.y.ticks.color = chartTextColor;
+                barChart.data.datasets[0].backgroundColor = newAccentPrimary;
+                barChart.update();
+            }
+        }
+
+        // --- Fonction d'animation du compteur ---
+        const animateCounter = (el, target) => {
+            let start = 0;
+            const duration = 1500;
+            const step = (timestamp) => {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const percentage = Math.min(progress / duration, 1);
+                el.innerText = Math.floor(percentage * target).toLocaleString('fr-FR');
+                if (progress < duration) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    el.innerText = target.toLocaleString('fr-FR');
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        // --- AXE 3 : EFFET 3D TILT ---
+        function addTiltEffect() {
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    cancelAnimationFrame(tiltAf); // Optimisation
+                    tiltAf = requestAnimationFrame(() => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left; // x position inside the element.
+                        const y = e.clientY - rect.top;  // y position inside the element.
+
+                        const { width, height } = rect;
+                        const centerX = width / 2;
+                        const centerY = height / 2;
+
+                        const rotateX = ((y - centerY) / centerY) * -8; // Max 8 degrés
+                        const rotateY = ((x - centerX) / centerX) * 8;  // Max 8 degrés
+
+                        card.style.transition = 'transform 0.1s linear'; // Transition rapide
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+                    });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    cancelAnimationFrame(tiltAf);
+                    card.style.transition = 'transform 0.4s ease-out'; // Retour doux
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
+        }
+
+
+        // --- DÉMARRAGE AU CHARGEMENT ---
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Initialiser les couleurs
+            updateChartColors();
+            accentPrimaryRgb = '56, 189, 248';
+            document.documentElement.style.setProperty('--accent-primary-rgb', accentPrimaryRgb);
+            
+            // --- Animation au Défilement (IntersectionObserver) ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2 // Déclenche quand 20% de l'élément est visible
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        target.classList.add('is-visible');
+                        
+                        // Animer le compteur
+                        const counter = target.querySelector('h3[data-target]');
+                        if (counter && !counter.dataset.animated) {
+                            const targetValue = +counter.dataset.target;
+                            animateCounter(counter, targetValue);
+                            counter.dataset.animated = 'true';
+                        }
+                        
+                        // AXE 4 : Animer les graphiques
+                        if (target.id === 'success-chart-card' && !target.dataset.chartInit) {
+                            initDonutChart();
+                            target.dataset.chartInit = 'true';
+                        }
+                        if (target.id === 'failure-chart-card' && !target.dataset.chartInit) {
+                            initBarChart();
+                            target.dataset.chartInit = 'true';
+                        }
+                        
+                        observer.unobserve(target); // N'observer qu'une seule fois
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            const targets = document.querySelectorAll('.hidden-initial');
+            targets.forEach(target => observer.observe(target));
+
+            // Activer l'effet Tilt 3D
+            addTiltEffect();
+
+            // Gestion du changement de Thème (Dark/Light)
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', event => {
+                updateChartColors();
+            });
+            
+            // NOUVEAU : Gestion du scroll pour le menu actif
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.main-nav a');
+            
+            const onScroll = () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 100) { // Offset de 100px
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', onScroll);
+            onScroll(); // Exécuter au chargement
+            
+        });
+    </script>
+</body>
+</html>
+
