@@ -42,7 +42,6 @@ Conformément à la [Licence d'Utilisation](LICENSE.md) de ce dépôt, ces infog
 
 * **Description :** Cette infographie présente les résultats du projet Licorne sur l'automatisation de la chaîne de relevés. Elle inclut le bilan du pilote et des gains opérationnels majeurs.
 * **Accéder à l'infographie :** [Voir l'infographie "Projet Licorne : Automatisation des Relevés"](https://cosmofilou.github.io/infographies_px/projet_licorne_chaine_releves_automatisee/index.html)
-    *(Ce lien sera fonctionnel une fois le dossier et le fichier HTML créés)*
 
 ---
 
