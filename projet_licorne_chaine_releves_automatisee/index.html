@@ -5,22 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilote "Validation Automatique" - Agence Ouest</title>
     
-    <!-- Google Font 'Inter' (Contrainte) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Google Font 'Inter' (Contrainte) --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- TailwindCSS (Contrainte) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- TailwindCSS (Contrainte) --><script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome (Contrainte) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font Awesome (Contrainte) --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- Chart.js (Contrainte) -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <!-- Chart.js (Contrainte) --><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     
-    <!-- Configuration Tailwind pour 'Inter' -->
-    <script>
+    <!-- Configuration Tailwind pour 'Inter' --><script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -33,8 +28,7 @@
         }
     </script>
     
-    <!-- CSS Personnalisé (Contrainte) -->
-    <style type="text/css">
+    <!-- CSS Personnalisé (Contrainte) --><style type="text/css">
         /* Style de base */
         html { 
             scroll-behavior: smooth; 
@@ -239,26 +233,21 @@
     </style>
 </head>
 
-<!-- Body avec classes de base (Contrainte) -->
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+<!-- Body avec classes de base (Contrainte) --><body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
 
-    <!-- AXE 1 : FOND "VIVANT" AURORA (Ajouté) -->
-    <div class="aurora-background">
+    <!-- AXE 1 : FOND "VIVANT" AURORA (Ajouté) --><div class="aurora-background">
         <div class="aurora-blob aurora-blob-1"></div>
         <div class="aurora-blob aurora-blob-2"></div>
     </div>
 
-    <!-- BANDEAU DE CONFIDENTIALITÉ (Déplacé et sticky) -->
-    <div class="bg-amber-100 dark:bg-amber-900 border-b border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-200 text-center py-2 px-4 text-sm font-semibold sticky top-0 z-50">
+    <!-- BANDEAU DE CONFIDENTIALITÉ (Déplacé et sticky) --><div class="bg-amber-100 dark:bg-amber-900 border-b border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-200 text-center py-2 px-4 text-sm font-semibold sticky top-0 z-50">
         <i class="fas fa-exclamation-triangle mr-2"></i> Document interne à usage exclusif. Toute reproduction est interdite.
     </div>
     
-    <!-- NOUVELLE BARRE DE NAVIGATION (Avec liens) -->
-    <nav class="main-nav">
+    <!-- NOUVELLE BARRE DE NAVIGATION (Avec liens) --><nav class="main-nav">
         <div class="nav-container">
-            <span class="nav-logo"><i class="fas fa-robot mr-2"></i> PROJET LICORNE</span>
-            <!-- Liens ajoutés -->
-            <div class="nav-links">
+            <span class="nav-logo"><i class="fas fa-cloud-arrow-up mr-2"></i> PROJET LICORNE</span>
+            <!-- Liens ajoutés --><div class="nav-links">
                  <ul>
                     <li><a href="#kpis">KPIs</a></li>
                     <li><a href="#flux">Flux</a></li>
@@ -275,31 +264,22 @@
     </nav>
 
 
-    <!-- Conteneur principal (Modifié : ajout de relative z-10 et pt-0) -->
-    <div class="container relative z-10 mx-auto max-w-7xl p-4 pt-8 md:p-8">
+    <!-- Conteneur principal (Modifié : ajout de relative z-10 et pt-0) --><div class="container relative z-10 mx-auto max-w-7xl p-4 pt-8 md:p-8">
 
-        <!-- === BLOC 1: TITRE ET KPI GLOBAUX === -->
-        <header id="top" class="text-center mb-10 hidden-initial"> <!-- ID ajouté -->
-            <!-- Icone ajoutée -->
-            <div class="header-icon-container">
-                <i class="fas fa-robot text-4xl text-indigo-600 dark:text-indigo-400"></i>
+        <!-- === BLOC 1: TITRE ET KPI GLOBAUX === --><header id="top" class="text-center mb-10 hidden-initial"> <!-- ID ajouté --><!-- Icone ajoutée --><div class="header-icon-container">
+                <i class="fas fa-cloud-arrow-up text-4xl text-indigo-600 dark:text-indigo-400"></i>
             </div>
-            <!-- Titre percutant + Contexte Licorne -->
-            <h1 class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400">
+            <!-- Titre percutant + Contexte Licorne --><h1 class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400">
                 Licorne : L'Automatisation en Action
             </h1>
             <p class="text-xl text-slate-600 dark:text-slate-400 mt-2">
                 Analyse Micro du Pilote "Validation Automatique" (Agence Ouest)</p>
        </header>
-            <!-- Contexte Objectif -->
-       <div class="info-card text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12 hidden-initial">
+            <!-- Contexte Objectif --><div class="info-card text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12 hidden-initial">
            <p class="text-base text-slate-600 dark:text-slate-300">Découvrez les premiers résultats concrets de la Validation Automatique, pierre angulaire de l'optimisation de nos flux de relevés pour les syndics, de l'intégration à la mise à disposition des livrables sur Accès Pro.</p>
        </div>
 
-        <!-- Grille des KPIs -->
-        <section id="kpis" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset -->
-            <!-- Total -->
-            <div class="info-card hidden-initial">
+        <!-- Grille des KPIs --><section id="kpis" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Total --><div class="info-card hidden-initial">
                 <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900 rounded-full">
                         <i class="fas fa-rocket text-xl text-indigo-600 dark:text-indigo-400"></i>
@@ -310,8 +290,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Succès -->
-            <div class="info-card hidden-initial">
+            <!-- Succès --><div class="info-card hidden-initial">
                 <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-green-100 dark:bg-green-900 rounded-full">
                         <i class="fas fa-check-circle text-xl text-green-600 dark:text-green-400"></i>
@@ -322,8 +301,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Échecs -->
-            <div class="info-card hidden-initial">
+            <!-- Échecs --><div class="info-card hidden-initial">
                 <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-red-100 dark:bg-red-900 rounded-full">
                         <i class="fas fa-triangle-exclamation text-xl text-red-600 dark:text-red-400"></i>
@@ -334,8 +312,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Taux de Succès -->
-            <div class="info-card hidden-initial">
+            <!-- Taux de Succès --><div class="info-card hidden-initial">
                 <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full">
                         <i class="fas fa-chart-pie text-xl text-blue-600 dark:text-blue-400"></i>
@@ -348,14 +325,11 @@
             </div>
         </section>
 
-        <!-- === BLOC 2: LOGIQUE MÉTIER (FLUX) === -->
-        <section id="flux" class="info-card mb-12 hidden-initial"> <!-- Suppression du padding/margin d'offset -->
-            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+        <!-- === BLOC 2: LOGIQUE MÉTIER (FLUX) === --><section id="flux" class="info-card mb-12 hidden-initial"> <!-- Suppression du padding/margin d'offset --><h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
                 <i class="fas fa-project-diagram mr-2"></i> Le Flux de l'Automatisation des Relevés
             </h2>
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
-                <!-- Étape 1 (Icônes modifiées) -->
-                <div class="text-center">
+                <!-- Étape 1 (Icônes modifiées) --><div class="text-center">
                     <div class="flex justify-center items-center space-x-2 text-3xl text-indigo-500 mb-2 h-8">
                         <i class="fas fa-satellite-dish" title="GPRS"></i>
                         <i class="fas fa-tablet-alt" title="Mobilité Technicien"></i>
@@ -363,30 +337,24 @@
                     <p class="font-semibold">Intégration Relevés</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(GPRS ou Mobilité Technicien)</p>
                 </div>
-                <!-- Flèche corrigée -->
-                <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600 mx-2"></i>
-                <!-- Étape 2 (Modifiée) -->
-                <div class="text-center">
+                <!-- Flèche corrigée --><i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600 mx-2"></i>
+                <!-- Étape 2 (Modifiée) --><div class="text-center">
                     <div class="flex justify-center items-center text-3xl text-indigo-500 mb-2 h-8">
                         <i class="fas fa-cogs"></i>
                     </div>
                     <p class="font-semibold">Validation Automatique</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(Déclenchée à l'intégration)</p>
                 </div>
-                 <!-- Flèche corrigée -->
-                <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600 mx-2"></i>
-                <!-- Étape 3 (Modifiée) -->
-                <div class="text-center">
+                 <!-- Flèche corrigée --><i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600 mx-2"></i>
+                <!-- Étape 3 (Modifiée) --><div class="text-center">
                     <div class="flex justify-center items-center text-3xl text-indigo-500 mb-2 h-8">
                         <i class="fas fa-clipboard-check"></i>
                     </div>
                     <p class="font-semibold">Contrôle par Critères</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(Critères de validation simples)</p>
                 </div>
-                 <!-- Flèche corrigée -->
-                <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600 mx-2"></i>
-                <!-- Étape 4 (Modifiée) -->
-                <div class="text-center">
+                 <!-- Flèche corrigée --><i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600 mx-2"></i>
+                <!-- Étape 4 (Modifiée) --><div class="text-center">
                     <div class="flex justify-center items-center text-3xl text-indigo-500 mb-2 h-8">
                         <i class="fas fa-folder-open"></i>
                     </div>
@@ -396,17 +364,12 @@
             </div>
         </section>
 
-        <!-- === BLOC 3: ANALYSE MICRO (LES GRAPHIQUES) === -->
-        <section id="analyse" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset -->
-            <!-- Graphique Donut (Modifié avec KPI Central) -->
-            <div class="info-card hidden-initial">
+        <!-- === BLOC 3: ANALYSE MICRO (LES GRAPHIQUES) === --><section id="analyse" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Graphique Donut (Modifié avec KPI Central) --><div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                     Performance Pilote Ouest
                 </h2>
-                <!-- Conteneur relatif pour le graphique ET le KPI central -->
-                <div class="relative h-64 md:h-80 lg:h-96">
-                    <!-- KPI Central (Z-index retiré) -->
-                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <!-- Conteneur relatif pour le graphique ET le KPI central --><div class="relative h-64 md:h-80 lg:h-96">
+                    <!-- KPI Central (Z-index retiré) --><div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400">49.8%</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400 mt-1">de Succès Auto</span>
                     </div>
@@ -414,8 +377,7 @@
                 </div>
             </div>
             
-            <!-- Graphique Barres: Causes d'Échec -->
-            <div class="info-card hidden-initial">
+            <!-- Graphique Barres: Causes d'Échec --><div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                     Analyse des 141 Échecs (AUTO KO)
                 </h2>
@@ -425,10 +387,7 @@
             </div>
         </section>
 
-        <!-- === BLOC 4: NARRATIF STRATÉGIQUE === -->
-        <section id="strategie" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset -->
-            <!-- Learnings (Modifié) -->
-            <div class="info-card hidden-initial">
+        <!-- === BLOC 4: NARRATIF STRATÉGIQUE === --><section id="strategie" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Learnings (Modifié) --><div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                     <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Learnings & Actions
                 </h2>
@@ -464,8 +423,7 @@
                 </ul>
             </div>
             
-            <!-- Prérequis Clé (Modifié) -->
-            <div class="info-card border-2 border-amber-500 dark:border-amber-400 hidden-initial">
+            <!-- Prérequis Clé (Modifié) --><div class="info-card border-2 border-amber-500 dark:border-amber-400 hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                     <i class="fas fa-key text-amber-500 dark:text-amber-400 mr-2"></i> Prérequis Stratégique Clé
                 </h2>
@@ -481,16 +439,13 @@
                 <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
                     <i class="fas fa-handshake mr-1"></i> Cet onboarding devient un <span class="font-semibold">levier commercial</span> pour valoriser le portail et ses fonctionnalités de supervision.
                 </p>
-                <!-- Ajout sur la "Santé du Parc" -->
-                <p class="mt-4 pt-4 border-t border-amber-200 dark:border-amber-800 text-sm text-slate-500 dark:text-slate-400">
+                <!-- Ajout sur la "Santé du Parc" --><p class="mt-4 pt-4 border-t border-amber-200 dark:border-amber-800 text-sm text-slate-500 dark:text-slate-400">
                     <i class="fas fa-signal mr-1"></i> <span class="font-semibold">Indicateur de "Santé du Parc":</span> Le taux de succès de 49.8% reflète aussi un parc Ouest bien entretenu (captation radio). Ce taux servira d'indicateur de performance pour les autres agences.
                 </p>
             </div>
         </section>
         
-        <!-- === BLOC 5: ROADMAP PROJECTION === -->
-        <section id="roadmap" class="info-card mb-12 hidden-initial"> <!-- Suppression du padding/margin d'offset -->
-            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+        <!-- === BLOC 5: ROADMAP PROJECTION === --><section id="roadmap" class="info-card mb-12 hidden-initial"> <!-- Suppression du padding/margin d'offset --><h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
                 <i class="fas fa-map-signs mr-2"></i> Historique et Projection
             </h2>
             <ol class="relative border-l border-gray-200 dark:border-gray-700 ml-4">                  
@@ -526,8 +481,7 @@
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">À partir de Novembre 2025</time>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">Au regard du succès du pilote, élargissement aux agences Est, Nord et Centre-Est.</p>
                 </li>
-                 <!-- POINT MODIFIÉ -->
-                <li class="mb-10 ml-6">
+                 <!-- POINT MODIFIÉ --><li class="mb-10 ml-6">
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
                         <i class="fas fa-chart-line text-blue-800 dark:text-blue-300 text-xs"></i>
                     </span>
@@ -535,8 +489,7 @@
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Courant Novembre - Décembre 2025</time>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">Rattachement des rapports de suivi (prêts) aux plannings dans Licorne pour visualiser les actions humaines requises (dispo. courant Nov). Amélioration continue des indicateurs par la DT pour un pilotage 100% Licorne d'ici fin d'année.</p>
                 </li>
-                 <!-- POINT AJOUTÉ -->
-                <li class="mb-10 ml-6">
+                 <!-- POINT AJOUTÉ --><li class="mb-10 ml-6">
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-purple-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-purple-900">
                         <i class="fas fa-cogs text-purple-800 dark:text-purple-300 text-xs"></i>
                     </span>
@@ -544,8 +497,7 @@
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Courant 2026</time>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">Itération basée sur les learnings V1 : affinage des tolérances, révision des seuils, potentiellement options de paramétrage et exclusion du critère "IJ". Objectif : augmenter le taux de succès.</p>
                 </li>
-                 <!-- POINT AJOUTÉ -->
-                 <li class="ml-6">
+                 <!-- POINT AJOUTÉ --><li class="ml-6">
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-teal-900">
                         <i class="fas fa-brain text-teal-800 dark:text-teal-300 text-xs"></i>
                     </span>
@@ -554,27 +506,21 @@
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">Transition d'un système basé sur des règles simples vers une IA capable d'analyser les données, de proposer, voire d'appliquer des corrections intelligentes. Objectif : maximiser le taux de délivrabilité automatique et fiabiliser les cas complexes.</p>
                 </li>
             </ol>
-            <!-- CTA Ajouté (Suggestion Forme) -->
-            <div class="mt-8 text-center">
+            <!-- CTA Ajouté (Suggestion Forme) --><div class="mt-8 text-center">
                 <button type="button" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg opacity-75 cursor-not-allowed" disabled>
                     <i class="fas fa-chart-line mr-2"></i> Consulter le Dashboard de Suivi (Fin 2025)
                 </button>
             </div>
         </section>
         
-        <!-- Séparateur ajouté -->
-        <hr class="border-slate-200 dark:border-slate-700 my-8">
+        <!-- Séparateur ajouté --><hr class="border-slate-200 dark:border-slate-700 my-8">
 
-        <!-- === FOOTER (Modifié) === -->
-        <footer class="text-center text-sm text-slate-500 dark:text-slate-400 mt-12 pb-8">
+        <!-- === FOOTER (Modifié) === --><footer class="text-center text-sm text-slate-500 dark:text-slate-400 mt-12 pb-8">
             <p>Proposé par la Direction Technique</p>
             <p>© 2025 Groupe Proxiserve Prox-Hydro | Tous droits réservés. Reproduction interdite.</p>
         </footer>
 
-    </div> <!-- Fin du conteneur -->
-
-    <!-- === SCRIPTS === -->
-    <script>
+    </div> <!-- Fin du conteneur --><!-- === SCRIPTS === --><script>
         // === GESTION DU DARK MODE (Contrainte JS) ===
         const themeToggleBtn = document.getElementById('theme-toggle');
         const docElement = document.documentElement;
@@ -860,6 +806,4 @@
     
 </body>
 </html>
-
-
 
