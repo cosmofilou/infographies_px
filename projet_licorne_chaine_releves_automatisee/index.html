@@ -36,6 +36,10 @@
     <!-- CSS Personnalisé (Contrainte) -->
     <style type="text/css">
         /* Style de base */
+        html { 
+            scroll-behavior: smooth; 
+            scroll-padding-top: 100px; /* Ajout global pour l'offset des ancres */
+        } 
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -49,7 +53,6 @@
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
             padding: 1.5rem; /* p-6 */
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Modifié pour inclure transform */
-            /* Suppression des styles 3D Tilt */
         }
 
         /* Hover spécifié dans les exemples (Rétabli) */
@@ -67,34 +70,97 @@
              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Ombre pour dark mode */
         }
         
-        /* Styles pour le bouton de dark mode */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1.5rem;
-            z-index: 50;
-            background-color: #334155; /* bg-slate-700 */
-            color: #e2e8f0; /* text-slate-200 */
+        /* === NOUVELLE BARRE DE NAVIGATION === */
+        .main-nav {
+            position: sticky;
+            top: 36px; /* Hauteur du bandeau de confidentialité */
+            z-index: 40;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7); /* slate-200 avec alpha */
+        }
+        
+        .dark .main-nav {
+            background-color: rgba(15, 23, 42, 0.7); /* slate-900 avec alpha */
+            border-bottom: 1px solid rgba(51, 65, 85, 0.7); /* slate-700 avec alpha */
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 7xl;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+        }
+        
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b; /* slate-800 */
+        }
+        
+        .dark .nav-logo {
+            color: #e2e8f0; /* slate-200 */
+        }
+
+        /* Liens de navigation */
+        .nav-links ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569; /* slate-600 */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .dark .nav-links a {
+            color: #94a3b8; /* slate-400 */
+        }
+        .nav-links a:hover {
+            color: #1e293b; /* slate-800 */
+        }
+        .dark .nav-links a:hover {
+            color: #e2e8f0; /* slate-200 */
+        }
+
+        /* Masquer les liens sur mobile */
+        @media (max-width: 767px) {
+            .nav-links { display: none; }
+        }
+
+
+        /* Style pour le bouton dark mode DANS la nav */
+        .nav-theme-toggle {
+            background-color: #e2e8f0; /* bg-slate-200 */
+            color: #334155; /* text-slate-700 */
             border-radius: 9999px; /* rounded-full */
-            width: 3rem; /* w-12 */
-            height: 3rem; /* h-12 */
+            width: 2.5rem; /* w-10 */
+            height: 2.5rem; /* h-10 */
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             transition: all 0.2s ease;
         }
-        .dark .dark-mode-toggle {
-            background-color: #4f46e5; /* dark:bg-indigo-600 */
-            color: #ffffff;
+        .dark .nav-theme-toggle {
+            background-color: #334155; /* dark:bg-slate-700 */
+            color: #e2e8f0; /* dark:text-slate-200 */
         }
-        .dark-mode-toggle:hover {
-            background-color: #475569; /* hover:bg-slate-600 */
+        .nav-theme-toggle:hover {
+            background-color: #cbd5e1; /* hover:bg-slate-300 */
         }
-        .dark .dark-mode-toggle:hover {
-            background-color: #4338ca; /* dark:hover:bg-indigo-700 */
+        .dark .nav-theme-toggle:hover {
+            background-color: #475569; /* dark:hover:bg-slate-600 */
         }
+        /* Fin styles Nav */
+
 
         /* Styles pour l'icône de l'en-tête */
         .header-icon-container {
@@ -182,17 +248,38 @@
         <div class="aurora-blob aurora-blob-2"></div>
     </div>
 
-    <!-- Bouton Dark Mode (Contrainte JS) -->
-    <button id="theme-toggle" type="button" class="dark-mode-toggle">
-        <i class="fas fa-moon text-lg hidden dark:block" id="theme-toggle-dark-icon"></i>
-        <i class="fas fa-sun text-lg dark:hidden" id="theme-toggle-light-icon"></i>
-    </button>
+    <!-- BANDEAU DE CONFIDENTIALITÉ (Déplacé et sticky) -->
+    <div class="bg-amber-100 dark:bg-amber-900 border-b border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-200 text-center py-2 px-4 text-sm font-semibold sticky top-0 z-50">
+        <i class="fas fa-exclamation-triangle mr-2"></i> Document interne à usage exclusif. Toute reproduction est interdite.
+    </div>
+    
+    <!-- NOUVELLE BARRE DE NAVIGATION (Avec liens) -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <span class="nav-logo"><i class="fas fa-robot mr-2"></i> PROJET LICORNE</span>
+            <!-- Liens ajoutés -->
+            <div class="nav-links">
+                 <ul>
+                    <li><a href="#kpis">KPIs</a></li>
+                    <li><a href="#flux">Flux</a></li>
+                    <li><a href="#analyse">Analyse</a></li>
+                    <li><a href="#strategie">Stratégie</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                 </ul>
+            </div>
+            <button id="theme-toggle" type="button" class="nav-theme-toggle">
+                <i class="fas fa-moon text-lg hidden dark:block" id="theme-toggle-dark-icon"></i>
+                <i class="fas fa-sun text-lg dark:hidden" id="theme-toggle-light-icon"></i>
+            </button>
+        </div>
+    </nav>
 
-    <!-- Conteneur principal (Modifié : ajout de relative z-10) -->
-    <div class="container relative z-10 mx-auto max-w-7xl p-4 pt-16 md:p-8 md:pt-16">
+
+    <!-- Conteneur principal (Modifié : ajout de relative z-10 et pt-0) -->
+    <div class="container relative z-10 mx-auto max-w-7xl p-4 pt-8 md:p-8">
 
         <!-- === BLOC 1: TITRE ET KPI GLOBAUX === -->
-        <header class="text-center mb-10 hidden-initial">
+        <header id="top" class="text-center mb-10 hidden-initial"> <!-- ID ajouté -->
             <!-- Icone ajoutée -->
             <div class="header-icon-container">
                 <i class="fas fa-robot text-4xl text-indigo-600 dark:text-indigo-400"></i>
@@ -210,7 +297,7 @@
        </div>
 
         <!-- Grille des KPIs -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <section id="kpis" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset -->
             <!-- Total -->
             <div class="info-card hidden-initial">
                 <div class="flex items-center space-x-4">
@@ -262,7 +349,7 @@
         </section>
 
         <!-- === BLOC 2: LOGIQUE MÉTIER (FLUX) === -->
-        <section class="info-card mb-12 hidden-initial">
+        <section id="flux" class="info-card mb-12 hidden-initial"> <!-- Suppression du padding/margin d'offset -->
             <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
                 <i class="fas fa-project-diagram mr-2"></i> Le Flux de l'Automatisation des Relevés
             </h2>
@@ -276,7 +363,8 @@
                     <p class="font-semibold">Intégration Relevés</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(GPRS ou Mobilité Technicien)</p>
                 </div>
-                <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600"></i>
+                <!-- Flèche corrigée -->
+                <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600 mx-2"></i>
                 <!-- Étape 2 (Modifiée) -->
                 <div class="text-center">
                     <div class="flex justify-center items-center text-3xl text-indigo-500 mb-2 h-8">
@@ -285,7 +373,8 @@
                     <p class="font-semibold">Validation Automatique</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(Déclenchée à l'intégration)</p>
                 </div>
-                <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600"></i>
+                 <!-- Flèche corrigée -->
+                <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600 mx-2"></i>
                 <!-- Étape 3 (Modifiée) -->
                 <div class="text-center">
                     <div class="flex justify-center items-center text-3xl text-indigo-500 mb-2 h-8">
@@ -294,7 +383,8 @@
                     <p class="font-semibold">Contrôle par Critères</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(Critères de validation simples)</p>
                 </div>
-                <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600"></i>
+                 <!-- Flèche corrigée -->
+                <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600 mx-2"></i>
                 <!-- Étape 4 (Modifiée) -->
                 <div class="text-center">
                     <div class="flex justify-center items-center text-3xl text-indigo-500 mb-2 h-8">
@@ -307,7 +397,7 @@
         </section>
 
         <!-- === BLOC 3: ANALYSE MICRO (LES GRAPHIQUES) === -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+        <section id="analyse" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset -->
             <!-- Graphique Donut (Modifié avec KPI Central) -->
             <div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
@@ -336,7 +426,7 @@
         </section>
 
         <!-- === BLOC 4: NARRATIF STRATÉGIQUE === -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <section id="strategie" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset -->
             <!-- Learnings (Modifié) -->
             <div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
@@ -399,7 +489,7 @@
         </section>
         
         <!-- === BLOC 5: ROADMAP PROJECTION === -->
-        <section class="info-card mb-12 hidden-initial">
+        <section id="roadmap" class="info-card mb-12 hidden-initial"> <!-- Suppression du padding/margin d'offset -->
             <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
                 <i class="fas fa-map-signs mr-2"></i> Historique et Projection
             </h2>
@@ -627,7 +717,18 @@
                 const isDark = e.detail.isDark;
                 const newTextColor = getChartTextColor();
                 const newGridColor = getChartGridColor();
-                const newBorderColor = isDark ? '#1e293b' : '#ffffff';
+                
+                // Mettre à jour la couleur de fond du donut
+                let newBorderColor;
+                // On essaie de récupérer la couleur de fond de la carte parente
+                 const donutCard = document.getElementById('pilotDonutChart').closest('.info-card');
+                if (donutCard) {
+                    newBorderColor = window.getComputedStyle(donutCard).backgroundColor;
+                } else {
+                    // Fallback si on ne trouve pas la carte
+                    newBorderColor = isDark ? '#1e293b' : '#ffffff';
+                }
+
 
                 // MàJ Donut
                 donutChart.options.plugins.legend.labels.color = newTextColor;
@@ -734,7 +835,7 @@
             const observer = new IntersectionObserver(observerCallback, observerOptions);
             const targets = document.querySelectorAll('.hidden-initial');
             targets.forEach(target => observer.observe(target));
-
+            
         });
     </script>
     
