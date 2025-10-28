@@ -405,8 +405,8 @@
                 </h2>
                 <!-- Conteneur relatif pour le graphique ET le KPI central -->
                 <div class="relative h-64 md:h-80 lg:h-96">
-                    <!-- KPI Central (Ajouté) -->
-                    <div class="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+                    <!-- KPI Central (Z-index retiré) -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400">49.8%</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400 mt-1">de Succès Auto</span>
                     </div>
@@ -514,7 +514,7 @@
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
                         <i class="fas fa-flag-checkered text-blue-800 dark:text-blue-300 text-xs"></i>
                     </span>
-                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Q3 2025 : Pilote Agence Ouest <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">Actuel</span></h3>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Q3 2025 : Pilote Agence Ouest <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300 ml-3">Terminé</span></h3>
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Septembre 2025</time>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">Mise en production sur l'agence pilote. Extraction et analyse des premières données (Succès de 49.8%).</p>
                 </li>
@@ -522,23 +522,42 @@
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
                         <i class="fas fa-shipping-fast text-blue-800 dark:text-blue-300 text-xs"></i>
                     </span>
-                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Q4 2025 : Déploiement National</h3>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Q4 2025 : Déploiement National <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">En Cours</span></h3>
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">À partir de Novembre 2025</time>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">Au regard du succès du pilote, élargissement aux agences Est, Nord et Centre-Est.</p>
                 </li>
-                <li class="ml-6">
+                 <!-- POINT MODIFIÉ -->
+                <li class="mb-10 ml-6">
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
                         <i class="fas fa-chart-line text-blue-800 dark:text-blue-300 text-xs"></i>
                     </span>
-                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Finalisation : Rapports de Suivi & KPIs (Licorne)</h3>
-                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Prochaine Étape</Mise>
-                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Mise en production de rapports de suivi (type Salesforce) pour visualiser les interventions humaines nécessaires et suivre les 3 KPIs clés : Intégration, Analyse, Envoi.</p>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Fin 2025 : Finalisation V1 - Pilotage Intégré</h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Courant Novembre - Décembre 2025</time>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Rattachement des rapports de suivi (prêts) aux plannings dans Licorne pour visualiser les actions humaines requises (dispo. courant Nov). Amélioration continue des indicateurs par la DT pour un pilotage 100% Licorne d'ici fin d'année.</p>
+                </li>
+                 <!-- POINT AJOUTÉ -->
+                <li class="mb-10 ml-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-purple-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-purple-900">
+                        <i class="fas fa-cogs text-purple-800 dark:text-purple-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Projection 2026 : Validation Auto V2</h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Courant 2026</time>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Itération basée sur les learnings V1 : affinage des tolérances, révision des seuils, potentiellement options de paramétrage et exclusion du critère "IJ". Objectif : augmenter le taux de succès.</p>
+                </li>
+                 <!-- POINT AJOUTÉ -->
+                 <li class="ml-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-teal-900">
+                        <i class="fas fa-brain text-teal-800 dark:text-teal-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Vision 2026/2027 : Validation Assistée par IA</h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Horizon 2026 - 2027</time>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Transition d'un système basé sur des règles simples vers une IA capable d'analyser les données, de proposer, voire d'appliquer des corrections intelligentes. Objectif : maximiser le taux de délivrabilité automatique et fiabiliser les cas complexes.</p>
                 </li>
             </ol>
             <!-- CTA Ajouté (Suggestion Forme) -->
             <div class="mt-8 text-center">
                 <button type="button" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg opacity-75 cursor-not-allowed" disabled>
-                    <i class="fas fa-chart-line mr-2"></i> Consulter le Dashboard de Suivi (Prochaine Étape)
+                    <i class="fas fa-chart-line mr-2"></i> Consulter le Dashboard de Suivi (Fin 2025)
                 </button>
             </div>
         </section>
@@ -841,4 +860,6 @@
     
 </body>
 </html>
+
+
 
