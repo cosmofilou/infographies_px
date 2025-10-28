@@ -197,30 +197,39 @@
                 <i class="fas fa-project-diagram mr-2"></i> Le Flux de l'Automatisation des Relevés
             </h2>
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
-                <!-- Étape 1 (Modifiée) -->
+                <!-- Étape 1 (Icônes modifiées) -->
                 <div class="text-center">
-                    <i class="fas fa-upload text-3xl text-indigo-500 mb-2"></i>
+                    <div class="flex justify-center items-center space-x-2 text-3xl text-indigo-500 mb-2 h-8">
+                        <i class="fas fa-satellite-dish" title="GPRS"></i>
+                        <i class="fas fa-tablet-alt" title="Mobilité Technicien"></i>
+                    </div>
                     <p class="font-semibold">Intégration Relevés</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(GPRS ou Mobilité Technicien)</p>
                 </div>
                 <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600"></i>
                 <!-- Étape 2 (Modifiée) -->
                 <div class="text-center">
-                    <i class="fas fa-cogs text-3xl text-indigo-500 mb-2"></i>
+                    <div class="flex justify-center items-center text-3xl text-indigo-500 mb-2 h-8">
+                        <i class="fas fa-cogs"></i>
+                    </div>
                     <p class="font-semibold">Validation Automatique</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(Déclenchée à l'intégration)</p>
                 </div>
                 <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600"></i>
                 <!-- Étape 3 (Modifiée) -->
                 <div class="text-center">
-                    <i class="fas fa-clipboard-check text-3xl text-indigo-500 mb-2"></i>
+                    <div class="flex justify-center items-center text-3xl text-indigo-500 mb-2 h-8">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
                     <p class="font-semibold">Contrôle par Critères</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(Critères de validation simples)</p>
                 </div>
                 <i class="fas fa-arrow-down md:fa-arrow-right text-2xl text-slate-400 dark:text-slate-600"></i>
                 <!-- Étape 4 (Modifiée) -->
                 <div class="text-center">
-                    <i class="fas fa-folder-open text-3xl text-indigo-500 mb-2"></i>
+                    <div class="flex justify-center items-center text-3xl text-indigo-500 mb-2 h-8">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
                     <p class="font-semibold">Dépôt "Accès Pro"</p>
                     <p class="text-sm text-slate-500 dark:text-slate-400">(Notification client, fin d'envoi mail manuel)</p>
                 </div>
@@ -229,12 +238,18 @@
 
         <!-- === BLOC 3: ANALYSE MICRO (LES GRAPHIQUES) === -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-            <!-- Graphique Donut: Succès vs Échec -->
+            <!-- Graphique Donut (Modifié avec KPI Central) -->
             <div class="info-card">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                     Performance Pilote Ouest
                 </h2>
+                <!-- Conteneur relatif pour le graphique ET le KPI central -->
                 <div class="relative h-64 md:h-80 lg:h-96">
+                    <!-- KPI Central (Ajouté) -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+                        <span class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400">49.8%</span>
+                        <span class="text-sm text-slate-500 dark:text-slate-400 mt-1">de Succès Auto</span>
+                    </div>
                     <canvas id="pilotDonutChart"></canvas>
                 </div>
             </div>
@@ -271,11 +286,11 @@
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Piste V2 : Affiner la tolérance.</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-red-600 dark:text-red-400">34.0% (48) : "Seuil forte conso...".</span>
+                        <span class="font-semibold text-orange-600 dark:text-orange-400">34.0% (48) : "Seuil forte conso...".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Piste V2 : Revoir les seuils.</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-slate-600 dark:text-slate-300">12.1% (17) : "Code relève (IC/IJ)".</span>
+                        <span class="font-semibold text-yellow-600 dark:text-yellow-400">12.1% (17) : "Code relève (IC/IJ)".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Piste V2 : Exclure "IJ" (Index Juste) du blocage ?</span>
                     </li>
                     <li>
@@ -356,10 +371,16 @@
                         <i class="fas fa-chart-line text-blue-800 dark:text-blue-300 text-xs"></i>
                     </span>
                     <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Finalisation : Rapports de Suivi & KPIs (Licorne)</h3>
-                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Prochaine Étape</time>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Prochaine Étape</Mise>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">Mise en production de rapports de suivi (type Salesforce) pour visualiser les interventions humaines nécessaires et suivre les 3 KPIs clés : Intégration, Analyse, Envoi.</p>
                 </li>
             </ol>
+            <!-- CTA Ajouté (Suggestion Forme) -->
+            <div class="mt-8 text-center">
+                <button type="button" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg opacity-75 cursor-not-allowed" disabled>
+                    <i class="fas fa-chart-line mr-2"></i> Consulter le Dashboard de Suivi (Prochaine Étape)
+                </button>
+            </div>
         </section>
         
         <!-- Séparateur ajouté -->
@@ -423,7 +444,7 @@
                 return docElement.classList.contains('dark') ? '#334155' : '#e2e8f0'; // slate-700 / slate-200
             }
 
-            // --- Configuration Graphique Donut ---
+            // --- Configuration Graphique Donut (Modifié) ---
             const donutChart = new Chart(ctxDonut, {
                 type: 'doughnut',
                 data: {
@@ -443,7 +464,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    cutout: '60%',
+                    cutout: '70%', // Agrandissement du trou pour le texte
                     plugins: {
                         legend: {
                             position: 'bottom',
@@ -462,7 +483,7 @@
                 }
             });
 
-            // --- Configuration Graphique Barres ---
+            // --- Configuration Graphique Barres (Modifié) ---
             const barChart = new Chart(ctxBar, {
                 type: 'bar',
                 data: {
@@ -476,12 +497,13 @@
                     datasets: [{
                         label: 'Nombre d\'échecs (Total 141)',
                         data: [60, 48, 17, 14, 2],
+                        // Couleurs distinctes (Suggestion Forme)
                         backgroundColor: [
-                            '#be123c', // rose-700
-                            '#e11d48', // rose-600
-                            '#f43f5e', // rose-500
-                            '#fb7185', // rose-400
-                            '#fecdd3'  // rose-200
+                            '#dc2626', // red-600
+                            '#ea580c', // orange-600
+                            '#ca8a04', // yellow-600
+                            '#64748b', // slate-500
+                            '#94a3b8'  // slate-400
                         ],
                         borderRadius: 4,
                         borderWidth: 0
@@ -554,8 +576,4 @@
     
 </body>
 </html>
-
-
-
-
 
