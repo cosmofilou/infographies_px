@@ -105,11 +105,63 @@
         .dark .header-icon-container {
             background-color: #3730a3; /* dark:bg-indigo-900 */
         }
+
+        /* AXE 1 : FOND "VIVANT" AURORA (Ajouté) */
+        .aurora-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place le fond derrière le contenu */
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px); /* Flou très prononcé */
+            opacity: 0.2; /* Très subtil (ajusté pour le fond slate) */
+            will-change: transform, opacity;
+        }
+
+        .aurora-blob-1 {
+            width: 600px;
+            height: 600px;
+            background: #4f46e5; /* indigo-600 (couleur du thème) */
+            animation: animate-blob-1 25s infinite alternate;
+        }
+
+        .aurora-blob-2 {
+            width: 500px;
+            height: 500px;
+            background: #e11d48; /* rose-600 (couleur du thème) */
+            animation: animate-blob-2 30s infinite alternate;
+        }
+            
+        @keyframes animate-blob-1 {
+            0% { transform: translate(10vw, 10vh) scale(1); }
+            100% { transform: translate(40vw, 60vh) scale(1.2); }
+        }
+
+        @keyframes animate-blob-2 {
+            0% { transform: translate(80vw, 70vh) scale(1.2); }
+            100% { transform: translate(20vw, 30vh) scale(0.8); }
+        }
+        /* Fin Axe 1 */
+
     </style>
 </head>
 
 <!-- Body avec classes de base (Contrainte) -->
 <body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+
+    <!-- AXE 1 : FOND "VIVANT" AURORA (Ajouté) -->
+    <div class="aurora-background">
+        <div class="aurora-blob aurora-blob-1"></div>
+        <div class="aurora-blob aurora-blob-2"></div>
+    </div>
 
     <!-- Bouton Dark Mode (Contrainte JS) -->
     <button id="theme-toggle" type="button" class="dark-mode-toggle">
@@ -117,8 +169,8 @@
         <i class="fas fa-sun text-lg dark:hidden" id="theme-toggle-light-icon"></i>
     </button>
 
-    <!-- Conteneur principal -->
-    <div class="container mx-auto max-w-7xl p-4 pt-16 md:p-8 md:pt-16">
+    <!-- Conteneur principal (Modifié : ajout de relative z-10) -->
+    <div class="container relative z-10 mx-auto max-w-7xl p-4 pt-16 md:p-8 md:pt-16">
 
         <!-- === BLOC 1: TITRE ET KPI GLOBAUX === -->
         <header class="text-center mb-10">
@@ -132,11 +184,11 @@
             </h1>
             <p class="text-xl text-slate-600 dark:text-slate-400 mt-2">
                 Analyse Micro du Pilote "Validation Automatique" (Agence Ouest)</p>
-         </header>
+       </header>
             <!-- Contexte Objectif -->
-        <div class="text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12">
-             <p class="text-base text-slate-600 dark:text-slate-300">Découvrez les premiers résultats concrets de la Validation Automatique, pierre angulaire de l'optimisation de nos flux de relevés pour les syndics, de l'intégration à la mise à disposition des livrables sur Accès Pro.</p>
-        </div>
+       <div class="text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12">
+           <p class="text-base text-slate-600 dark:text-slate-300">Découvrez les premiers résultats concrets de la Validation Automatique, pierre angulaire de l'optimisation de nos flux de relevés pour les syndics, de l'intégration à la mise à disposition des livrables sur Accès Pro.</p>
+       </div>
 
         <!-- Grille des KPIs -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
