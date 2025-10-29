@@ -266,7 +266,7 @@
 
     <!-- Conteneur principal (Modifié : ajout de relative z-10 et pt-0) --><div class="container relative z-10 mx-auto max-w-7xl p-4 pt-8 md:p-8">
 
-        <!-- === BLOC 1: TITRE ET KPI GLOBAUX === --><header id="top" class="text-center mb-10 hidden-initial"> <!-- ID ajouté --><!-- Icone ajoutée --><div class="header-icon-container">
+        <!-- === BLOC 1: TITRE ET KPI GLOBAUX === --><header id="top" class="text-center mb-10 hidden-initial"> <!-- ID ajouté --><!-- Icone modifiée --><div class="header-icon-container">
                 <i class="fas fa-cloud-arrow-up text-4xl text-indigo-600 dark:text-indigo-400"></i>
             </div>
             <!-- Titre percutant + Contexte Licorne --><h1 class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400">
@@ -279,14 +279,14 @@
            <p class="text-base text-slate-600 dark:text-slate-300">Découvrez les premiers résultats concrets de la Validation Automatique, pierre angulaire de l'optimisation de nos flux de relevés pour les syndics, de l'intégration à la mise à disposition des livrables sur Accès Pro.</p>
        </div>
 
-        <!-- Grille des KPIs --><section id="kpis" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Total --><div class="info-card hidden-initial">
+        <!-- Grille des KPIs (Données Mises à Jour) --><section id="kpis" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Total --><div class="info-card hidden-initial">
                 <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900 rounded-full">
                         <i class="fas fa-rocket text-xl text-indigo-600 dark:text-indigo-400"></i>
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 dark:text-slate-400">Relevés Traités (Total)</p>
-                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="281">0</p>
+                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="294">0</p>
                     </div>
                 </div>
             </div>
@@ -297,7 +297,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 dark:text-slate-400">États de Conso. Déposés (Auto)</p>
-                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="140">0</p>
+                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="147">0</p>
                     </div>
                 </div>
             </div>
@@ -308,7 +308,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 dark:text-slate-400">Interventions Humaines Requises</p>
-                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="141">0</p>
+                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="147">0</p>
                     </div>
                 </div>
             </div>
@@ -319,7 +319,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 dark:text-slate-400">Taux de Succès</p>
-                        <p class="kpi-counter-float text-3xl font-bold text-slate-900 dark:text-white" data-target="49.8" data-suffix="%">0</p>
+                        <p class="kpi-counter-float text-3xl font-bold text-slate-900 dark:text-white" data-target="50.0" data-suffix="%">0</p>
                     </div>
                 </div>
             </div>
@@ -364,13 +364,13 @@
             </div>
         </section>
 
-        <!-- === BLOC 3: ANALYSE MICRO (LES GRAPHIQUES) === --><section id="analyse" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Graphique Donut (Modifié avec KPI Central) --><div class="info-card hidden-initial">
+        <!-- === BLOC 3: ANALYSE MICRO (LES GRAPHIQUES) (Données Mises à Jour) === --><section id="analyse" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Graphique Donut (Modifié avec KPI Central) --><div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                     Performance Pilote Ouest
                 </h2>
                 <!-- Conteneur relatif pour le graphique ET le KPI central --><div class="relative h-64 md:h-80 lg:h-96">
                     <!-- KPI Central (Z-index retiré) --><div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                        <span class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400">49.8%</span>
+                        <span class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400">50.0%</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400 mt-1">de Succès Auto</span>
                     </div>
                     <canvas id="pilotDonutChart"></canvas>
@@ -379,7 +379,7 @@
             
             <!-- Graphique Barres: Causes d'Échec --><div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
-                    Analyse des 141 Échecs (AUTO KO)
+                    Analyse des 147 Échecs (AUTO KO)
                 </h2>
                 <div class="relative h-64 md:h-80 lg:h-96">
                     <canvas id="failuresBarChart"></canvas>
@@ -387,12 +387,12 @@
             </div>
         </section>
 
-        <!-- === BLOC 4: NARRATIF STRATÉGIQUE === --><section id="strategie" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Learnings (Modifié) --><div class="info-card hidden-initial">
+        <!-- === BLOC 4: NARRATIF STRATÉGIQUE (Données Mises à Jour) === --><section id="strategie" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Learnings (Modifié) --><div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                     <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Learnings & Actions
                 </h2>
                 <p class="mb-4 text-slate-600 dark:text-slate-300">
-                    Le taux de succès de <span class="font-bold">49.8% valide l'efficacité de la V1</span> : les critères d'exclusion fonctionnent (aucun livrable non conforme déposé) et démontrent un <span class="font-bold">gain de temps humain significatif</span>, prouvant la "propreté" du parc.
+                    Le taux de succès de <span class="font-bold">50.0% valide l'efficacité de la V1</span> : les critères d'exclusion fonctionnent (aucun livrable non conforme déposé) et démontrent un <span class="font-bold">gain de temps humain significatif</span>, prouvant la "propreté" du parc.
                 </p>
                 <p class="mt-4 mb-2 font-semibold text-slate-700 dark:text-slate-300">Gains & Pistes d'Optimisation :</p>
                 <ul class="list-disc list-inside space-y-2">
@@ -401,23 +401,23 @@
                         <span class="text-sm text-slate-500 dark:text-slate-400"> L'économie (autom. ~10 clics/envoi) est estimée à <strong>+7h de travail</strong> sur ce pilote.</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-red-600 dark:text-red-400">42.6% (60) : "95% non atteint".</span>
+                        <span class="font-semibold text-red-600 dark:text-red-400">42.2% (62) : "95% non atteint".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Piste V2 : Affiner la tolérance.</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-orange-600 dark:text-orange-400">34.0% (48) : "Seuil forte conso...".</span>
+                        <span class="font-semibold text-orange-600 dark:text-orange-400">34.0% (50) : "Seuil forte conso...".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Piste V2 : Revoir les seuils.</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-yellow-600 dark:text-yellow-400">12.1% (17) : "Code relève (IC/IJ)".</span>
+                        <span class="font-semibold text-yellow-600 dark:text-yellow-400">11.6% (17) : "Code relève (IC/IJ)".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Piste V2 : Exclure "IJ" (Index Juste) du blocage ?</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-slate-600 dark:text-slate-300">9.9% (14) : "Index à blanc".</span>
+                        <span class="font-semibold text-slate-600 dark:text-slate-300">9.5% (14) : "Index à blanc".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Process : À corriger (data).</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-slate-600 dark:text-slate-300">1.4% (2) : "Index incohérent".</span>
+                        <span class="font-semibold text-slate-600 dark:text-slate-300">2.7% (4) : "Index incohérent".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Process : Logique V1 validée.</span>
                     </li>
                 </ul>
@@ -440,7 +440,7 @@
                     <i class="fas fa-handshake mr-1"></i> Cet onboarding devient un <span class="font-semibold">levier commercial</span> pour valoriser le portail et ses fonctionnalités de supervision.
                 </p>
                 <!-- Ajout sur la "Santé du Parc" --><p class="mt-4 pt-4 border-t border-amber-200 dark:border-amber-800 text-sm text-slate-500 dark:text-slate-400">
-                    <i class="fas fa-signal mr-1"></i> <span class="font-semibold">Indicateur de "Santé du Parc":</span> Le taux de succès de 49.8% reflète aussi un parc Ouest bien entretenu (captation radio). Ce taux servira d'indicateur de performance pour les autres agences.
+                    <i class="fas fa-signal mr-1"></i> <span class="font-semibold">Indicateur de "Santé du Parc":</span> Le taux de succès de 50.0% reflète aussi un parc Ouest bien entretenu (captation radio). Ce taux servira d'indicateur de performance pour les autres agences.
                 </p>
             </div>
         </section>
@@ -471,7 +471,7 @@
                     </span>
                     <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Q3 2025 : Pilote Agence Ouest <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300 ml-3">Terminé</span></h3>
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Septembre 2025</time>
-                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Mise en production sur l'agence pilote. Extraction et analyse des premières données (Succès de 49.8%).</p>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Mise en production sur l'agence pilote. Extraction et analyse des premières données (Succès de 50.0%).</p>
                 </li>
                 <li class="mb-10 ml-6">
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
@@ -555,7 +555,7 @@
             applyTheme('light');
         }
 
-        // === GESTION DES GRAPHIQUES (Contrainte JS) ===
+        // === GESTION DES GRAPHIQUES (Contrainte JS) (Données Mises à Jour) ===
         document.addEventListener('DOMContentLoaded', () => {
             const ctxDonut = document.getElementById('pilotDonutChart');
             const ctxBar = document.getElementById('failuresBarChart');
@@ -573,10 +573,10 @@
             const donutChart = new Chart(ctxDonut, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Succès Auto (140)', 'Échecs Auto (141)'],
+                    labels: ['Succès Auto (147)', 'Échecs Auto (147)'], // Données MAJ
                     datasets: [{
                         label: 'Performance Pilote',
-                        data: [140, 141],
+                        data: [147, 147], // Données MAJ
                         backgroundColor: [
                             '#4f46e5', // indigo-600
                             '#e11d48'  // rose-600
@@ -600,7 +600,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Répartition des 281 Événements',
+                            text: 'Répartition des 294 Événements', // Données MAJ
                             color: getChartTextColor(),
                             font: { size: 16, family: "'Inter', sans-serif" }
                         }
@@ -613,15 +613,15 @@
                 type: 'bar',
                 data: {
                     labels: [
-                        '95% non atteint', // 60
-                        'Conso annuelle >= Seuil', // 48
+                        '95% non atteint', // 62
+                        'Conso annuelle >= Seuil', // 50
                         'Code relève (IC/IJ)', // 17
                         'Index à blanc', // 14
-                        'Index incohérent' // 2
-                    ],
+                        'Index incohérent' // 4
+                    ], // Données MAJ
                     datasets: [{
-                        label: 'Nombre d\'échecs (Total 141)',
-                        data: [60, 48, 17, 14, 2],
+                        label: 'Nombre d\'échecs (Total 147)', // Données MAJ
+                        data: [62, 50, 17, 14, 4], // Données MAJ
                         // Couleurs distinctes (Suggestion Forme)
                         backgroundColor: [
                             '#dc2626', // red-600
@@ -668,7 +668,7 @@
                                 label: function(context) {
                                     let label = context.dataset.label || '';
                                     let value = context.raw;
-                                    let percentage = ((value / 141) * 100).toFixed(1);
+                                    let percentage = ((value / 147) * 100).toFixed(1); // Données MAJ (total 147)
                                     return `${label}: ${value} (${percentage}%)`;
                                 }
                             }
