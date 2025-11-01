@@ -467,10 +467,10 @@
             </div>
         </section>
 
-        <!-- === NOUVEAU BLOC: PROJECTION GLOBALE ETP (Modifié en accordéon) === --><section id="projection" class="info-card mb-12 hidden-initial">
+        <!-- === BLOC PROJECTION (Modifié en accordéon + Texte Positif) === --><section id="projection" class="info-card mb-12 hidden-initial">
             <!-- Titre cliquable --><div id="projection-toggle" class="flex justify-between items-center cursor-pointer">
                 <h2 class="text-2xl font-bold mb-0 text-slate-900 dark:text-white">
-                    <i class="fas fa-chart-line mr-2"></i> Projection Globale & Gain ETP (Hypothèse)
+                    <i class="fas fa-chart-line mr-2"></i> Projection Globale & Gain de Productivité (Hypothèse)
                 </h2>
                 <i id="projection-chevron" class="fas fa-chevron-down text-slate-500"></i>
             </div>
@@ -488,11 +488,16 @@
                         <p class="text-4xl font-bold text-green-600 dark:text-green-400 kpi-counter" data-target="775" data-suffix=" k">0</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Succès Automatiques Projetés / An</p>
                     </div>
-                    <!-- Gain ETP --><div class="text-center p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                        <p class="text-4xl font-bold text-amber-600 dark:text-amber-400 kpi-counter" data-target="24" data-suffix=" ETP">0</Gains>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Gain Annuel Estimé</p>
+                    <!-- Heures Libérées (Modifié) --><div class="text-center p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p class="text-4xl font-bold text-amber-600 dark:text-amber-400 kpi-counter-float" data-target="38.75" data-suffix=" k Heures / An">0</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Temps Humain Libéré</p>
                     </div>
                 </div>
+                
+                <!-- Paragraphe de Contexte Positif (Modifié) --><p class="text-center text-base text-slate-600 dark:text-slate-400 mt-6">
+                    Il s'agit d'un <strong>gain de productivité majeur</strong> (équivalent ~24 ETP) qui va permettre à nos équipes de <strong>se libérer des tâches manuelles</strong> pour se concentrer sur des missions à plus haute valeur ajoutée : l'analyse des cas complexes, l'amélioration de la qualité des données et un meilleur accompagnement de nos clients.
+                </p>
+                
                 <p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">*Calcul ETP basé sur une estimation de 3 min/relevé et 1600h/an.</p>
             </div>
         </section>
@@ -838,12 +843,16 @@
                 window.requestAnimationFrame(step);
             };
 
-            // --- Fonction d'animation du compteur (flottants) ---
+            // --- Fonction d'animation du compteur (flottants) (Corrigée) ---
             const animateCounterFloat = (el, target) => {
                 let start = 0;
                 const duration = 1500;
                 const suffix = el.dataset.suffix || '';
                 
+                // Déterminer le nombre de décimales à partir de la cible
+                const targetString = target.toString();
+                const decimalPlaces = (targetString.split('.')[1] || '').length;
+
                 const step = (timestamp) => {
                     if (!start) start = timestamp;
                     const progress = timestamp - start;
@@ -852,13 +861,13 @@
                     // Calculer la valeur en fonction du easing (easeOutQuint)
                     const easeOutVal = 1 - Math.pow(1 - percentage, 5);
                     
-                    const currentValue = (easeOutVal * target).toFixed(1);
+                    const currentValue = (easeOutVal * target).toFixed(decimalPlaces);
                     el.innerText = `${currentValue.replace('.', ',')}${suffix}`;
                     
                     if (progress < duration) {
                         window.requestAnimationFrame(step);
                     } else {
-                        el.innerText = `${target.toString().replace('.', ',')}${suffix}`;
+                        el.innerText = `${parseFloat(target).toFixed(decimalPlaces).replace('.', ',')}${suffix}`;
                     }
                 };
                 window.requestAnimationFrame(step);
