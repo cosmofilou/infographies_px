@@ -3,596 +3,831 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titre du [CODE À MIGRER] -->
     <title>Le Guide Ultime de l'Assistant IT Salesforce Licorne | Proxiserve</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Font 'Inter' (Contrainte de Référence) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- TailwindCSS (Contrainte de Référence) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome (Contrainte de Référence) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Chart.js (Contrainte de Référence) - Conservé au cas où, mais non utilisé par ce contenu -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    
+    <!-- Configuration Tailwind pour 'Inter' (Contrainte de Référence) -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- CSS Personnalisé (Contrainte de Référence) -->
+    <style type="text/css">
         /* Style de base */
+        html { 
+            scroll-behavior: smooth; 
+            scroll-padding-top: 100px; /* Offset global pour les ancres */
+        } 
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        
-        /* Style pour les accordéons interactifs */
-        details summary {
-            cursor: pointer;
-            list-style: none; /* Supprime la flèche par défaut */
-        }
-        details summary::-webkit-details-marker {
-            display: none;
-        }
-        details .icon {
-            transition: transform 0.3s ease-in-out;
-        }
-        details[open] .icon {
-            transform: rotate(90deg);
-        }
-        
-        /* Animation pour le contenu de l'accordéon */
-        details .content-wrapper {
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
+
+        /* Style "info-card" (Contrainte de Référence) */
+        .info-card {
+            background-color: #ffffff;
+            border-radius: 1rem; /* rounded-2xl */
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+            padding: 1.5rem; /* p-6 */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
 
-        /* Micro-interaction pour les cartes d'information */
-        .info-card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
+        /* Hover (Contrainte de Référence) */
         .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
+
+        /* Styles Dark Mode pour la carte */
+        .dark .info-card {
+            background-color: #1e293b; /* dark:bg-slate-800 */
+        }
+        
         .dark .info-card:hover {
-             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Barre de Navigation (Contrainte de Référence) */
+        .main-nav {
+            position: sticky;
+            top: 36px; /* Hauteur du bandeau de confidentialité */
+            z-index: 40;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7); /* slate-200 avec alpha */
+        }
+        
+        .dark .main-nav {
+            background-color: rgba(15, 23, 42, 0.7); /* slate-900 avec alpha */
+            border-bottom: 1px solid rgba(51, 65, 85, 0.7); /* slate-700 avec alpha */
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 7xl;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+        }
+        
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b; /* slate-800 */
+        }
+        
+        .dark .nav-logo {
+            color: #e2e8f0; /* slate-200 */
+        }
+
+        /* Liens de navigation */
+        .nav-links ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569; /* slate-600 */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .dark .nav-links a {
+            color: #94a3b8; /* slate-400 */
+        }
+        .nav-links a:hover {
+            color: #1e293b; /* slate-800 */
+        }
+        .dark .nav-links a:hover {
+            color: #e2e8f0; /* slate-200 */
+        }
+
+        /* Masquer les liens sur mobile */
+        @media (max-width: 767px) {
+            .nav-links { display: none; }
+        }
+
+        /* Bouton dark mode DANS la nav */
+        .nav-theme-toggle {
+            background-color: #e2e8f0; /* bg-slate-200 */
+            color: #334155; /* text-slate-700 */
+            border-radius: 9999px; /* rounded-full */
+            width: 2.5rem; /* w-10 */
+            height: 2.5rem; /* h-10 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .dark .nav-theme-toggle {
+            background-color: #334155; /* dark:bg-slate-700 */
+            color: #e2e8f0; /* dark:text-slate-200 */
+        }
+        .nav-theme-toggle:hover {
+            background-color: #cbd5e1; /* hover:bg-slate-300 */
+        }
+        .dark .nav-theme-toggle:hover {
+            background-color: #475569; /* dark:hover:bg-slate-600 */
+        }
+        /* Fin styles Nav */
+
+        /* Icône de l'en-tête (Contrainte de Référence) */
+        .header-icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 5rem; /* w-20 */
+            height: 5rem; /* h-20 */
+            background-color: #e0e7ff; /* bg-indigo-100 */
+            border-radius: 9999px; /* rounded-full */
+            margin: 0 auto 1.5rem auto; /* mx-auto mb-6 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .dark .header-icon-container {
+            background-color: #3730a3; /* dark:bg-indigo-900 */
+        }
+
+        /* Fond "Vivant" Aurora (Contrainte de Référence) */
+        .aurora-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place le fond derrière le contenu */
+            overflow: hidden;
+            will-change: transform;
+        }
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px); /* Flou très prononcé */
+            opacity: 0.2;
+            will-change: transform, opacity;
+        }
+        .aurora-blob-1 {
+            width: 600px;
+            height: 600px;
+            background: #4f46e5; /* indigo-600 (couleur du thème) */
+            animation: animate-blob-1 25s infinite alternate;
+        }
+        .aurora-blob-2 {
+            width: 500px;
+            height: 500px;
+            background: #e11d48; /* rose-600 (couleur du thème) */
+            animation: animate-blob-2 30s infinite alternate;
+        }
+        
+        @keyframes animate-blob-1 {
+            0% { transform: translate(10vw, 10vh) scale(1); }
+            100% { transform: translate(40vw, 60vh) scale(1.2); }
+        }
+        @keyframes animate-blob-2 {
+            0% { transform: translate(80vw, 70vh) scale(1.2); }
+            100% { transform: translate(20vw, 30vh) scale(0.8); }
+        }
+
+        /* Animation au défilement (Contrainte de Référence) */
+        .hidden-initial {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-500">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+<!-- Body avec classes de base (Contrainte de Référence) -->
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
 
-        <!-- En-tête -->
-        <header class="text-center mb-12">
-            <div class="inline-block p-4 bg-blue-100 dark:bg-blue-500/10 rounded-2xl mb-4">
-                <i class="fa-solid fa-shield-halved fa-3x text-blue-500 dark:text-blue-400"></i>
+    <!-- Fond "Vivant" Aurora (Contrainte de Référence) -->
+    <div class="aurora-background">
+        <div class="aurora-blob aurora-blob-1"></div>
+        <div class="aurora-blob aurora-blob-2"></div>
+    </div>
+
+    <!-- Bandeau de Confidentialité (Contrainte de Référence) -->
+    <div class="bg-amber-100 dark:bg-amber-900 border-b border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-200 text-center py-2 px-4 text-sm font-semibold sticky top-0 z-50">
+        <i class="fas fa-exclamation-triangle mr-2"></i> Document interne à usage exclusif. Toute reproduction est interdite.
+    </div>
+    
+    <!-- Barre de Navigation (Adaptée avec contenu [Migration]) -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <!-- Logo et Titre de [Migration] -->
+            <span class="nav-logo"><i class="fa-solid fa-shield-halved mr-2"></i> ASSISTANT IT LICORNE</span>
+            <!-- Liens adaptés aux sections de [Migration] -->
+            <div class="nav-links">
+                <ul>
+                    <li><a href="#qualites">Qualités</a></li>
+                    <li><a href="#principes">Principes Clés</a></li>
+                    <li><a href="#outils">Outils</a></li>
+                    <li><a href="#incidents">Incidents</a></li>
+                    <li><a href="#evolutions">Évolutions</a></li>
+                    <li><a href="#documentation">Documentation</a></li>
+                </ul>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-2">Le Guide Ultime de l'Assistant IT Salesforce Licorne</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-300">Votre Feuille de Route Complète pour la Gestion des Incidents, Évolutions, Suppressions et la Documentation chez Proxiserve.</p>
+            <!-- Bouton Thème (Contrainte de Référence) -->
+            <button id="theme-toggle" type="button" class="nav-theme-toggle">
+                <i class="fas fa-moon text-lg hidden dark:block" id="theme-toggle-dark-icon"></i>
+                <i class="fas fa-sun text-lg dark:hidden" id="theme-toggle-light-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- Conteneur principal (Contrainte de Référence) -->
+    <div class="container relative z-10 mx-auto max-w-7xl p-4 pt-8 md:p-8">
+
+        <!-- === BLOC 1: TITRE ET INTRO (Contenu [Migration], Style [Référence]) === -->
+        <header id="top" class="text-center mb-10 hidden-initial">
+            <!-- Icone de [Migration] dans style [Référence] -->
+            <div class="header-icon-container">
+                <i class="fa-solid fa-shield-halved text-4xl text-indigo-600 dark:text-indigo-400"></i>
+            </div>
+            <!-- Titre H1 de [Migration] dans style [Référence] -->
+            <h1 class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400">
+                Le Guide Ultime de l'Assistant IT Salesforce Licorne
+            </h1>
+            <!-- Sous-titre de [Migration] dans style [Référence] -->
+            <p class="text-xl text-slate-600 dark:text-slate-400 mt-2">
+                Votre Feuille de Route Complète pour la Gestion des Incidents, Évolutions, Suppressions et la Documentation chez Proxiserve.
+            </p>
         </header>
         
-        <div class="text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12">
-             <p class="text-base text-slate-600 dark:text-slate-300">Découvrez les processus clés de votre mission : de la gestion des incidents et demandes d'évolution à la maîtrise des suppressions de données et la mise à jour de notre base de connaissances. Chaque section est une étape essentielle de votre parcours !</p>
+        <!-- Contexte Objectif (Contenu [Migration], Style [Référence]) -->
+        <div class="info-card text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12 hidden-initial">
+           <p class="text-base text-slate-600 dark:text-slate-300">Découvrez les processus clés de votre mission : de la gestion des incidents et demandes d'évolution à la maîtrise des suppressions de données et la mise à jour de notre base de connaissances. Chaque section est une étape essentielle de votre parcours !</p>
         </div>
 
-        <!-- Section des Qualités Essentielles -->
-        <section id="qualites" class="mb-12">
+        <!-- === BLOC 2: QUALITÉS ESSENTIELLES (Contenu [Migration], Style [Référence]) === -->
+        <!-- Mappé sur un style de grille 3 colonnes, chaque item en .info-card -->
+        <section id="qualites" class="mb-12 hidden-initial">
             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white">Vos 3 Qualités Essentielles</h2>
             <div class="grid md:grid-cols-3 gap-6 text-center">
-                <!-- Rigueur -->
-                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                    <div class="inline-block p-3 bg-blue-100 dark:bg-blue-500/10 rounded-xl mb-4">
-                        <i class="fa-solid fa-list-check fa-2x text-blue-500 dark:text-blue-400"></i>
+                
+                <!-- Rigueur (Contenu [Migration], Style [Référence]) -->
+                <div class="info-card hidden-initial">
+                    <div class="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full mx-auto mb-4">
+                        <i class="fa-solid fa-list-check text-2xl text-blue-600 dark:text-blue-400"></i>
                     </div>
-                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">Rigueur</h3>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Rigueur</h3>
                     <p class="text-slate-600 dark:text-slate-400 text-sm">Appliquez les procédures avec précision pour garantir la traçabilité et la fiabilité de chaque action.</p>
                 </div>
-                <!-- Bienveillance -->
-                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                    <div class="inline-block p-3 bg-teal-100 dark:bg-teal-500/10 rounded-xl mb-4">
-                         <i class="fa-solid fa-hand-holding-heart fa-2x text-teal-500 dark:text-teal-400"></i>
+                
+                <!-- Bienveillance (Contenu [Migration], Style [Référence]) -->
+                <div class="info-card hidden-initial">
+                    <div class="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-teal-100 dark:bg-teal-900 rounded-full mx-auto mb-4">
+                        <i class="fa-solid fa-hand-holding-heart text-2xl text-teal-600 dark:text-teal-400"></i>
                     </div>
-                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">Bienveillance</h3>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Bienveillance</h3>
                     <p class="text-slate-600 dark:text-slate-400 text-sm">Abordez chaque demande avec empathie et patience pour offrir un support de qualité.</p>
                 </div>
-                <!-- Proactivité -->
-                <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                    <div class="inline-block p-3 bg-yellow-100 dark:bg-yellow-500/10 rounded-xl mb-4">
-                        <i class="fa-solid fa-bolt fa-2x text-yellow-500 dark:text-yellow-400"></i>
+                
+                <!-- Proactivité (Contenu [Migration], Style [Référence]) -->
+                <div class="info-card hidden-initial">
+                    <div class="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-yellow-100 dark:bg-yellow-900 rounded-full mx-auto mb-4">
+                        <i class="fa-solid fa-bolt text-2xl text-yellow-600 dark:text-yellow-400"></i>
                     </div>
-                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">Proactivité</h3>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Proactivité</h3>
                     <p class="text-slate-600 dark:text-slate-400 text-sm">Anticipez les besoins, proposez des améliorations et enrichissez constamment la base de connaissances.</p>
                 </div>
             </div>
         </section>
-        
-        <!-- Boîte à Outils -->
-        <section id="outils" class="mb-12">
-             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white">Votre Boîte à Outils Essentielle</h2>
-             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                 <!-- Notion -->
-                 <a href="https://www.notion.so/02ac23e8cf30476784ef66dad8ee9705?v=fce1767b7382460ca0d4140e3bf3e90a&source=copy_link" target="_blank" rel="noopener noreferrer" class="info-card group bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
-                     <div>
-                         <div class="flex items-center mb-3">
-                             <i class="fa-solid fa-database fa-fw mr-3 text-purple-500 dark:text-purple-400 text-xl"></i>
-                             <h3 class="font-bold text-lg text-slate-900 dark:text-white">Pipeline Notion</h3>
-                         </div>
-                         <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Suivez toutes les remontées utilisateurs (OUV) de l'analyse à la clôture.</p>
-                     </div>
-                     <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder au Pipeline <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
-                 </a>
-                 <!-- Freshservice -->
-                 <a href="https://proxisupport.freshservice.com/a/dashboard/default" target="_blank" rel="noopener noreferrer" class="info-card group bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
-                     <div>
-                         <div class="flex items-center mb-3">
-                             <i class="fa-solid fa-headset fa-fw mr-3 text-yellow-500 dark:text-yellow-400 text-xl"></i>
-                             <h3 class="font-bold text-lg text-slate-900 dark:text-white">Freshservice</h3>
-                         </div>
-                         <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Notre plateforme centralisée pour la gestion de tous les incidents et demandes.</p>
-                     </div>
-                     <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder à Freshservice <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
-                 </a>
-                 <!-- Helpjuice -->
-                 <a href="https://comptage.helpjuice.com/" target="_blank" rel="noopener noreferrer" class="info-card group bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
-                     <div>
-                         <div class="flex items-center mb-3">
-                             <i class="fa-solid fa-book-open fa-fw mr-3 text-indigo-500 dark:text-indigo-400 text-xl"></i>
-                             <h3 class="font-bold text-lg text-slate-900 dark:text-white">Base de Connaissances</h3>
-                         </div>
-                         <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Consultez et mettez à jour toutes nos procédures et notices sur Helpjuice.</p>
-                     </div>
-                     <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder à Helpjuice <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
-                 </a>
-                 <!-- Salesforce Production -->
-                 <a href="https://licorne.my.salesforce.com" target="_blank" rel="noopener noreferrer" class="info-card group bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
-                     <div>
-                         <div class="flex items-center mb-3">
-                             <i class="fa-solid fa-cloud fa-fw mr-3 text-sky-500 dark:text-sky-400 text-xl"></i>
-                             <h3 class="font-bold text-lg text-slate-900 dark:text-white">Licorne (Production)</h3>
-                         </div>
-                         <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Accédez à l'environnement de production principal de Salesforce.</p>
-                     </div>
-                     <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder à la Production <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
-                 </a>
-                 <!-- Salesforce Sandbox -->
-                 <a href="https://licorne--recbuild.sandbox.lightning.force.com/lightning/page/home" target="_blank" rel="noopener noreferrer" class="info-card group bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
-                     <div>
-                         <div class="flex items-center mb-3">
-                              <i class="fa-solid fa-flask-vial fa-fw mr-3 text-green-500 dark:text-green-400 text-xl"></i>
-                             <h3 class="font-bold text-lg text-slate-900 dark:text-white">RecBuild (Sandbox)</h3>
-                         </div>
-                         <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Environnement de test et de validation pour les nouvelles fonctionnalités.</p>
-                     </div>
-                     <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder à la Sandbox <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
-                 </a>
-                 <!-- Notion Réunions -->
-                 <a href="https://www.notion.so/46027d1eb54a44c0818810d1c3d392f4?v=bb0ffe516a4f4208be8b7a9a70570b4e&source=copy_link" target="_blank" rel="noopener noreferrer" class="info-card group bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
-                     <div>
-                         <div class="flex items-center mb-3">
-                              <i class="fa-solid fa-calendar-check fa-fw mr-3 text-teal-500 dark:text-teal-400 text-xl"></i>
-                             <h3 class="font-bold text-lg text-slate-900 dark:text-white">Réunions DT</h3>
-                         </div>
-                         <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Préparez l'ordre du jour du point hebdomadaire avec le Chef de Projet.</p>
-                     </div>
-                     <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder aux Réunions <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
-                 </a>
-             </div>
+
+        <!-- === BLOC 3: POURQUOI CE SUIVI EST CRUCIAL (Contenu [Migration], Style KPI [Référence]) === -->
+        <section id="principes" class="mb-12 hidden-initial">
+            <h2 class="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white">Pourquoi ce suivi est-il CRUCIAL ?</h2>
+            <!-- Mappé sur la grille KPI 4 colonnes de [Référence] -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Ciblage Précis -->
+                <div class="info-card hidden-initial">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full">
+                            <i class="fa-solid fa-crosshairs text-xl text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Objectif</p>
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">Ciblage Précis</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Identifier les besoins en formation.</p>
+                </div>
+                <!-- Compréhension -->
+                <div class="info-card hidden-initial">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-yellow-100 dark:bg-yellow-900 rounded-full">
+                            <i class="fa-solid fa-lightbulb text-xl text-yellow-600 dark:text-yellow-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Objectif</p>
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">Compréhension</p>
+                        </div>
+                    </div>
+                     <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Mieux cerner les difficultés des utilisateurs.</p>
+                </div>
+                <!-- Détection Rapide -->
+                <div class="info-card hidden-initial">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-green-100 dark:bg-green-900 rounded-full">
+                            <i class="fa-solid fa-bolt text-xl text-green-600 dark:text-green-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Objectif</p>
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">Détection Rapide</p>
+                        </div>
+                    </div>
+                     <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Repérer les modules instables.</p>
+                </div>
+                <!-- Améliorations -->
+                <div class="info-card hidden-initial">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-red-100 dark:bg-red-900 rounded-full">
+                            <i class="fa-solid fa-chart-line text-xl text-red-600 dark:text-red-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Objectif</p>
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">Améliorations</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Argumenter les évolutions auprès de la DSI.</p>
+                </div>
+            </div>
         </section>
 
-        <!-- Section principale -->
-        <main class="space-y-8">
 
-            <!-- Flux Principal : Gestion des Incidents -->
-            <section id="incidents">
-                <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-sitemap fa-fw mr-4 text-blue-500 dark:text-blue-400"></i>Flux Principal : Gestion des Incidents</h2>
-                <div class="space-y-4 relative pl-8 border-l-2 border-dashed border-slate-300 dark:border-slate-700">
-                    <!-- Étape 1 -->
-                    <div class="timeline-item">
-                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">1</div>
-                         <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-bullhorn fa-fw mr-3 text-slate-400"></i>Signalement Utilisateur</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                            <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>Pour toute demande ou incident, il est impératif et obligatoire de créer un ticket via Freshservice, notre plateforme de ticketing centralisée. C'est le seul canal officiel pour assurer une traçabilité et un suivi rigoureux de chaque sollicitation.</p>
-                                    <div class="border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-500/10 dark:border-yellow-500/50 p-4 rounded-r-lg flex items-start">
-                                        <i class="fa-solid fa-envelope-open-text fa-lg text-yellow-500 dark:text-yellow-400 mr-4 mt-1"></i>
-                                        <div>
-                                            <h4 class="font-bold text-yellow-800 dark:text-yellow-200">Gestion des demandes par email</h4>
-                                            <p class="text-yellow-700 dark:text-yellow-400">Si un utilisateur vous contacte directement par email, répondez-lui systématiquement en l'invitant à créer un ticket Freshservice pour officialiser et tracer sa demande.</p>
-                                        </div>
-                                    </div>
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">📢 Procédure Freshservice</h4>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li>Connectez-vous à Freshservice.</li>
-                                            <li>Cliquez sur "Nouvel Incident" ou "Nouvelle Demande".</li>
-                                            <li>Remplissez tous les champs avec un maximum de détails.</li>
-                                            <li>Validez votre ticket pour soumission.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+        <!-- === BLOC 4: BOÎTE À OUTILS (Contenu [Migration], Style [Référence]) === -->
+        <section id="outils" class="info-card mb-12 hidden-initial">
+            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+                <i class="fas fa-tools mr-2"></i> Votre Boîte à Outils Essentielle
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Sous-carte Notion -->
+                <a href="https://www.notion.so/02ac23e8cf30476784ef66dad8ee9705?v=fce1767b7382460ca0d4140e3bf3e90a&source=copy_link" target="_blank" rel="noopener noreferrer" class="group block p-4 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors duration-200">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-database fa-fw mr-3 text-purple-500 dark:text-purple-400 text-xl"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Pipeline Notion</h3>
                     </div>
-                    <!-- Étape 2 -->
-                     <div class="timeline-item">
-                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">2</div>
-                         <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-folder-plus fa-fw mr-3 text-slate-400"></i>Enregistrement Freshservice</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                            <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>Une fois soumis, le ticket est automatiquement créé et classé en Niveau 1 (N1) dans Freshservice selon la région de l'utilisateur.</p>
-                                    <p><strong class="text-slate-700 dark:text-slate-200">Outil :</strong> <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-300">Freshservice</span></p>
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Classification Régionale Licorne :</h4>
-                                        <ul class="list-none space-y-1 font-mono text-sm">
-                                            <li><i class="fa-solid fa-location-dot fa-fw mr-2 text-slate-500"></i>PXS_CPT-IDF_Licorne_N1 (Île-de-France)</li>
-                                            <li><i class="fa-solid fa-location-dot fa-fw mr-2 text-slate-500"></i>PXS_CPT-NE_Licorne_N1 (Nord / Est)</li>
-                                            <li><i class="fa-solid fa-location-dot fa-fw mr-2 text-slate-500"></i>PXS_CPT-O_Licorne_N1 (Ouest)</li>
-                                            <li><i class="fa-solid fa-location-dot fa-fw mr-2 text-slate-500"></i>PXS_CPT-SE_Licorne_N1 (Centre-Est)</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Suivez toutes les remontées utilisateurs (OUV) de l'analyse à la clôture.</p>
+                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder au Pipeline <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
+                </a>
+                <!-- Sous-carte Freshservice -->
+                <a href="https://proxisupport.freshservice.com/a/dashboard/default" target="_blank" rel="noopener noreferrer" class="group block p-4 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors duration-200">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-headset fa-fw mr-3 text-yellow-500 dark:text-yellow-400 text-xl"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Freshservice</h3>
                     </div>
-                    <!-- Étape 3 -->
-                    <div class="timeline-item">
-                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">3</div>
-                         <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-user-check fa-fw mr-3 text-slate-400"></i>Assignation & Surveillance (N1)</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                            <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>Un membre N1 s'assigne le ticket. Votre rôle est de surveiller l'évolution pour qu'aucun ticket ne reste bloqué.</p>
-                                    <div class="border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-500/10 dark:border-yellow-500/50 p-4 rounded-r-lg">
-                                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">⚠️ Point d'attention N2 (DMC)</h4>
-                                        <p class="text-yellow-700 dark:text-yellow-400">Surveillez activement le backlog N1 sur Freshservice ! Des tickets peuvent y rester bloqués ou non assignés, nécessitant votre intervention proactive pour une escalade rapide vers le N2.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Notre plateforme centralisée pour la gestion de tous les incidents et demandes.</p>
+                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder à Freshservice <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
+                </a>
+                <!-- Sous-carte Helpjuice -->
+                <a href="https://comptage.helpjuice.com/" target="_blank" rel="noopener noreferrer" class="group block p-4 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors duration-200">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-book-open fa-fw mr-3 text-indigo-500 dark:text-indigo-400 text-xl"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Base de Connaissances</h3>
                     </div>
-                    <!-- Étape 4 -->
-                     <div class="timeline-item">
-                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">4</div>
-                         <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-arrow-right-to-bracket fa-fw mr-3 text-slate-400"></i>Affectation au N2 (DMC)</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                             <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>Lorsque l'incident dépasse le périmètre du N1, le ticket est transféré à l'équipe N2 (Direction des Métiers du Comptage) dans le groupe approprié.</p>
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Périmètres de Support N2 :</h4>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li><strong class="text-slate-700 dark:text-slate-100">Licorne :</strong> Groupe <code class="font-mono text-sm bg-slate-200 dark:bg-slate-600 px-1 py-0.5 rounded">SUPPORT-DMC-Licorne-N2</code></li>
-                                            <li><strong class="text-slate-700 dark:text-slate-100">EDI & Mobilité :</strong> Groupe <code class="font-mono text-sm bg-slate-200 dark:bg-slate-600 px-1 py-0.5 rounded">SUPPORT-DMC</code></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Consultez et mettez à jour toutes nos procédures et notices sur Helpjuice.</p>
+                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder à Helpjuice <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
+                </a>
+                <!-- Sous-carte Salesforce Prod -->
+                <a href="https://licorne.my.salesforce.com" target="_blank" rel="noopener noreferrer" class="group block p-4 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors duration-200">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-cloud fa-fw mr-3 text-sky-500 dark:text-sky-400 text-xl"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Licorne (Production)</h3>
                     </div>
-                    <!-- Étape 5 -->
-                     <div class="timeline-item">
-                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">5</div>
-                         <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-gears fa-fw mr-3 text-slate-400"></i>Traitement de l'Incident (N2)</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                             <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>L'équipe N2 procède à une analyse approfondie pour identifier l'origine de l'incident et appliquer la résolution.</p>
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Objectifs du N2 :</h4>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li>Analyser l'origine : contexte, fréquence, données impactées.</li>
-                                            <li>Identifier s'il s'agit d'un bug technique ou d'une erreur de manipulation.</li>
-                                            <li>Accompagner les utilisateurs et résoudre l'incident.</li>
-                                        </ul>
-                                    </div>
-                                     <div class="border-l-4 border-red-400 bg-red-50 dark:bg-red-500/10 dark:border-red-500/50 p-4 rounded-r-lg">
-                                        <h4 class="font-bold text-red-800 dark:text-red-200">🚨 Condition d'escalade au N3</h4>
-                                        <p class="text-red-700 dark:text-red-300">Si la résolution dépasse les compétences du N2 ou requiert des permissions d'administrateur DSI, le ticket doit être escaladé au N3.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Accédez à l'environnement de production principal de Salesforce.</p>
+                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder à la Production <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
+                </a>
+                <!-- Sous-carte Sandbox -->
+                <a href="https://licorne--recbuild.sandbox.lightning.force.com/lightning/page/home" target="_blank" rel="noopener noreferrer" class="group block p-4 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors duration-200">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-flask-vial fa-fw mr-3 text-green-500 dark:text-green-400 text-xl"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">RecBuild (Sandbox)</h3>
                     </div>
-                    <!-- Étape 6 -->
-                     <div class="timeline-item">
-                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">6</div>
-                         <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-arrow-up-right-from-square fa-fw mr-3 text-slate-400"></i>Escalade & Traitement N3 (DSI)</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                             <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>L'escalade vers la DSI (Support N3 Licorne) doit être validée avant d'être effectuée pour assurer sa pertinence.</p>
-                                     <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Procédure d'escalade N3 :</h4>
-                                        <ul class="list-disc list-inside space-y-1">
-                                             <li>Obtenir l'aval explicite d'<strong class="text-blue-600 dark:text-blue-400">Aurélien DA COSTA</strong>.</li>
-                                             <li>En son absence, se référer à <strong class="text-blue-600 dark:text-blue-400">Jessica BORDENAVE</strong>.</li>
-                                             <li>Dans tous les cas, s'assurer que l'incident n'est pas une erreur de manipulation déjà documentée.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Environnement de test et de validation pour les nouvelles fonctionnalités.</p>
+                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder à la Sandbox <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
+                </a>
+                <!-- Sous-carte Réunions -->
+                <a href="https://www.notion.so/46027d1eb54a44c0818810d1c3d392f4?v=bb0ffe516a4f4208be8b7a9a70570b4e&source=copy_link" target="_blank" rel="noopener noreferrer" class="group block p-4 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors duration-200">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-calendar-check fa-fw mr-3 text-teal-500 dark:text-teal-400 text-xl"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Réunions DT</h3>
                     </div>
-                     <!-- Étape 7 -->
-                     <div class="timeline-item">
-                         <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">7</div>
-                         <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-magnifying-glass-chart fa-fw mr-3 text-slate-400"></i>Suivi & Analyse Notion</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                             <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>Chaque ticket Freshservice doit être retranscrit dans la base de données Notion : <strong class="text-blue-600 dark:text-blue-400">"Pipeline des remontées utilisateurs"</strong>. Chaque entrée est appelée une "OUV" (Ouverture). Cette centralisation est essentielle pour piloter l'adoption de la solution et analyser les tendances.</p>
-                                    <div class="border-l-4 border-blue-400 bg-blue-50 dark:bg-blue-500/10 dark:border-blue-500/50 p-4 rounded-r-lg">
-                                        <h4 class="font-bold text-blue-800 dark:text-blue-200">Votre Rôle Clé</h4>
-                                        <p class="text-blue-700 dark:text-blue-300">L'assistant IT est responsable de la mise à jour scrupuleuse de cette base de données. Elle doit refléter l'état réel de chaque ticket, de son analyse jusqu'à sa clôture, en utilisant les statuts appropriés.</p>
-                                    </div>
-                                    <p><strong class="text-slate-700 dark:text-slate-200">Outil :</strong> <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-purple-100 text-purple-800 dark:bg-purple-500/10 dark:text-purple-300">Notion</span></p>
-                                    <div class="flex flex-wrap gap-2 mt-2">
-                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-red-100 text-red-800 dark:bg-red-500/10 dark:text-red-300">🔴 Dysfonctionnement</span>
-                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-500/10 dark:text-green-300">✅ Corrections</span>
-                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-500/10 dark:text-blue-300">🧑‍💻 Erreurs utilisateurs</span>
-                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-300">✨ Évolution</span>
-                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-purple-100 text-purple-800 dark:bg-purple-500/10 dark:text-purple-300">🔍 GAP Analysis</span>
-                                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-slate-100 text-slate-800 dark:bg-slate-500/10 dark:text-slate-300">⏳ Délais synchro</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-            </section>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Préparez l'ordre du jour du point hebdomadaire avec le Chef de Projet.</p>
+                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Accéder aux Réunions <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></span>
+                </a>
+            </div>
+        </section>
 
-            <!-- Autres sections -->
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Demandes d'Évolution -->
-                <section id="evolutions" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-lightbulb fa-fw mr-3 text-green-500 dark:text-green-400"></i>Cas Spécifique : Demandes d'Évolution</h2>
-                    <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                         <ol class="relative border-l border-slate-200 dark:border-slate-600 space-y-6 pl-6">
-                            <li>
-                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
-                                    <i class="fa-solid fa-envelope text-blue-800 dark:text-blue-300"></i>
-                                </span>
-                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">1. Point d'entrée : Email</h3>
-                                <p>La demande est initiée par un email détaillé au Chef de Projet (Aurélien DA COSTA) avec l'Assistant IT en copie.</p>
-                            </li>
-                            <li>
-                                <span class="absolute flex items-center justify-center w-6 h-6 bg-purple-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-purple-900">
-                                     <i class="fa-solid fa-database text-purple-800 dark:text-purple-300"></i>
-                                </span>
-                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">2. Création de l'OUV sur Notion</h3>
-                                <p>L'Assistant IT crée l'OUV correspondante dans le "Pipeline des remontées utilisateurs" avec la catégorisation <strong class="text-yellow-600 dark:text-yellow-400">"✨ Évolution"</strong>.</p>
-                            </li>
-                            <li>
-                                <span class="absolute flex items-center justify-center w-6 h-6 bg-slate-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-slate-700">
-                                    <i class="fa-solid fa-users text-slate-800 dark:text-slate-300"></i>
-                                </span>
-                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">3. Analyse & Discussion</h3>
-                                <p>Le Chef de Projet et l'Assistant IT discutent de la pertinence et des contours de la demande pour une première qualification.</p>
-                            </li>
-                            <li>
-                                <span class="absolute flex items-center justify-center w-6 h-6 bg-green-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-green-900">
-                                    <i class="fa-solid fa-check-double text-green-800 dark:text-green-300"></i>
-                                </span>
-                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">4. Validation par la Direction Technique</h3>
-                                <p>La demande est présentée à la Direction Technique pour validation, priorisation et planification.</p>
-                            </li>
-                            <li>
-                                <span class="absolute flex items-center justify-center w-6 h-6 bg-sky-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-sky-900">
-                                    <i class="fa-brands fa-jira text-sky-800 dark:text-sky-300"></i>
-                                </span>
-                                <h3 class="font-semibold text-slate-800 dark:text-slate-100">5. Spécification & Soumission Jira</h3>
-                                <p>Après validation, le Chef de Projet rédige l'expression du besoin et la soumet via un ticket sur l'outil <strong class="text-sky-600 dark:text-sky-400">Jira</strong>.</p>
-                            </li>
+        <!-- === BLOC 5: FLUX PRINCIPAL INCIDENTS (Contenu [Migration], Style Timeline [Référence]) === -->
+        <section id="incidents" class="info-card mb-12 hidden-initial">
+            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+                <i class="fa-solid fa-sitemap mr-2"></i> Flux Principal : Gestion des Incidents
+            </h2>
+            <!-- Style Timeline de la [Référence] appliqué au contenu de [Migration] -->
+            <ol class="relative border-l border-gray-200 dark:border-gray-700 ml-4">
+                
+                <li class="mb-10 ml-6"> <!-- Classe 'hidden-initial' supprimée -->
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-bullhorn text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Étape 1 : Signalement Utilisateur</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Pour toute demande ou incident, il est impératif et obligatoire de créer un ticket via Freshservice, notre plateforme de ticketing centralisée. C'est le seul canal officiel pour assurer une traçabilité et un suivi rigoureux de chaque sollicitation.</p>
+                    <!-- Box d'alerte (Style Tailwind) -->
+                    <div class="mt-3 border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-900/30 p-4 rounded-r-lg flex items-start">
+                        <i class="fa-solid fa-envelope-open-text fa-lg text-yellow-500 dark:text-yellow-400 mr-4 mt-1"></i>
+                        <div>
+                            <h4 class="font-bold text-yellow-800 dark:text-yellow-200">Gestion des demandes par email</h4>
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400">Si un utilisateur vous contacte directement par email, répondez-lui systématiquement en l'invitant à créer un ticket Freshservice pour officialiser et tracer sa demande.</p>
+                        </div>
+                    </div>
+                    <!-- Bloc Procédure Freshservice [RESTAURÉ] -->
+                    <div class="mt-3 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">📢 Procédure Freshservice</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                            <li>Connectez-vous à Freshservice.</li>
+                            <li>Cliquez sur "Nouvel Incident" ou "Nouvelle Demande".</li>
+                            <li>Remplissez tous les champs avec un maximum de détails.</li>
+                            <li>Validez votre ticket pour soumission.</li>
+                        </ul>
+                    </div>
+                </li>
+                
+                <li class="mb-10 ml-6"> <!-- Classe 'hidden-initial' supprimée -->
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-folder-plus text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Étape 2 : Enregistrement Freshservice</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Une fois soumis, le ticket est automatiquement créé et classé en Niveau 1 (N1) dans Freshservice selon la région de l'utilisateur.</p>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400 mt-2"><strong class="text-slate-700 dark:text-slate-200">Outil :</strong> <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">Freshservice</span></p>
+                    <!-- Bloc Classification Régionale [RESTAURÉ] -->
+                    <div class="mt-3 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Classification Régionale Licorne :</h4>
+                        <ul class="list-none space-y-1 font-mono text-sm text-slate-600 dark:text-slate-300">
+                            <li><i class="fa-solid fa-location-dot fa-fw mr-2 text-slate-500"></i>PXS_CPT-IDF_Licorne_N1 (Île-de-France)</li>
+                            <li><i class="fa-solid fa-location-dot fa-fw mr-2 text-slate-500"></i>PXS_CPT-NE_Licorne_N1 (Nord / Est)</li>
+                            <li><i class="fa-solid fa-location-dot fa-fw mr-2 text-slate-500"></i>PXS_CPT-O_Licorne_N1 (Ouest)</li>
+                            <li><i class="fa-solid fa-location-dot fa-fw mr-2 text-slate-500"></i>PXS_CPT-SE_Licorne_N1 (Centre-Est)</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="mb-10 ml-6"> <!-- Classe 'hidden-initial' supprimée -->
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-user-check text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Étape 3 : Assignation & Surveillance (N1)</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Un membre N1 s'assigne le ticket. Votre rôle est de surveiller l'évolution pour qu'aucun ticket ne reste bloqué.</p>
+                    <div class="mt-3 border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-900/30 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">⚠️ Point d'attention N2 (DMC)</h4>
+                        <p class="text-sm text-yellow-700 dark:text-yellow-400">Surveillez activement le backlog N1 sur Freshservice ! Des tickets peuvent y rester bloqués ou non assignés, nécessitant votre intervention proactive pour une escalade rapide vers le N2.</p>
+                    </div>
+                </li>
+
+                <li class="mb-10 ml-6"> <!-- Classe 'hidden-initial' supprimée -->
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-arrow-right-to-bracket text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Étape 4 : Affectation au N2 (DMC)</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Lorsque l'incident dépasse le périmètre du N1, le ticket est transféré à l'équipe N2 (Direction des Métiers du Comptage) dans le groupe approprié.</p>
+                    <!-- Bloc Périmètres de Support N2 [RESTAURÉ] -->
+                    <div class="mt-3 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Périmètres de Support N2 :</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                            <li><strong class="text-slate-700 dark:text-slate-100">Licorne :</strong> Groupe <code class="font-mono text-sm bg-slate-200 dark:bg-slate-600 px-1 py-0.5 rounded">SUPPORT-DMC-Licorne-N2</code></li>
+                            <li><strong class="text-slate-700 dark:text-slate-100">EDI & Mobilité :</strong> Groupe <code class="font-mono text-sm bg-slate-200 dark:bg-slate-600 px-1 py-0.5 rounded">SUPPORT-DMC</code></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="mb-10 ml-6"> <!-- Classe 'hidden-initial' supprimée -->
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-gears text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Étape 5 : Traitement de l'Incident (N2)</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">L'équipe N2 procède à une analyse approfondie pour identifier l'origine de l'incident et appliquer la résolution.</p>
+                    <!-- Bloc Objectifs du N2 [RESTAURÉ] -->
+                    <div class="mt-3 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Objectifs du N2 :</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                            <li>Analyser l'origine : contexte, fréquence, données impactées.</li>
+                            <li>Identifier s'il s'agit d'un bug technique ou d'une erreur de manipulation.</li>
+                            <li>Accompagner les utilisateurs et résoudre l'incident.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-3 border-l-4 border-red-400 bg-red-50 dark:bg-red-900/30 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-red-800 dark:text-red-200">🚨 Condition d'escalade au N3</h4>
+                        <p class="text-sm text-red-700 dark:text-red-300">Si la résolution dépasse les compétences du N2 ou requiert des permissions d'administrateur DSI, le ticket doit être escaladé au N3.</p>
+                    </div>
+                </li>
+
+                <li class="mb-10 ml-6"> <!-- Classe 'hidden-initial' supprimée -->
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Étape 6 : Escalade & Traitement N3 (DSI)</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">L'escalade vers la DSI (Support N3 Licorne) doit être validée avant d'être effectuée pour assurer sa pertinence.</p>
+                    <!-- Bloc Procédure d'escalade N3 [RESTAURÉ] -->
+                    <div class="mt-3 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Procédure d'escalade N3 :</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                            <li>Obtenir l'aval explicite d'<strong class="text-blue-600 dark:text-blue-400">Aurélien DA COSTA</strong>.</li>
+                            <li>En son absence, se référer à <strong class="text-blue-600 dark:text-blue-400">Jessica BORDENAVE</strong>.</li>
+                            <li>Dans tous les cas, s'assurer que l'incident n'est pas une erreur de manipulation déjà documentée.</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="mb-10 ml-6"> <!-- Classe 'hidden-initial' supprimée -->
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-purple-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-purple-900">
+                        <i class="fa-solid fa-magnifying-glass-chart text-purple-800 dark:text-purple-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Étape 7 : Suivi & Analyse Notion</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Chaque ticket Freshservice doit être retranscrit dans la base de données Notion "Pipeline des remontées utilisateurs" (OUV). Cette centralisation est essentielle pour piloter l'adoption de la solution et analyser les tendances.</p>
+                    <!-- Bloc Votre Rôle Clé [RESTAURÉ] -->
+                    <div class="mt-3 border-l-4 border-blue-400 bg-blue-50 dark:bg-blue-900/30 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-blue-800 dark:text-blue-200">Votre Rôle Clé</h4>
+                        <p class="text-sm text-blue-700 dark:text-blue-300">L'assistant IT est responsable de la mise à jour scrupuleuse de cette base de données. Elle doit refléter l'état réel de chaque ticket, de son analyse jusqu'à sa clôture, en utilisant les statuts appropriés.</p>
+                    </div>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400 mt-2"><strong class="text-slate-700 dark:text-slate-200">Outil :</strong> <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300">Notion</span></p>
+                    <!-- Tags [COMPLÉTÉS] -->
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">🔴 Dysfonctionnement</span>
+                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">✅ Corrections</span>
+                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">🧑‍💻 Erreurs utilisateurs</span>
+                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">✨ Évolution</span>
+                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300">🔍 GAP Analysis</span>
+                        <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-800 dark:bg-slate-700/50 dark:text-slate-300">⏳ Délais synchro</span>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- === BLOC 6: ÉVOLUTIONS & SUPPRESSIONS (Contenu [Migration], Style Grille 2 col [Référence]) === -->
+        <section id="evolutions" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            
+            <!-- Demandes d'Évolution -->
+            <div class="info-card hidden-initial">
+                <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+                    <i class="fa-solid fa-lightbulb fa-fw mr-3 text-green-500 dark:text-green-400"></i>Cas Spécifique : Demandes d'Évolution
+                </h2>
+                <!-- Style Timeline de [Référence] appliqué -->
+                <ol class="relative border-l border-gray-200 dark:border-gray-700 ml-1 space-y-6">
+                    <li class="ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                            <i class="fa-solid fa-envelope text-blue-800 dark:text-blue-300 text-xs"></i>
+                        </span>
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100">1. Point d'entrée : Email</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Email détaillé au Chef de Projet (Aurélien DA COSTA) avec l'Assistant IT en copie.</p>
+                    </li>
+                    <li class="ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-purple-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-purple-900">
+                            <i class="fa-solid fa-database text-purple-800 dark:text-purple-300 text-xs"></i>
+                        </span>
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100">2. Création de l'OUV sur Notion</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Création dans le "Pipeline" avec la catégorie <strong class="text-yellow-600 dark:text-yellow-400">"✨ Évolution"</strong>.</p>
+                    </li>
+                    <li class="ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-slate-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-slate-700">
+                            <i class="fa-solid fa-users text-slate-800 dark:text-slate-300 text-xs"></i>
+                        </span>
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100">3. Analyse & Discussion</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Qualification de la pertinence entre Chef de Projet et Assistant IT.</p>
+                    </li>
+                    <li class="ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-green-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-green-900">
+                            <i class="fa-solid fa-check-double text-green-800 dark:text-green-300 text-xs"></i>
+                        </span>
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100">4. Validation par la Direction Technique</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Validation, priorisation et planification.</p>
+                    </li>
+                    <li class="ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-sky-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-sky-900">
+                            <i class="fa-brands fa-jira text-sky-800 dark:text-sky-300 text-xs"></i>
+                        </span>
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100">5. Spécification & Soumission Jira</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Rédaction de l'expression du besoin et soumission sur <strong class="text-sky-600 dark:text-sky-400">Jira</strong>.</p>
+                    </li>
+                </ol>
+            </div>
+            
+            <!-- Gestion des Suppressions -->
+            <div class="info-card hidden-initial">
+                <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+                    <i class="fa-solid fa-trash-can fa-fw mr-3 text-red-500 dark:text-red-400"></i>Gestion des Suppressions
+                </h2>
+                <div class="space-y-4 text-slate-600 dark:text-slate-300">
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-cogs fa-fw mr-2 text-blue-500 dark:text-blue-400"></i>Suppression via l'outil Golfinho</h3>
+                        <p class="mb-3 text-sm">La suppression des PDM et des Lieux est simplifiée via la fonctionnalité <code class="font-mono bg-slate-200 dark:bg-slate-600 px-1 py-0.5 rounded">Service Mode</code> de l'outil Golfinho.</p>
+                        <ol class="list-decimal list-inside space-y-1 text-sm">
+                            <li>Activer le "Service Mode" (protégé par mot de passe).</li>
+                            <li>Cliquer sur "Synchro PDM" ou "Synchro Lieux".</li>
+                            <li>Coller les données à supprimer et valider.</li>
                         </ol>
                     </div>
-                </section>
-
-                <!-- Gestion des Suppressions -->
-                <section id="suppressions" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-trash-can fa-fw mr-3 text-red-500 dark:text-red-400"></i>Gestion des Suppressions Salesforce</h2>
-                    <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                        <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-cogs fa-fw mr-2 text-blue-500 dark:text-blue-400"></i>Suppression via l'outil Golfinho</h3>
-                            <p class="mb-3">La suppression des PDM et des Lieux est simplifiée via la fonctionnalité <code class="font-mono bg-slate-200 dark:bg-slate-600 px-1 py-0.5 rounded">Service Mode</code> de l'outil Golfinho.</p>
-                            <ol class="list-decimal list-inside space-y-1">
-                                <li>Activer le "Service Mode" (protégé par mot de passe).</li>
-                                <li>Cliquer sur "Synchro PDM" ou "Synchro Lieux".</li>
-                                <li>Coller les données à supprimer dans la fenêtre de saisie.</li>
-                                <li>Valider. Le résultat est envoyé par mail après traitement.</li>
-                            </ol>
-                        </div>
-                        <div class="border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
-                            <h3 class="font-semibold text-slate-800 dark:text-slate-100">Autres objets</h3>
-                             <p>La demande doit être faite au chef de projet, <strong class="text-blue-600 dark:text-blue-400">Aurélien DA COSTA</strong>. En son absence et uniquement pour une demande jugée <strong class="text-red-500 dark:text-red-400">urgente</strong>, escalader le ticket à la DSI N3.</p>
-                        </div>
+                    <div class="border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100">Autres objets</h3>
+                         <p class="text-sm">La demande doit être faite au chef de projet, <strong class="text-blue-600 dark:text-blue-400">Aurélien DA COSTA</strong>. En son absence et uniquement pour une demande jugée <strong class="text-red-500 dark:text-red-400">urgente</strong>, escalader le ticket à la DSI N3.</p>
                     </div>
-                </section>
+                </div>
             </div>
+        </section>
 
+        <!-- === BLOC 7: COLLABORATION & DOCUMENTATION (Contenu [Migration], Style Grille 2 col [Référence]) === -->
+        <section id="documentation" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             <!-- Collaboration & Point Hebdomadaire -->
-            <section id="collaboration" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-calendar-week fa-fw mr-3 text-purple-500 dark:text-purple-400"></i>Collaboration & Point Hebdomadaire</h2>
-                <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                    <p>Pour optimiser la collaboration et centraliser les actions, un point hebdomadaire est organisé entre l'Assistant IT et le Chef de Projet.</p>
-                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                        <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Votre mission de préparation :</h3>
-                        <ul class="list-disc list-inside space-y-2">
+            <div class="info-card hidden-initial">
+                 <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-calendar-week fa-fw mr-3 text-purple-500 dark:text-purple-400"></i>Collaboration & Point Hebdomadaire</h2>
+                 <div class="space-y-4 text-slate-600 dark:text-slate-300">
+                    <p class="text-sm">Pour optimiser la collaboration et centraliser les actions, un point hebdomadaire est organisé entre l'Assistant IT et le Chef de Projet.</p>
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 text-sm">Votre mission de préparation :</h3>
+                        <ul class="list-disc list-inside space-y-2 text-sm">
                             <li>Avant la réunion, préparez l'ordre du jour dans la base de données <strong class="text-purple-600 dark:text-purple-400">"Réunions DT"</strong> sur Notion.</li>
                             <li>Listez tous les tickets nécessitant une discussion, une décision ou une action de la part du Chef de Projet.</li>
                         </ul>
                     </div>
-                    <div class="border-l-4 border-green-400 bg-green-50 dark:bg-green-500/10 dark:border-green-500/50 p-4 rounded-r-lg">
+                    <!-- Bloc Objectifs du point hebdo [RESTAURÉ] -->
+                    <div class="border-l-4 border-green-400 bg-green-50 dark:bg-green-900/30 p-4 rounded-r-lg">
                         <div class="flex items-start">
                             <i class="fa-solid fa-shield-heart fa-lg text-green-500 dark:text-green-400 mr-4 mt-1"></i>
                             <div>
                                 <h4 class="font-bold text-green-800 dark:text-green-200">Objectifs du point hebdo</h4>
-                                <ul class="list-disc list-inside space-y-2 mt-2 text-green-700 dark:text-green-300">
-                                    <li><strong class="text-green-800 dark:text-green-200">Structurer les échanges :</strong> Centraliser les actions et les décisions pour une efficacité maximale.</li>
-                                    <li><strong class="text-green-800 dark:text-green-200">Proposer ses objectifs :</strong> L'Assistant IT propose jusqu'à 3 objectifs pour la semaine. C'est un moment pour les discuter, les valider et se challenger.</li>
-                                    <li><strong class="text-green-800 dark:text-green-200">Gérer les urgences :</strong> Ce point ne remplace pas le traitement prioritaire des urgences réelles qui surviennent.</li>
+                                <ul class="list-disc list-inside space-y-2 mt-2 text-sm text-green-700 dark:text-green-300">
+                                    <li><strong class="text-green-800 dark:text-green-200">Structurer les échanges :</strong> Centraliser les actions et les décisions.</li>
+                                    <li><strong class="text-green-800 dark:text-green-200">Proposer ses objectifs :</strong> L'Assistant IT propose jusqu'à 3 objectifs pour la semaine.</li>
+                                    <li><strong class="text-green-800 dark:text-green-200">Gérer les urgences :</strong> Ce point ne remplace pas le traitement prioritaire des urgences.</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-
+                 </div>
+            </div>
+            
             <!-- Documentation et Importance -->
-            <section id="documentation" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-book-open fa-fw mr-3 text-indigo-500 dark:text-indigo-400"></i>Documentation : Mises à Jour & Procédures</h2>
+            <div class="info-card hidden-initial">
+                 <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-book-open fa-fw mr-3 text-indigo-500 dark:text-indigo-400"></i>Documentation : Mises à Jour</h2>
                 <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                    <p><strong class="text-slate-800 dark:text-slate-200">Outil :</strong> <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-500/10 dark:text-blue-300">Helpjuice</span></p>
-                    <p>Le portail de connaissances est le référentiel unique. Votre mission est de garantir sa pertinence et son actualisation constante.</p>
-                    <div class="grid md:grid-cols-2 gap-4 mt-4">
-                        <!-- Réactivité -->
-                        <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-bolt fa-fw mr-2 text-yellow-500"></i>Mise à jour réactive</h3>
-                            <p>Après chaque communication de mise en production, analysez les impacts. Si une évolution modifie un processus, mettez à jour la procédure correspondante sur Helpjuice sans délai.</p>
-                        </div>
-                        <!-- Proactivité -->
-                        <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-lightbulb fa-fw mr-2 text-green-500"></i>Création proactive</h3>
-                            <p>Soyez force de proposition. Identifiez les processus non documentés et rédigez de nouvelles procédures pour enrichir la base de connaissances.</p>
-                        </div>
+                    <p class="text-sm"><strong class="text-slate-800 dark:text-slate-200">Outil :</strong> <span class="inline-block px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">Helpjuice</span></p>
+                    <p class="text-sm">Le portail de connaissances est le référentiel unique. Votre mission est de garantir sa pertinence et son actualisation constante.</p>
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 text-sm flex items-center"><i class="fa-solid fa-bolt fa-fw mr-2 text-yellow-500"></i>Mise à jour réactive</h3>
+                        <p class="text-sm">Après chaque communication de mise en production, analysez les impacts et mettez à jour la procédure correspondante sur Helpjuice sans délai.</p>
                     </div>
-                    <!-- Processus de validation -->
+                     <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 text-sm flex items-center"><i class="fa-solid fa-lightbulb fa-fw mr-2 text-green-500"></i>Création proactive</h3>
+                        <p class="text-sm">Identifiez les processus non documentés et rédigez de nouvelles procédures pour enrichir la base.</p>
+                    </div>
+                    <!-- Bloc Processus de validation [RESTAURÉ] -->
                     <div class="border-t border-slate-200 dark:border-slate-700 pt-4 mt-4 flex items-center">
                          <i class="fa-solid fa-clipboard-check fa-lg text-slate-500 dark:text-slate-400 mr-4"></i>
                         <div>
                             <h3 class="font-semibold text-slate-800 dark:text-slate-100">Processus de validation</h3>
-                            <p>Toute nouvelle procédure ou modification majeure doit être rédigée puis soumise au Chef de Projet pour validation avant publication.</p>
+                            <p class="text-sm">Toute nouvelle procédure ou modification majeure doit être rédigée puis soumise au Chef de Projet pour validation avant publication.</p>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Principes Clés du Support -->
-            <section id="principes" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-heart-circle-check fa-fw mr-3 text-teal-500 dark:text-teal-400"></i>Nos Principes de Support</h2>
-                <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                    <div class="flex items-start">
-                        <i class="fa-solid fa-handshake-angle fa-lg text-slate-500 dark:text-slate-400 mr-4 mt-1"></i>
-                        <div>
-                            <h3 class="font-semibold text-slate-800 dark:text-slate-100">Courtoisie et Bienveillance</h3>
-                            <p>Chaque interaction avec un utilisateur est une opportunité de l'aider. Répondez toujours avec courtoisie et bienveillance, quelle que soit la nature de la demande.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fa-solid fa-user-clock fa-lg text-slate-500 dark:text-slate-400 mr-4 mt-1"></i>
-                        <div>
-                            <h3 class="font-semibold text-slate-800 dark:text-slate-100">Statut "Résolu" vs "Fermé" sur Freshservice</h3>
-                            <p>Nous utilisons systématiquement le statut <strong class="text-green-600 dark:text-green-400">"Résolu"</strong> pour clore un ticket. Cela laisse à l'utilisateur la possibilité de le rouvrir s'il estime que le problème n'est pas entièrement solutionné. Le statut "Fermé" ne doit jamais être utilisé manuellement.</p>
-                        </div>
+        <!-- === BLOC 8: PRINCIPES DE SUPPORT (Contenu [Migration], Style [Référence]) === -->
+        <section id="principes-finaux" class="info-card mb-12 hidden-initial">
+             <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-heart-circle-check fa-fw mr-3 text-teal-500 dark:text-teal-400"></i>Nos Principes de Support</h2>
+             <div class="space-y-4 text-slate-600 dark:text-slate-300">
+                <div class="flex items-start">
+                    <i class="fa-solid fa-handshake-angle fa-lg text-slate-500 dark:text-slate-400 mr-4 mt-1"></i>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100">Courtoisie et Bienveillance</h3>
+                        <p class="text-sm">Chaque interaction avec un utilisateur est une opportunité de l'aider. Répondez toujours avec courtoisie et bienveillance, quelle que soit la nature de la demande.</p>
                     </div>
                 </div>
-            </section>
-            
-            <!-- Pourquoi ce suivi est CRUCIAL ? -->
-            <section id="pourquoi" class="mt-12">
-                <h2 class="text-3xl font-bold text-center mb-8 text-slate-900 dark:text-white">Pourquoi ce suivi est-il CRUCIAL ?</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <div class="inline-block p-3 bg-blue-100 dark:bg-blue-500/10 rounded-xl mb-4">
-                            <i class="fa-solid fa-crosshairs fa-2x text-blue-500 dark:text-blue-400"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Ciblage Précis</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm">Identifier les besoins en formation.</p>
-                    </div>
-                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <div class="inline-block p-3 bg-yellow-100 dark:bg-yellow-500/10 rounded-xl mb-4">
-                            <i class="fa-solid fa-lightbulb fa-2x text-yellow-500 dark:text-yellow-400"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Compréhension</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm">Mieux cerner les difficultés des utilisateurs.</p>
-                    </div>
-                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <div class="inline-block p-3 bg-green-100 dark:bg-green-500/10 rounded-xl mb-4">
-                            <i class="fa-solid fa-bolt fa-2x text-green-500 dark:text-green-400"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Détection Rapide</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm">Repérer les modules instables.</p>
-                    </div>
-                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <div class="inline-block p-3 bg-red-100 dark:bg-red-500/10 rounded-xl mb-4">
-                            <i class="fa-solid fa-chart-line fa-2x text-red-500 dark:text-red-400"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Améliorations</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm">Argumenter les évolutions auprès de la DSI.</p>
+                <div class="flex items-start">
+                    <i class="fa-solid fa-user-clock fa-lg text-slate-500 dark:text-slate-400 mr-4 mt-1"></i>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100">Statut "Résolu" vs "Fermé" sur Freshservice</h3>
+                        <p class="text-sm">Nous utilisons systématiquement le statut <strong class="text-green-600 dark:text-green-400">"Résolu"</strong> pour clore un ticket. Cela laisse à l'utilisateur la possibilité de le rouvrir. Le statut "Fermé" ne doit jamais être utilisé manuellement.</p>
                     </div>
                 </div>
-            </section>
+             </div>
+        </section>
 
-        </main>
+        <!-- Séparateur (Contrainte de Référence) -->
+        <hr class="border-slate-200 dark:border-slate-700 my-8">
 
-        <!-- Pied de page -->
-        <footer class="text-center mt-16 pt-8 border-t border-slate-200 dark:border-slate-700">
-            <p class="text-sm text-slate-500 dark:text-slate-400">Document confidentiel à usage interne.</p>
-            <p class="text-sm text-slate-500 dark:text-slate-400">© 2025 Proxiserve Comptage | Tous droits réservés. Reproduction interdite.</p>
+        <!-- === FOOTER (Contenu [Migration], Style [Référence]) === -->
+        <footer class="text-center text-sm text-slate-500 dark:text-slate-400 mt-12 pb-8">
+            <p class="font-semibold text-slate-600 dark:text-slate-300 mb-2">Infographie réalisée par Aurélien DA COSTA, Chef de Projet MOA</p>
+            <p>Proposé par la Direction Technique</p>
+            <p class="mt-4">© 2025 Groupe Proxiserve Prox-Hydro | Tous droits réservés. Reproduction interdite.</p>
         </footer>
 
-    </div>
+    </div> <!-- Fin du conteneur -->
 
+    <!-- === SCRIPTS (Adaptés de [Référence], logique de Graphique/Compteur/Accordéon supprimée) === -->
     <script>
-        // Script pour la gestion du mode sombre/clair et les animations
-        document.addEventListener('DOMContentLoaded', function () {
+        // === GESTION DU DARK MODE (Contrainte JS de Référence) ===
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const docElement = document.documentElement;
+
+        // Fonction pour appliquer le thème
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                docElement.classList.add('dark');
+            } else {
+                docElement.classList.remove('dark');
+            }
+            localStorage.setItem('theme', theme);
+            // Pas d'événement 'themeChanged' car pas de graphiques à mettre à jour
+        }
+
+        // Gestionnaire de clic
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = docElement.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(currentTheme);
+        });
+
+        // Appliquer le thème au chargement de la page
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (prefersDark) {
+            applyTheme('dark');
+        } else {
+            applyTheme('light');
+        }
+
+        // === GESTION DES ANIMATIONS (Contrainte JS de Référence) ===
+        document.addEventListener('DOMContentLoaded', () => {
             
-            // Gestion du thème
-            const updateTheme = () => {
-                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
+            // === AXE 2 : ANIMATION AU DÉFILEMENT (Conservé) ===
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // Déclenche quand 10% de l'élément est visible
             };
-            
-            // Écoute les changements de préférence système
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
-            
-            // Applique le thème au chargement
-            updateTheme();
 
-            // Gestion des accordéons pour une animation fluide
-            const detailsElements = document.querySelectorAll('details');
-            detailsElements.forEach((details) => {
-                const summary = details.querySelector('summary');
-                const content = details.querySelector('.content-wrapper');
-
-                summary.addEventListener('click', (event) => {
-                    // Empêche le comportement par défaut pour gérer l'animation nous-mêmes
-                    event.preventDefault();
-                    
-                    if (details.hasAttribute('open')) {
-                        // Fermeture
-                        const closingAnimation = content.animate({ maxHeight: 0 }, { duration: 300, easing: 'ease-out' });
-                        closingAnimation.onfinish = () => {
-                            details.removeAttribute('open');
-                        };
-                    } else {
-                        // Ouverture
-                        details.setAttribute('open', '');
-                        const openingAnimation = content.animate({ maxHeight: [0, content.scrollHeight + 'px'] }, { duration: 400, easing: 'ease-in-out' });
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        
+                        target.classList.add('is-visible');
+                        
+                        // Logique des compteurs supprimée car non applicable au contenu migré
+                        
+                        observer.unobserve(target); // N'observer qu'une seule fois
                     }
                 });
-            });
+            };
+
+            // --- Initialisation de l'Observer ---
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            const targets = document.querySelectorAll('.hidden-initial');
+            targets.forEach(target => observer.observe(target));
+
+            // Logique des Graphiques, Compteurs et Accordéon JS supprimée
+            // car le contenu migré n'en a pas besoin ou utilise une structure différente (timeline)
         });
     </script>
-
+    
 </body>
 </html>
 
