@@ -43,6 +43,11 @@ Conformément à la [Licence d'Utilisation](LICENSE.md) de ce dépôt, ces infog
 * **Description :** Cette infographie présente les résultats du projet Licorne sur l'automatisation de la chaîne de relevés. Elle inclut le bilan du pilote et des gains opérationnels majeurs.
 * **Accéder à l'infographie :** [Voir l'infographie "Projet Licorne : Automatisation des Relevés"](https://cosmofilou.github.io/infographies_px/projet_licorne_chaine_releves_automatisee/index.html)
 
+### 6. Vos Relevés Évoluent : Le Portail "Accès Pro"
+
+* **Description :** Cette infographie présente le nouveau flux de traitement des relevés centralisé sur le portail "Accès Pro". Elle détaille le processus en 3 étapes clés, mettant l'accent sur la fiabilité, la simplification des échanges (fini les emails !) et la validation automatique.
+* **Accéder à l'infographie :** [Voir l'infographie "Vos Relevés Évoluent"](https://cosmofilou.github.io/infographies_px/vos_releves_evoluent_acces_pro/index.html)
+
 ---
 
 ## Contact
