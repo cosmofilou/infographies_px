@@ -290,7 +290,7 @@
 
         <!-- AJOUT : Gélule Date MAJ Données --><div class="flex justify-center mb-6 hidden-initial">
              <span class="inline-flex items-center px-3 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full text-xs font-medium">
-                 <i class="fas fa-calendar-check mr-2"></i> Données mises à jour le : 29 Octobre 2025
+                 <i class="fas fa-calendar-check mr-2"></i> Données mises à jour le : 01 Novembre 2025
              </span>
         </div>
 
@@ -302,7 +302,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 dark:text-slate-400">Relevés Traités (Total)</p>
-                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="294">0</p>
+                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="296">0</p>
                     </div>
                 </div>
             </div>
@@ -313,7 +313,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 dark:text-slate-400">États de Conso. Déposés (Auto)</p>
-                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="147">0</p>
+                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="150">0</p>
                     </div>
                 </div>
             </div>
@@ -324,7 +324,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 dark:text-slate-400">Interventions Humaines Requises</p>
-                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="147">0</p>
+                        <p class="kpi-counter text-3xl font-bold text-slate-900 dark:text-white" data-target="146">0</p>
                     </div>
                 </div>
             </div>
@@ -335,7 +335,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 dark:text-slate-400">Taux de Succès</p>
-                        <p class="kpi-counter-float text-3xl font-bold text-slate-900 dark:text-white" data-target="50.0" data-suffix="%">0</p>
+                        <p class="kpi-counter-float text-3xl font-bold text-slate-900 dark:text-white" data-target="50.7" data-suffix="%">0</p>
                     </div>
                 </div>
             </div>
@@ -394,14 +394,14 @@
                     Performance Pilote Ouest
                 </h2>
                 <!-- Conteneur relatif pour le graphique --><div class="relative h-64 md:h-80 lg:h-96">
-                    <!-- DIV HTML central SUPPRIMÉ -->
+                    <!-- DIV HTML central SUPPRIMÉ (Corrigé) -->
                     <canvas id="pilotDonutChart"></canvas>
                 </div>
             </div>
             
             <!-- Graphique Barres: Causes d'Échec --><div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
-                    Analyse des 147 Échecs (AUTO KO)
+                    Analyse des 146 Échecs (AUTO KO)
                 </h2>
                 <div class="relative h-64 md:h-80 lg:h-96">
                     <canvas id="failuresBarChart"></canvas>
@@ -414,7 +414,7 @@
                     <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Learnings & Actions
                 </h2>
                 <p class="mb-4 text-slate-600 dark:text-slate-300">
-                    Le taux de succès de <span class="font-bold">50.0% valide l'efficacité de la V1</span> : les critères d'exclusion fonctionnent (aucun livrable non conforme déposé) et démontrent un <span class="font-bold">gain de temps humain significatif</span>, prouvant la "propreté" du parc.
+                    Le taux de succès de <span class="font-bold">50.7% valide l'efficacité de la V1</span> : les critères d'exclusion fonctionnent (aucun livrable non conforme déposé) et démontrent un <span class="font-bold">gain de temps humain significatif</span>, prouvant la "propreté" du parc.
                 </p>
                 <p class="mt-4 mb-2 font-semibold text-slate-700 dark:text-slate-300">Gains & Pistes d'Optimisation :</p>
                 <ul class="list-disc list-inside space-y-2">
@@ -423,11 +423,11 @@
                         <span class="text-sm text-slate-500 dark:text-slate-400"> L'économie (autom. ~10 clics/envoi) est estimée à <strong>+7h de travail</strong> sur ce pilote.</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-red-600 dark:text-red-400">42.2% (62) : "95% non atteint".</span>
+                        <span class="font-semibold text-red-600 dark:text-red-400">41.8% (61) : "95% non atteint".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Piste V2 : Affiner la tolérance.</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-orange-600 dark:text-orange-400">34.0% (50) : "Seuil forte conso...".</span>
+                        <span class="font-semibold text-orange-600 dark:text-orange-400">34.2% (50) : "Seuil forte conso...".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Piste V2 : Revoir les seuils.</span>
                     </li>
                     <li>
@@ -435,7 +435,7 @@
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Piste V2 : Exclure "IJ" (Index Juste) du blocage ?</span>
                     </li>
                     <li>
-                        <span class="font-semibold text-slate-600 dark:text-slate-300">9.5% (14) : "Index à blanc".</span>
+                        <span class="font-semibold text-slate-600 dark:text-slate-300">9.6% (14) : "Index à blanc".</span>
                         <span class="text-sm text-slate-500 dark:text-slate-400"> -> Process : À corriger (data).</span>
                     </li>
                     <li>
@@ -462,12 +462,12 @@
                     <i class="fas fa-handshake mr-1"></i> Cet onboarding devient un <span class="font-semibold">levier commercial</span> pour valoriser le portail et ses fonctionnalités de supervision.
                 </p>
                 <!-- Ajout sur la "Santé du Parc" --><p class="mt-4 pt-4 border-t border-amber-200 dark:border-amber-800 text-sm text-slate-500 dark:text-slate-400">
-                    <i class="fas fa-signal mr-1"></i> <span class="font-semibold">Indicateur de "Santé du Parc":</span> Le taux de succès de 50.0% reflète aussi un parc Ouest bien entretenu (captation radio). Ce taux servira d'indicateur de performance pour les autres agences.
+                    <i class="fas fa-signal mr-1"></i> <span class="font-semibold">Indicateur de "Santé du Parc":</span> Le taux de succès de 50.7% reflète aussi un parc Ouest bien entretenu (captation radio). Ce taux servira d'indicateur de performance pour les autres agences.
                 </p>
             </div>
         </section>
 
-        <!-- === BLOC PROJECTION (Modifié en accordéon + Texte Positif) === --><section id="projection" class="info-card mb-12 hidden-initial">
+        <!-- === BLOC PROJECTION (Modifié en accordéon + Texte Positif + Données MAJ) === --><section id="projection" class="info-card mb-12 hidden-initial">
             <!-- Titre cliquable --><div id="projection-toggle" class="flex justify-between items-center cursor-pointer">
                 <h2 class="text-2xl font-bold mb-0 text-slate-900 dark:text-white">
                     <i class="fas fa-chart-line mr-2"></i> Projection Globale & Gain de Productivité (Hypothèse)
@@ -477,7 +477,7 @@
 
             <!-- Contenu caché par défaut --><div id="projection-content" class="hidden mt-6">
                 <p class="text-center text-sm text-slate-600 dark:text-slate-400 mb-6">
-                    <i class="fas fa-exclamation-triangle text-amber-500 mr-1"></i> <strong>Attention :</strong> Ces chiffres sont une extrapolation théorique basée sur un ratio d'éligibilité de <strong>55.4%</strong> (calculé sur 8 160 relevés) et un taux de succès de <strong>50.0%</strong>.
+                    <i class="fas fa-exclamation-triangle text-amber-500 mr-1"></i> <strong>Attention :</strong> Ces chiffres sont une extrapolation théorique basée sur un ratio d'éligibilité de <strong>55.4%</strong> (calculé sur 8 160 relevés) et un taux de succès de <strong>50.7%</strong>.
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- Relevés Éligibles --><div class="text-center p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
@@ -485,17 +485,17 @@
                         <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Relevés Éligibles Projetés / An</p>
                     </div>
                     <!-- Succès Automatiques --><div class="text-center p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                        <p class="text-4xl font-bold text-green-600 dark:text-green-400 kpi-counter" data-target="775" data-suffix=" k">0</p>
+                        <p class="text-4xl font-bold text-green-600 dark:text-green-400 kpi-counter" data-target="786" data-suffix=" k">0</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Succès Automatiques Projetés / An</p>
                     </div>
                     <!-- Heures Libérées (Modifié) --><div class="text-center p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                        <p class="text-4xl font-bold text-amber-600 dark:text-amber-400 kpi-counter-float" data-target="38.75" data-suffix=" k Heures / An">0</p>
+                        <p class="text-4xl font-bold text-amber-600 dark:text-amber-400 kpi-counter-float" data-target="39.3" data-suffix=" k Heures / An">0</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Temps Humain Libéré</p>
                     </div>
                 </div>
                 
                 <!-- Paragraphe de Contexte Positif (Modifié) --><p class="text-center text-base text-slate-600 dark:text-slate-400 mt-6">
-                    Il s'agit d'un <strong>gain de productivité majeur</strong> (équivalent ~24 ETP) qui va permettre à nos équipes de <strong>se libérer des tâches manuelles</strong> pour se concentrer sur des missions à plus haute valeur ajoutée : l'analyse des cas complexes, l'amélioration de la qualité des données et un meilleur accompagnement de nos clients.
+                    Il s'agit d'un <strong>gain de productivité majeur</strong> (équivalent ~24.5 ETP) qui va permettre à nos équipes de <strong>se libérer des tâches manuelles</strong> pour se concentrer sur des missions à plus haute valeur ajoutée : l'analyse des cas complexes, l'amélioration de la qualité des données et un meilleur accompagnement de nos clients.
                 </p>
                 
                 <p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">*Calcul ETP basé sur une estimation de 3 min/relevé et 1600h/an.</p>
@@ -528,14 +528,14 @@
                     </span>
                     <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">Q3 2025 : Pilote Agence Ouest <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300 ml-3">Terminé</span></h3>
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Septembre 2025</time>
-                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Mise en production sur l'agence pilote. Extraction et analyse des premières données (Succès de 50.0%).</p>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Mise en production sur l'agence pilote. Extraction et analyse des premières données (Succès de 50.7%).</p>
                 </li>
                 <!-- Jalon Présentation Ajouté --><li class="mb-10 ml-6">            
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-yellow-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-yellow-900">
                         <i class="fas fa-presentation text-yellow-800 dark:text-yellow-300 text-xs"></i>
                     </span>
-                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Octobre 2025 : Présentation Pilote <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300 ml-3">Aujourd'hui</span></h3>
-                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">29 Octobre 2025</time>
+                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Novembre 2025 : Présentation Pilote <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300 ml-3">Aujourd'hui</span></h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">01 Novembre 2025</time>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">Restitution des résultats et learnings du pilote aux Agences & Directions.</p>
                 </li>
                 <li class="mb-10 ml-6">
@@ -678,10 +678,10 @@
                 type: 'doughnut',
                 plugins: [donutCenterText], // Ajout du plugin
                 data: {
-                    labels: ['Succès Auto (147)', 'Échecs Auto (147)'], // Données MAJ
+                    labels: ['Succès Auto (150)', 'Échecs Auto (146)'], // Données MAJ
                     datasets: [{
                         label: 'Performance Pilote',
-                        data: [147, 147], // Données MAJ
+                        data: [150, 146], // Données MAJ
                         backgroundColor: [
                             '#4f46e5', // indigo-600
                             '#e11d48'  // rose-600
@@ -705,7 +705,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Répartition des 294 Événements', // Données MAJ
+                            text: 'Répartition des 296 Événements', // Données MAJ
                             color: getChartTextColor(),
                             font: { size: 16, family: "'Inter', sans-serif" }
                         },
@@ -722,15 +722,15 @@
                 type: 'bar',
                 data: {
                     labels: [
-                        '95% non atteint', // 62
+                        '95% non atteint', // 61
                         'Conso annuelle >= Seuil', // 50
                         'Code relève (IC/IJ)', // 17
                         'Index à blanc', // 14
                         'Index incohérent' // 4
                     ], // Données MAJ
                     datasets: [{
-                        label: 'Nombre d\'échecs (Total 147)', // Données MAJ
-                        data: [62, 50, 17, 14, 4], // Données MAJ
+                        label: 'Nombre d\'échecs (Total 146)', // Données MAJ
+                        data: [61, 50, 17, 14, 4], // Données MAJ
                         // Couleurs distinctes (Suggestion Forme)
                         backgroundColor: [
                             '#dc2626', // red-600
@@ -777,7 +777,7 @@
                                 label: function(context) {
                                     let label = context.dataset.label || '';
                                     let value = context.raw;
-                                    let percentage = ((value / 147) * 100).toFixed(1); // Données MAJ (total 147)
+                                    let percentage = ((value / 146) * 100).toFixed(1); // Données MAJ (total 146)
                                     return `${label}: ${value} (${percentage}%)`;
                                 }
                             }
