@@ -3,380 +3,700 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titre migré depuis [CODE À MIGRER] -->
     <title>Infographie : Suivi des Contrats NIA | Proxiserve</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- === DEBUT STACK TECHNIQUE : Intégralement conservée depuis [CODE DE RÉFÉRENCE] === -->
+    
+    <!-- Google Font 'Inter' (Contrainte) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- TailwindCSS (Contrainte) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome (Contrainte) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Chart.js (Contrainte - Conservé, fait partie de la charte) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    
+    <!-- Configuration Tailwind pour 'Inter' -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- CSS Personnalisé (Contrainte - Conservé Intégralement depuis [CODE DE RÉFÉRENCE]) -->
+    <style type="text/css">
         /* Style de base */
+        html {  
+            scroll-behavior: smooth;  
+            scroll-padding-top: 100px; /* Offset des ancres */
+        }  
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Micro-interaction pour les cartes d'information */
+        /* Composant .info-card (Contrainte) */
         .info-card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .dark .info-card:hover {
-             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+            background-color: #ffffff;
+            border-radius: 1rem; /* rounded-2xl */
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+            padding: 1.5rem; /* p-6 */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; 
         }
 
-        /* Styles pour les onglets */
+        /* Hover (Contrainte) */
+        .info-card:hover {
+             transform: translateY(-4px); 
+             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); 
+        }
+
+        /* Styles Dark Mode pour la carte */
+        .dark .info-card {
+            background-color: #1e293b; /* dark:bg-slate-800 */
+        }
+        
+        .dark .info-card:hover {
+             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Ombre pour dark mode */
+        }
+        
+        /* Barre de navigation (Contrainte) */
+        .main-nav {
+            position: sticky;
+            top: 36px; /* Hauteur du bandeau de confidentialité */
+            z-index: 40;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7); /* slate-200 avec alpha */
+        }
+        
+        .dark .main-nav {
+            background-color: rgba(15, 23, 42, 0.7); /* slate-900 avec alpha */
+            border-bottom: 1px solid rgba(51, 65, 85, 0.7); /* slate-700 avec alpha */
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 7xl;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+        }
+        
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b; /* slate-800 */
+        }
+        
+        .dark .nav-logo {
+            color: #e2e8f0; /* slate-200 */
+        }
+
+        /* Liens de navigation */
+        .nav-links ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569; /* slate-600 */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .dark .nav-links a {
+            color: #94a3b8; /* slate-400 */
+        }
+        .nav-links a:hover {
+            color: #1e293b; /* slate-800 */
+        }
+        .dark .nav-links a:hover {
+            color: #e2e8f0; /* slate-200 */
+        }
+
+        /* Masquer les liens sur mobile */
+        @media (max-width: 767px) {
+            .nav-links { display: none; }
+        }
+
+
+        /* Style pour le bouton dark mode DANS la nav */
+        .nav-theme-toggle {
+            background-color: #e2e8f0; /* bg-slate-200 */
+            color: #334155; /* text-slate-700 */
+            border-radius: 9999px; /* rounded-full */
+            width: 2.5rem; /* w-10 */
+            height: 2.5rem; /* h-10 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .dark .nav-theme-toggle {
+            background-color: #334155; /* dark:bg-slate-700 */
+            color: #e2e8f0; /* dark:text-slate-200 */
+        }
+        .nav-theme-toggle:hover {
+            background-color: #cbd5e1; /* hover:bg-slate-300 */
+        }
+        .dark .nav-theme-toggle:hover {
+            background-color: #475569; /* dark:hover:bg-slate-600 */
+        }
+        /* Fin styles Nav */
+
+
+        /* Styles pour l'icône de l'en-tête (Contrainte) */
+        .header-icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 5rem; /* w-20 */
+            height: 5rem; /* h-20 */
+            background-color: #e0e7ff; /* bg-indigo-100 */
+            border-radius: 9999px; /* rounded-full */
+            margin: 0 auto 1.5rem auto; /* mx-auto mb-6 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .dark .header-icon-container {
+            background-color: #3730a3; /* dark:bg-indigo-900 */
+        }
+
+        /* Fond "Vivant" Aurora (Contrainte) */
+        .aurora-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px); 
+            opacity: 0.2; 
+            will-change: transform, opacity;
+        }
+
+        .aurora-blob-1 {
+            width: 600px;
+            height: 600px;
+            background: #4f46e5; /* indigo-600 */
+            animation: animate-blob-1 25s infinite alternate;
+        }
+
+        .aurora-blob-2 {
+            width: 500px;
+            height: 500px;
+            background: #e11d48; /* rose-600 */
+            animation: animate-blob-2 30s infinite alternate;
+        }
+            
+        @keyframes animate-blob-1 {
+            0% { transform: translate(10vw, 10vh) scale(1); }
+            100% { transform: translate(40vw, 60vh) scale(1.2); }
+        }
+
+        @keyframes animate-blob-2 {
+            0% { transform: translate(80vw, 70vh) scale(1.2); }
+            100% { transform: translate(20vw, 30vh) scale(0.8); }
+        }
+        /* Fin Fond Aurora */
+
+        /* Animation au défilement (Contrainte) */
+        .hidden-initial {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Styles pour l'accordéon (Contrainte) */
+        .accordion-chevron {
+            transition: transform 0.3s ease;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* Nouveaux styles pour les onglets (inspirés du style "NIA" mais adaptés à la charte "Licorne") */
         .tab-content {
             display: none;
         }
         .tab-content.active {
             display: block;
         }
+        .tab-button {
+            transition: all 0.2s ease-in-out;
+        }
 
-        /* Style pour les accordéons interactifs */
-        details summary {
-            cursor: pointer;
-            list-style: none; /* Supprime la flèche par défaut */
+        /* Infobulle (pour NIA, RFC, etc.) */
+        .tooltip-group {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dashed #64748b; /* slate-500 */
         }
-        details summary::-webkit-details-marker {
-            display: none;
+        .tooltip-content {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 0.5rem; /* mb-2 */
+            width: max-content;
+            padding: 0.5rem; /* p-2 */
+            background-color: #1e293b; /* bg-slate-800 */
+            color: #e2e8f0; /* text-slate-200 */
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500; /* font-medium */
+            border-radius: 0.375rem; /* rounded-md */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none;
+            z-index: 10;
         }
-        details .icon {
-            transition: transform 0.3s ease-in-out;
+        .dark .tooltip-content {
+            background-color: #334155; /* dark:bg-slate-700 */
         }
-        details[open] .icon {
-            transform: rotate(90deg);
+        .tooltip-group:hover .tooltip-content {
+            opacity: 1;
         }
-        
-        /* Animation pour le contenu de l'accordéon */
-        details .content-wrapper {
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
+
     </style>
+    <!-- === FIN STACK TECHNIQUE [CODE DE RÉFÉRENCE] === -->
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-500">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+<!-- Body avec classes de base (Contrainte) -->
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
 
-        <!-- En-tête -->
-        <header class="text-center mb-12">
-            <div class="inline-block p-4 bg-blue-100 dark:bg-blue-500/10 rounded-2xl mb-4">
-                <i class="fa-solid fa-file-signature fa-3x text-blue-500 dark:text-blue-400"></i>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-2">Le Suivi Essentiel des Contrats 
-                <span class="relative group">
-                    <span class="cursor-help border-b border-slate-400 border-dashed">NIA</span>
-                    <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Note d'Information Annuelle</span>
-                </span>
-            </h1>
-            <p class="text-lg text-slate-600 dark:text-slate-300">Simplifier la gestion des Notes d'Information Annuelles (NIA) pour Proxiserve et Prox-Hydro.</p>
-        </header>
-        
-        <div class="text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12">
-             <p class="text-base text-slate-600 dark:text-slate-300">Découvrez pourquoi et comment nous avons mis en place un suivi centralisé pour tracer les refus des clients à l'option NIA, garantissant notre conformité légale et notre transparence.</p>
-        </div>
-
-        <!-- Section principale -->
-        <main class="space-y-8">
-
-            <!-- Grille d'introduction -->
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Comprendre la NIA -->
-                <section id="comprendre" class="info-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-circle-question fa-fw mr-3 text-blue-500 dark:text-blue-400"></i>Qu'est-ce que la NIA ?</h2>
-                    <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                        <p>La <strong>Note d'Information Annuelle (<span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">NIA</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Note d'Information Annuelle</span></span>)</strong> est un document légal obligatoire que nous envoyons à nos clients. Elle détaille la consommation relevée par nos appareils :</p>
-                        <ul class="list-disc list-inside space-y-1 pl-2">
-                            <li>Répartiteurs de Frais de Chauffage (<span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">RFC</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Répartiteurs de Frais de Chauffage</span></span>)</li>
-                            <li>Compteurs d'Énergie Thermique (<span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">CET</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Compteurs d'Énergie Thermique</span></span>)</li>
-                            <li>Eau Chaude Sanitaire (<span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">ECS</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Eau Chaude Sanitaire</span></span>)</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <!-- L'importance du suivi -->
-                <section id="importance" class="info-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-shield-heart fa-fw mr-3 text-teal-500 dark:text-teal-400"></i>Pourquoi ce suivi est vital ?</h2>
-                    <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                        <p>Certains clients peuvent légalement refuser cette option facturée. Il est essentiel de tracer ces refus pour :</p>
-                        <ul class="space-y-2 pt-2">
-                            <li class="flex items-start"><i class="fa-solid fa-gavel fa-fw mr-3 mt-1 text-slate-400"></i><span><strong>Justifier la non-application</strong> en cas de litige.</span></li>
-                            <li class="flex items-start"><i class="fa-solid fa-check-double fa-fw mr-3 mt-1 text-slate-400"></i><span><strong>Assurer notre conformité</strong> légale.</span></li>
-                            <li class="flex items-start"><i class="fa-solid fa-handshake-simple fa-fw mr-3 mt-1 text-slate-400"></i><span><strong>Maintenir la transparence</strong> avec nos clients.</span></li>
-                        </ul>
-                    </div>
-                </section>
-            </div>
-
-            <!-- Notre solution -->
-            <section id="solution" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-database fa-fw mr-3 text-purple-500 dark:text-purple-400"></i>Notre Solution : Suivi Centralisé sur Notion</h2>
-                <div class="grid md:grid-cols-2 gap-6 text-slate-600 dark:text-slate-300">
-                    <div>
-                        <p>Pour gérer des milliers de contrats, la Direction Technique a mis en place un système robuste sur <strong>Notion</strong>. Une base de données unique est dupliquée pour chaque agence, contenant toutes les vues nécessaires.</p>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg space-y-3">
-                        <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Points Clés :</h3>
-                        <div class="flex items-start">
-                            <i class="fa-solid fa-lock fa-fw mr-3 mt-1 text-yellow-500 shrink-0"></i>
-                            <div><strong>Sécurité :</strong> Chaque agence accède uniquement à ses propres données.</div>
-                        </div>
-                        <div class="flex items-start">
-                             <i class="fa-solid fa-at fa-fw mr-3 mt-1 text-yellow-500 shrink-0"></i>
-                             <div><strong>Accès :</strong> Connexion via votre adresse e-mail professionnelle.</div>
-                        </div>
-                        <div class="flex items-start">
-                             <i class="fa-solid fa-user-check fa-fw mr-3 mt-1 text-yellow-500 shrink-0"></i>
-                             <div><strong>Responsabilité :</strong> Un contact est désigné par agence pour la mise à jour.</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Statuts -->
-            <section id="statuts" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-tags fa-fw mr-3 text-indigo-500 dark:text-indigo-400"></i>Statuts Clairs pour un Suivi Précis</h2>
-                <p class="text-slate-600 dark:text-slate-300 mb-4">Des statuts spécifiques permettent de suivre l'état de chaque contrat après la facturation initiale.</p>
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <div class="text-center p-4 rounded-lg bg-slate-100 dark:bg-slate-700/50 flex-grow">
-                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-500/10 dark:text-green-300 mb-2">🟢 NIA Active</span>
-                        <p class="text-sm text-slate-600 dark:text-slate-400">Contrat en cours, aucune opposition.</p>
-                    </div>
-                    <div class="text-center p-4 rounded-lg bg-slate-100 dark:bg-slate-700/50 flex-grow">
-                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-300 mb-2">🟠 Refus Unitaire</span>
-                        <p class="text-sm text-slate-600 dark:text-slate-400">Refus pour un contrat ou une résidence.</p>
-                    </div>
-                    <div class="text-center p-4 rounded-lg bg-slate-100 dark:bg-slate-700/50 flex-grow">
-                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-red-100 text-red-800 dark:bg-red-500/10 dark:text-red-300 mb-2">🔴 Refus Total</span>
-                        <p class="text-sm text-slate-600 dark:text-slate-400">Refus du client pour tous ses contrats.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Workflow de gestion des refus avec onglets -->
-            <section id="workflow" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                <h2 class="text-3xl font-bold mb-4 text-slate-900 dark:text-white"><i class="fa-solid fa-sitemap fa-fw mr-3 text-blue-500"></i>Comment Gérer les Refus ?</h2>
-                <p class="text-slate-600 dark:text-slate-300 mb-6">La procédure de désactivation varie légèrement selon la vue utilisée dans Notion. Sélectionnez l'onglet correspondant à votre cas.</p>
-                
-                <!-- Onglets -->
-                <div class="mb-4 flex border-b border-slate-200 dark:border-slate-700">
-                    <button data-tab="client" class="tab-button px-4 py-2 -mb-px font-semibold text-slate-800 dark:text-white border-b-2 border-blue-500">
-                        <i class="fa-solid fa-user-gear fa-fw mr-2"></i>Vue par Client
-                    </button>
-                    <button data-tab="groupe" class="tab-button px-4 py-2 font-semibold text-slate-500 dark:text-slate-400 border-b-2 border-transparent">
-                        <i class="fa-solid fa-users-gear fa-fw mr-2"></i>Vue par Groupe
-                    </button>
-                </div>
-
-                <!-- Contenu des onglets -->
-                <div>
-                    <!-- Contenu Vue par Client -->
-                    <div id="tab-client" class="tab-content active space-y-6">
-                        <div>
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-file-circle-minus fa-fw mr-3 text-slate-400"></i>Désactiver un seul contrat</h3>
-                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
-                                <li>Localisez le contrat et cliquez sur le bouton <strong class="text-red-500">Désactiver NIA (❌)</strong>.</li>
-                                <li>Confirmez, puis précisez si la <span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">LRAR</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Lettre Recommandée avec Accusé de Réception</span></span> est archivée ou non.</li>
-                                <li>Le statut passe à <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire Post-Factu</strong>.</li>
-                                <li>Le contrat apparaît dans "Mes Lettres de Refus à Archiver" si nécessaire.</li>
-                            </ol>
-                        </div>
-                        <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-folder-minus fa-fw mr-3 text-slate-400"></i>Désactiver tous les contrats d'un client</h3>
-                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
-                                <li>Recherchez le client pour filtrer la vue.</li>
-                                <li>Sélectionnez tous les contrats affichés via la case à cocher principale.</li>
-                                <li>Dans la barre flottante, changez le "Statut NIA" pour <strong class="text-red-500">Refus Total Post-Factu</strong>.</li>
-                                <li>Archivez la <span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">LRAR</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Lettre Recommandée avec Accusé de Réception</span></span> globale sur une seule ligne, puis cochez "LRAR Archivée (☑️)" pour tous les contrats du client.</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <!-- Contenu Vue par Groupe -->
-                    <div id="tab-groupe" class="tab-content space-y-6">
-                        <div>
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-file-circle-minus fa-fw mr-3 text-slate-400"></i>Désactiver un contrat unitairement</h3>
-                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
-                                <li>Localisez le contrat et cliquez sur le bouton <strong class="text-red-500">Désactiver NIA (❌)</strong>.</li>
-                                <li>Confirmez, puis précisez si la <span class="relative group"><span class="cursor-help border-b border-slate-400 border-dashed">LRAR</span><span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max p-2 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none dark:bg-slate-700">Lettre Recommandée avec Accusé de Réception</span></span> est archivée ou non.</li>
-                                <li>Le statut passe à <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire Post-Factu</strong>.</li>
-                                <li>Le contrat apparaît dans "Mes Lettres de Refus à Archiver" si nécessaire.</li>
-                            </ol>
-                        </div>
-                        <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-building-circle-xmark fa-fw mr-3 text-slate-400"></i>Désactiver tout un groupe</h3>
-                            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
-                                <li>Recherchez le groupe (résidence) pour filtrer la vue.</li>
-                                <li>Sélectionnez tous les contrats du groupe via la case à cocher principale.</li>
-                                <li>Dans la barre flottante, changez le "Statut NIA" pour <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire Post-Factu</strong>.</li>
-                                <li>Rendez-vous dans "Mes Lettres de Refus à Archiver" pour finaliser le processus d'archivage.</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section Archivage -->
-            <section id="archivage">
-                <details class="bg-white dark:bg-slate-800 shadow-lg rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                    <summary class="p-5 flex justify-between items-center">
-                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center">
-                            <i class="fa-solid fa-box-archive fa-fw mr-3 text-indigo-500 dark:text-indigo-400"></i>
-                            Finaliser l'Archivage des Lettres de Refus
-                        </h2>
-                        <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                    </summary>
-                    <div class="content-wrapper">
-                        <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-700 pt-4">
-                            <p>
-                                Cette étape est essentielle pour conserver une preuve du refus. La vue <strong>"Mes Lettres de Refus à Archiver"</strong> liste tous les contrats pour lesquels l'archivage n'a pas encore été effectué.
-                            </p>
-                            <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Procédure d'archivage :</h4>
-                                <ol class="list-decimal list-inside space-y-2">
-                                    <li>Cliquez directement à l'intérieur du champ de la colonne <strong>"Lettre de Refus"</strong>.</li>
-                                    <li>Sélectionnez "Choisir un fichier" pour téléverser le document depuis votre ordinateur.</li>
-                                    <li>Une fois le document chargé, cliquez sur le bouton <strong>"LRAR Archivée ☑️"</strong> à droite de la ligne du contrat.</li>
-                                    <li>Le contrat disparaîtra alors de cette vue de suivi.</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </section>
-            
-            <!-- Bénéfices Clés -->
-            <section id="benefices" class="mt-8">
-                <h2 class="text-3xl font-bold text-center mb-8 text-slate-900 dark:text-white">Les Bénéfices de ce Suivi</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <div class="inline-block p-3 bg-green-100 dark:bg-green-500/10 rounded-xl mb-4">
-                            <i class="fa-solid fa-check-double fa-2x text-green-500 dark:text-green-400"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Conformité Légale</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm">Justification claire et rapide des refus.</p>
-                    </div>
-                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <div class="inline-block p-3 bg-blue-100 dark:bg-blue-500/10 rounded-xl mb-4">
-                            <i class="fa-solid fa-hourglass-half fa-2x text-blue-500 dark:text-blue-400"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Gain de Temps</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm">Processus standardisés et efficaces.</p>
-                    </div>
-                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <div class="inline-block p-3 bg-purple-100 dark:bg-purple-500/10 rounded-xl mb-4">
-                           <i class="fa-solid fa-eye fa-2x text-purple-500 dark:text-purple-400"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Transparence</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm">Visibilité en temps réel de l'état des contrats.</p>
-                    </div>
-                    <div class="info-card bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
-                        <div class="inline-block p-3 bg-yellow-100 dark:bg-yellow-500/10 rounded-xl mb-4">
-                            <i class="fa-solid fa-chart-pie fa-2x text-yellow-500 dark:text-yellow-400"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Analyse Facilitée</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm">Statistiques pour une meilleure prise de décision.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Contacts Clés -->
-            <section id="contacts" class="mt-8 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-headset fa-fw mr-3 text-green-500 dark:text-green-400"></i>Contacts Clés</h2>
-                <div class="text-slate-600 dark:text-slate-300 text-center">
-                    <p class="mb-4">Pour toute question ou en cas de blocage sur cet outil, n'hésitez pas à contacter :</p>
-                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg inline-block">
-                        <p class="font-bold text-slate-800 dark:text-slate-100">Thomas RAMBAUD ou Aurélien DA COSTA</p>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Membres de la Direction Technique</p>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- Pied de page -->
-        <footer class="text-center mt-16 pt-8 border-t border-slate-200 dark:border-slate-700">
-            <p class="text-sm text-slate-500 dark:text-slate-400">Proposé par la Direction Technique de Proxiserve et Prox-Hydro.</p>
-            <p class="text-sm text-slate-500 dark:text-slate-400">© 2025 Proxiserve | Tous droits réservés. Reproduction interdite.</p>
-        </footer>
-
+    <!-- Fond "Vivant" Aurora (Contrainte) -->
+    <div class="aurora-background">
+        <div class="aurora-blob aurora-blob-1"></div>
+        <div class="aurora-blob aurora-blob-2"></div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            
-            // Gestion du thème
-            const updateTheme = () => {
-                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
-            };
-            
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
-            updateTheme();
+    <!-- Bandeau de confidentialité (Contrainte) -->
+    <div class="bg-amber-100 dark:bg-amber-900 border-b border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-200 text-center py-2 px-4 text-sm font-semibold sticky top-0 z-50">
+        <i class="fas fa-exclamation-triangle mr-2"></i> Document interne à usage exclusif. Toute reproduction est interdite.
+    </div>
+    
+    <!-- Barre de navigation (Contrainte) - Contenu adapté depuis [CODE À MIGRER] -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <!-- Logo adapté (Icône NIA, Texte Licorne) -->
+            <span class="nav-logo"><i class="fas fa-file-signature mr-2"></i> PROJET LICORNE</span>
+            <!-- Liens adaptés (Contenu NIA) -->
+            <div class="nav-links">
+                 <ul>
+                    <li><a href="#comprendre">La NIA</a></li>
+                    <li><a href="#solution">Solution</a></li>
+                    <li><a href="#workflow">Workflow</a></li>
+                    <li><a href="#benefices">Bénéfices</a></li>
+                    <li><a href="#contacts">Contacts</a></li>
+                 </ul>
+            </div>
+            <button id="theme-toggle" type="button" class="nav-theme-toggle">
+                <i class="fas fa-moon text-lg hidden dark:block" id="theme-toggle-dark-icon"></i>
+                <i class="fas fa-sun text-lg dark:hidden" id="theme-toggle-light-icon"></i>
+            </button>
+        </div>
+    </nav>
 
-            // Gestion des onglets
+
+    <!-- Conteneur principal (Contrainte) -->
+    <div class="container relative z-10 mx-auto max-w-7xl p-4 pt-8 md:p-8">
+
+        <!-- === BLOC 1: TITRE ET CONTEXTE (Style Référence, Contenu NIA) === -->
+        <header id="top" class="text-center mb-10 hidden-initial">
+            <!-- Icone migrée -->
+            <div class="header-icon-container">
+                <i class="fa-solid fa-file-signature text-4xl text-indigo-600 dark:text-indigo-400"></i>
+            </div>
+            <!-- Titre migré (infobulle simplifiée) -->
+            <h1 class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400">
+                Le Suivi Essentiel des Contrats 
+                <span class="tooltip-group">NIA
+                    <span class="tooltip-content">Note d'Information Annuelle</span>
+                </span>
+            </h1>
+            <!-- Sous-titre migré -->
+            <p class="text-xl text-slate-600 dark:text-slate-400 mt-2">
+                Simplifier la gestion des Notes d'Information Annuelles (NIA) pour Proxiserve et Prox-Hydro.</p>
+       </header>
+            
+        <!-- Contexte Objectif (Style .info-card de Référence, Contenu NIA) -->
+        <div class="info-card text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12 hidden-initial">
+           <p class="text-base text-slate-600 dark:text-slate-300">Découvrez pourquoi et comment nous avons mis en place un suivi centralisé pour tracer les refus des clients à l'option NIA, garantissant notre conformité légale et notre transparence.</p>
+        </div>
+
+        <!-- === BLOC 2: Comprendre & Importance (Style Référence #strategie, Contenu NIA) === -->
+        <section id="comprendre" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <!-- Carte 1: Comprendre -->
+            <div class="info-card hidden-initial">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-circle-question fa-fw mr-3 text-blue-500 dark:text-blue-400"></i>Qu'est-ce que la NIA ?</h2>
+                <div class="space-y-4 text-slate-600 dark:text-slate-300">
+                    <p>La <strong>Note d'Information Annuelle (<span class="tooltip-group">NIA<span class="tooltip-content">Note d'Information Annuelle</span></span>)</strong> est un document légal obligatoire que nous envoyons à nos clients. Elle détaille la consommation relevée par nos appareils :</p>
+                    <ul class="list-disc list-inside space-y-1 pl-2">
+                        <li>Répartiteurs de Frais de Chauffage (<span class="tooltip-group">RFC<span class="tooltip-content">Répartiteurs de Frais de Chauffage</span></span>)</li>
+                        <li>Compteurs d'Énergie Thermique (<span class="tooltip-group">CET<span class="tooltip-content">Compteurs d'Énergie Thermique</span></span>)</li>
+                        <li>Eau Chaude Sanitaire (<span class="tooltip-group">ECS<span class="tooltip-content">Eau Chaude Sanitaire</span></span>)</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Carte 2: Importance -->
+            <div class="info-card hidden-initial">
+                 <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-shield-heart fa-fw mr-3 text-teal-500 dark:text-teal-400"></i>Pourquoi ce suivi est vital ?</h2>
+                 <div class="space-y-4 text-slate-600 dark:text-slate-300">
+                     <p>Certains clients peuvent légalement refuser cette option facturée. Il est essentiel de tracer ces refus pour :</p>
+                     <ul class="space-y-2 pt-2">
+                         <li class="flex items-start"><i class="fa-solid fa-gavel fa-fw mr-3 mt-1 text-slate-500"></i><span><strong>Justifier la non-application</strong> en cas de litige.</span></li>
+                         <li class="flex items-start"><i class="fa-solid fa-check-double fa-fw mr-3 mt-1 text-slate-500"></i><span><strong>Assurer notre conformité</strong> légale.</span></li>
+                         <li class="flex items-start"><i class="fa-solid fa-handshake-simple fa-fw mr-3 mt-1 text-slate-500"></i><span><strong>Maintenir la transparence</strong> avec nos clients.</span></li>
+                     </ul>
+                 </div>
+            </div>
+        </section>
+
+        <!-- === BLOC 3: Solution (Style Référence #flux, Contenu NIA) === -->
+        <section id="solution" class="info-card mb-12 hidden-initial">
+            <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-database fa-fw mr-3 text-purple-500 dark:text-purple-400"></i>Notre Solution : Suivi Centralisé sur Notion</h2>
+            <div class="grid md:grid-cols-2 gap-6 text-slate-600 dark:text-slate-300">
+                <div>
+                    <p>Pour gérer des milliers de contrats, la Direction Technique a mis en place un système robuste sur <strong>Notion</strong>. Une base de données unique est dupliquée pour chaque agence, contenant toutes les vues nécessaires.</p>
+                </div>
+                <!-- Info Box (Style adapté de Réf) -->
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg space-y-3 border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Points Clés :</h3>
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-lock fa-fw mr-3 mt-1 text-yellow-500 shrink-0"></i>
+                        <div><strong>Sécurité :</strong> Chaque agence accède uniquement à ses propres données.</div>
+                    </div>
+                    <div class="flex items-start">
+                         <i class="fa-solid fa-at fa-fw mr-3 mt-1 text-yellow-500 shrink-0"></i>
+                         <div><strong>Accès :</strong> Connexion via votre adresse e-mail professionnelle.</div>
+                    </div>
+                    <div class="flex items-start">
+                         <i class="fa-solid fa-user-check fa-fw mr-3 mt-1 text-yellow-500 shrink-0"></i>
+                         <div><strong>Responsabilité :</strong> Un contact est désigné par agence pour la mise à jour.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- === BLOC 4: Statuts (Style Référence #flux, Contenu NIA) === -->
+         <section id="statuts" class="info-card mb-12 hidden-initial">
+             <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-tags fa-fw mr-3 text-indigo-500 dark:text-indigo-400"></i>Statuts Clairs pour un Suivi Précis</h2>
+             <p class="text-slate-600 dark:text-slate-300 mb-4">Des statuts spécifiques permettent de suivre l'état de chaque contrat après la facturation initiale.</p>
+             <div class="flex flex-wrap gap-4 justify-center">
+                 <div class="text-center p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 flex-grow">
+                     <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 mb-2">🟢 NIA Active</span>
+                     <p class="text-sm text-slate-600 dark:text-slate-400">Contrat en cours, aucune opposition.</p>
+                 </div>
+                 <div class="text-center p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 flex-grow">
+                     <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300 mb-2">🟠 Refus Unitaire</span>
+                     <p class="text-sm text-slate-600 dark:text-slate-400">Refus pour un contrat ou une résidence.</p>
+                 </div>
+                 <div class="text-center p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 flex-grow">
+                     <span class="inline-block px-3 py-1 text-sm font-medium rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300 mb-2">🔴 Refus Total</span>
+                     <p class="text-sm text-slate-600 dark:text-slate-400">Refus du client pour tous ses contrats.</p>
+                 </div>
+             </div>
+         </section>
+
+        <!-- === BLOC 5: Workflow (Style Référence .info-card, Contenu NIA avec Tabs) === -->
+        <section id="workflow" class="info-card mb-12 hidden-initial">
+            <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white"><i class="fa-solid fa-sitemap fa-fw mr-3 text-blue-500"></i>Comment Gérer les Refus ?</h2>
+            <p class="text-slate-600 dark:text-slate-300 mb-6">La procédure de désactivation varie légèrement selon la vue utilisée dans Notion. Sélectionnez l'onglet correspondant à votre cas.</p>
+            
+            <!-- Onglets (Stylés façon "Licorne") -->
+            <div class="mb-6 flex border-b border-slate-200 dark:border-slate-700">
+                <button data-tab="client" class="tab-button px-4 py-2 -mb-px font-semibold text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-500">
+                    <i class="fa-solid fa-user-gear fa-fw mr-2"></i>Vue par Client
+                </button>
+                <button data-tab="groupe" class="tab-button px-4 py-2 font-semibold text-slate-500 dark:text-slate-400 border-b-2 border-transparent hover:text-slate-700 dark:hover:text-slate-300">
+                    <i class="fa-solid fa-users-gear fa-fw mr-2"></i>Vue par Groupe
+                </button>
+            </div>
+
+            <!-- Contenu des onglets -->
+            <div>
+                <!-- Contenu Vue par Client -->
+                <div id="tab-client" class="tab-content active space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-file-circle-minus fa-fw mr-3 text-slate-400"></i>Désactiver un seul contrat</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                            <li>Localisez le contrat et cliquez sur le bouton <strong class="text-red-500">Désactiver NIA (❌)</strong>.</li>
+                            <li>Confirmez, puis précisez si la <span class="tooltip-group">LRAR<span class="tooltip-content">Lettre Recommandée avec Accusé de Réception</span></span> est archivée ou non.</li>
+                            <li>Le statut passe à <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire Post-Factu</strong>.</li>
+                            <li>Le contrat apparaît dans "Mes Lettres de Refus à Archiver" si nécessaire.</li>
+                        </ol>
+                    </div>
+                    <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-folder-minus fa-fw mr-3 text-slate-400"></i>Désactiver tous les contrats d'un client</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                            <li>Recherchez le client pour filtrer la vue.</li>
+                            <li>Sélectionnez tous les contrats affichés via la case à cocher principale.</li>
+                            <li>Dans la barre flottante, changez le "Statut NIA" pour <strong class="text-red-500">Refus Total Post-Factu</strong>.</li>
+                            <li>Archivez la <span class="tooltip-group">LRAR<span class="tooltip-content">Lettre Recommandée avec Accusé de Réception</span></span> globale sur une seule ligne, puis cochez "LRAR Archivée (☑️)" pour tous les contrats du client.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Contenu Vue par Groupe -->
+                <div id="tab-groupe" class="tab-content space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-file-circle-minus fa-fw mr-3 text-slate-400"></i>Désactiver un contrat unitairement</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                            <li>Localisez le contrat et cliquez sur le bouton <strong class="text-red-500">Désactiver NIA (❌)</strong>.</li>
+                            <li>Confirmez, puis précisez si la <span class="tooltip-group">LRAR<span class="tooltip-content">Lettre Recommandée avec Accusé de Réception</span></span> est archivée ou non.</li>
+                            <li>Le statut passe à <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire Post-Factu</strong>.</li>
+                            <li>Le contrat apparaît dans "Mes Lettres de Refus à Archiver" si nécessaire.</li>
+                        </ol>
+                    </div>
+                    <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3 flex items-center"><i class="fa-solid fa-building-circle-xmark fa-fw mr-3 text-slate-400"></i>Désactiver tout un groupe</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                            <li>Recherchez le groupe (résidence) pour filtrer la vue.</li>
+                            <li>Sélectionnez tous les contrats du groupe via la case à cocher principale.</li>
+                            <li>Dans la barre flottante, changez le "Statut NIA" pour <strong class="text-yellow-600 dark:text-yellow-400">Refus Unitaire Post-Factu</strong>.</li>
+                            <li>Rendez-vous dans "Mes Lettres de Refus à Archiver" pour finaliser le processus d'archivage.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === BLOC 6: Archivage (Style Référence #projection, Contenu NIA) === -->
+        <section id="archivage" class="info-card mb-12 hidden-initial">
+            <!-- Titre cliquable (Style Référence) -->
+            <div id="archivage-toggle" class="flex justify-between items-center cursor-pointer">
+                <h2 class="text-2xl font-bold mb-0 text-slate-900 dark:text-white">
+                    <i class="fa-solid fa-box-archive fa-fw mr-3 text-indigo-500 dark:text-indigo-400"></i>
+                    Finaliser l'Archivage des Lettres de Refus
+                </h2>
+                <i id="archivage-chevron" class="fas fa-chevron-down text-slate-500 accordion-chevron"></i>
+            </div>
+
+            <!-- Contenu caché (Style Référence) -->
+            <div id="archivage-content" class="hidden mt-6">
+                 <p class="text-slate-600 dark:text-slate-300">
+                     Cette étape est essentielle pour conserver une preuve du refus. La vue <strong>"Mes Lettres de Refus à Archiver"</strong> liste tous les contrats pour lesquels l'archivage n'a pas encore été effectué.
+                 </p>
+                 <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg mt-4 border border-slate-200 dark:border-slate-700">
+                     <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Procédure d'archivage :</h4>
+                     <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                         <li>Cliquez directement à l'intérieur du champ de la colonne <strong>"Lettre de Refus"</strong>.</li>
+                         <li>Sélectionnez "Choisir un fichier" pour téléverser le document depuis votre ordinateur.</li>
+                         <li>Une fois le document chargé, cliquez sur le bouton <strong>"LRAR Archivée ☑️"</strong> à droite de la ligne du contrat.</li>
+                         <li>Le contrat disparaîtra alors de cette vue de suivi.</li>
+                     </ol>
+                 </div>
+            </div>
+        </section>
+
+        <!-- === BLOC 7: Bénéfices (Style Référence #kpis, Contenu NIA) === -->
+        <section id="benefices" class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-slate-900 dark:text-white hidden-initial">Les Bénéfices de ce Suivi</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Bénéfice 1 -->
+                <div class="info-card text-center hidden-initial">
+                    <div class="flex-shrink-0 w-16 h-16 mx-auto flex items-center justify-center bg-green-100 dark:bg-green-900 rounded-full mb-4">
+                        <i class="fa-solid fa-check-double fa-2x text-green-500 dark:text-green-400"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">Conformité Légale</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">Justification claire et rapide des refus.</p>
+                </div>
+                <!-- Bénéfice 2 -->
+                <div class="info-card text-center hidden-initial">
+                    <div class="flex-shrink-0 w-16 h-16 mx-auto flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full mb-4">
+                        <i class="fa-solid fa-hourglass-half fa-2x text-blue-500 dark:text-blue-400"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">Gain de Temps</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">Processus standardisés et efficaces.</p>
+                </div>
+                <!-- Bénéfice 3 -->
+                <div class="info-card text-center hidden-initial">
+                    <div class="flex-shrink-0 w-16 h-16 mx-auto flex items-center justify-center bg-purple-100 dark:bg-purple-900 rounded-full mb-4">
+                        <i class="fa-solid fa-eye fa-2x text-purple-500 dark:text-purple-400"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">Transparence</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">Visibilité en temps réel de l'état des contrats.</p>
+                </div>
+                <!-- Bénéfice 4 -->
+                <div class="info-card text-center hidden-initial">
+                    <div class="flex-shrink-0 w-16 h-16 mx-auto flex items-center justify-center bg-yellow-100 dark:bg-yellow-900 rounded-full mb-4">
+                         <i class="fa-solid fa-chart-pie fa-2x text-yellow-500 dark:text-yellow-400"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">Analyse Facilitée</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">Statistiques pour une meilleure prise de décision.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- === BLOC 8: Contacts (Style Référence .info-card, Contenu NIA) === -->
+        <section id="contacts" class="info-card mb-12 hidden-initial">
+            <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-headset fa-fw mr-3 text-green-500 dark:text-green-400"></i>Contacts Clés</h2>
+            <div class="text-slate-600 dark:text-slate-300 text-center">
+                <p class="mb-4">Pour toute question ou en cas de blocage sur cet outil, n'hésitez pas à contacter :</p>
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg inline-block border border-slate-200 dark:border-slate-700">
+                    <p class="font-bold text-slate-800 dark:text-slate-100">Thomas RAMBAUD ou Aurélien DA COSTA</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Membres de la Direction Technique</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Séparateur (Contrainte) -->
+        <hr class="border-slate-200 dark:border-slate-700 my-8">
+
+        <!-- === FOOTER (Contrainte - Version corrigée par l'utilisateur) === -->
+        <footer class="text-center text-sm text-slate-500 dark:text-slate-400 mt-12 pb-8">
+            <p class="font-semibold text-slate-600 dark:text-slate-300 mb-2">Infographie réalisée par Aurélien DA COSTA, Chef de Projet MOA</p>
+            <p>Proposé par la Direction Technique</p>
+            <p class="mt-4">© 2025 Groupe Proxiserve Prox-Hydro | Tous droits réservés. Reproduction interdite.</p>
+        </footer>
+
+    </div> <!-- Fin du conteneur -->
+
+    <!-- === SCRIPTS (Logique JS de la RÉFÉRENCE, adaptée au contenu NIA) === -->
+    <script>
+        // === GESTION DU DARK MODE (Contrainte JS - Conservé) ===
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const docElement = document.documentElement;
+
+        // Fonction pour appliquer le thème
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                docElement.classList.add('dark');
+            } else {
+                docElement.classList.remove('dark');
+            }
+            localStorage.setItem('theme', theme);
+            // Déclenche un événement personnalisé (conservé, même si non utilisé par les graphiques)
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDark: theme === 'dark' } }));
+        }
+
+        // Gestionnaire de clic
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = docElement.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(currentTheme);
+        });
+
+        // Appliquer le thème au chargement de la page
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (prefersDark) {
+            applyTheme('dark');
+        } else {
+            applyTheme('light');
+        }
+
+        // === GESTION DES ANIMATIONS ET COMPOSANTS (Adapté) ===
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Logique Chart.js et Compteurs (Supprimée) ---
+            // Le contenu NIA n'utilise ni graphiques ni compteurs animés.
+
+            // === GESTION DES ONGLETS (Nouveau, nécessaire pour le contenu NIA) ===
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
 
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.dataset.tab;
+            if (tabButtons.length > 0 && tabContents.length > 0) {
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const tabId = button.dataset.tab;
 
-                    // Gérer l'état des boutons
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('text-slate-800', 'dark:text-white', 'border-blue-500');
-                        btn.classList.add('text-slate-500', 'dark:text-slate-400', 'border-transparent');
-                    });
-                    button.classList.add('text-slate-800', 'dark:text-white', 'border-blue-500');
-                    button.classList.remove('text-slate-500', 'dark:text-slate-400', 'border-transparent');
+                        // Gérer l'état des boutons
+                        tabButtons.forEach(btn => {
+                            btn.classList.remove('text-indigo-600', 'dark:text-indigo-400', 'border-indigo-500');
+                            btn.classList.add('text-slate-500', 'dark:text-slate-400', 'border-transparent', 'hover:text-slate-700', 'dark:hover:text-slate-300');
+                        });
+                        button.classList.add('text-indigo-600', 'dark:text-indigo-400', 'border-indigo-500');
+                        button.classList.remove('text-slate-500', 'dark:text-slate-400', 'border-transparent', 'hover:text-slate-700', 'dark:hover:text-slate-300');
 
-                    // Gérer l'affichage du contenu
-                    tabContents.forEach(content => {
-                        if (content.id === `tab-${tabId}`) {
-                            content.classList.add('active');
-                        } else {
-                            content.classList.remove('active');
-                        }
+                        // Gérer l'affichage du contenu
+                        tabContents.forEach(content => {
+                            if (content.id === `tab-${tabId}`) {
+                                content.classList.add('active');
+                            } else {
+                                content.classList.remove('active');
+                            }
+                        });
                     });
                 });
-            });
+            }
+            
+            // === ANIMATION AU DÉFILEMENT (Adapté depuis Réf) ===
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // Déclenche quand 10% de l'élément est visible
+            };
 
-            // Gestion des accordéons pour une animation fluide
-            const detailsElements = document.querySelectorAll('details');
-            detailsElements.forEach((details) => {
-                const summary = details.querySelector('summary');
-                const content = details.querySelector('.content-wrapper');
-
-                summary.addEventListener('click', (event) => {
-                    // Empêche le comportement par défaut pour gérer l'animation nous-mêmes
-                    event.preventDefault();
-                    
-                    if (details.hasAttribute('open')) {
-                        // Fermeture
-                        const closingAnimation = content.animate({ maxHeight: [content.scrollHeight + 'px', 0] }, { duration: 300, easing: 'ease-out' });
-                        closingAnimation.onfinish = () => {
-                            details.removeAttribute('open');
-                        };
-                    } else {
-                        // Ouverture
-                        details.setAttribute('open', '');
-                        const openingAnimation = content.animate({ maxHeight: [0, content.scrollHeight + 'px'] }, { duration: 400, easing: 'ease-in-out' });
-                        openingAnimation.onfinish = () => {
-                           content.style.maxHeight = 'none'; // Permet au contenu de s'adapter si la taille change
-                        };
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        
+                        // Appliquer l'animation de visibilité
+                        target.classList.add('is-visible');
+                        
+                        // Logique des compteurs supprimée
+                        
+                        observer.unobserve(target); // N'observer qu'une seule fois
                     }
                 });
-            });
+            };
+
+            // --- Initialisation de l'Observer ---
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            const targets = document.querySelectorAll('.hidden-initial');
+            targets.forEach(target => observer.observe(target));
+
+            // === LOGIQUE ACCORDÉON (Adapté de Réf #projection pour #archivage) ===
+            const archivageToggleBtn = document.getElementById('archivage-toggle');
+            const archivageContent = document.getElementById('archivage-content');
+            const archivageChevron = document.getElementById('archivage-chevron');
+
+            if (archivageToggleBtn && archivageContent && archivageChevron) {
+                archivageToggleBtn.addEventListener('click', () => {
+                    archivageContent.classList.toggle('hidden');
+                    archivageChevron.classList.toggle('rotate-180');
+                    
+                    // Logique d'animation des compteurs à l'ouverture (supprimée)
+                });
+            }
         });
     </script>
-
+    
 </body>
 </html>
