@@ -253,6 +253,7 @@
                     <li><a href="#flux">Flux</a></li>
                     <li><a href="#analyse">Analyse</a></li>
                     <li><a href="#strategie">Stratégie</a></li>
+                    <li><a href="#projection">Projection</a></li>
                     <li><a href="#roadmap">Roadmap</a></li>
                  </ul>
             </div>
@@ -270,7 +271,7 @@
                 <i class="fas fa-cloud-arrow-up text-4xl text-indigo-600 dark:text-indigo-400"></i>
             </div>
             <!-- Titre percutant + Contexte Licorne --><h1 class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400">
-                Licorne : L'Automatisation en Action
+                Licorne : L'AutomatISATION en Action
             </h1>
             <p class="text-xl text-slate-600 dark:text-slate-400 mt-2">
                 Analyse Micro du Pilote "Validation Automatique" (Agence Ouest)</p>
@@ -441,7 +442,7 @@
                     <i class="fas fa-key text-amber-500 dark:text-amber-400 mr-2"></i> Prérequis Stratégique Clé
                 </h2>
                 <p class="text-lg font-semibold text-amber-600 dark:text-amber-400 mb-3">
-                    L'adoption du portail "Accès Pro" par les clients est OBLIGATOATOIRE pour le déploiement.
+                    L'adoption du portail "Accès Pro" par les clients est OBLIGATOIRE pour le déploiement.
                 </p>
                 <p class="text-slate-600 dark:text-slate-300">
                     La "Validation Automatique" a pour but de <span class="font-bold">remplacer l'envoi manuel de documents par mail</span>. Le portail "Accès Pro" devient l'unique canal de restitution des livrables et des alertes. La notification des nouveaux documents disponibles doit être activée dans les paramètres client Accès Pro.
@@ -456,6 +457,30 @@
                     <i class="fas fa-signal mr-1"></i> <span class="font-semibold">Indicateur de "Santé du Parc":</span> Le taux de succès de 50.0% reflète aussi un parc Ouest bien entretenu (captation radio). Ce taux servira d'indicateur de performance pour les autres agences.
                 </p>
             </div>
+        </section>
+
+        <!-- === NOUVEAU BLOC: PROJECTION GLOBALE ETP === --><section id="projection" class="info-card mb-12 hidden-initial">
+            <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+                <i class="fas fa-chart-line mr-2"></i> Projection Globale & Gain ETP (Hypothèse)
+            </h2>
+            <p class="text-center text-sm text-slate-600 dark:text-slate-400 mb-6">
+                <i class="fas fa-exclamation-triangle text-amber-500 mr-1"></i> <strong>Attention :</strong> Ces chiffres sont une extrapolation théorique basée sur un ratio d'éligibilité de <strong>55.4%</strong> (calculé sur 8 160 relevés) et un taux de succès de <strong>50.0%</strong>.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Relevés Éligibles --><div class="text-center p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                    <p class="text-4xl font-bold text-indigo-600 dark:text-indigo-400 kpi-counter-float" data-target="1.55" data-suffix=" M">0</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Relevés Éligibles Projetés / An</p>
+                </div>
+                <!-- Succès Automatiques --><div class="text-center p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                    <p class="text-4xl font-bold text-green-600 dark:text-green-400 kpi-counter" data-target="775" data-suffix=" k">0</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Succès Automatiques Projetés / An</p>
+                </div>
+                <!-- Gain ETP --><div class="text-center p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                    <p class="text-4xl font-bold text-amber-600 dark:text-amber-400 kpi-counter" data-target="24" data-suffix=" ETP">0</Gains>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Gain Annuel Estimé</p>
+                </div>
+            </div>
+            <p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">*Calcul ETP basé sur une estimation de 3 min/relevé et 1600h/an.</p>
         </section>
         
         <!-- === BLOC 5: ROADMAP PROJECTION (Modifié) === --><section id="roadmap" class="info-card mb-12 hidden-initial"> <!-- Suppression du padding/margin d'offset --><h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
@@ -775,10 +800,11 @@
 
             // === AXE 2 : ANIMATION AU DÉFILEMENT (Ajouté) ===
 
-            // --- Fonction d'animation du compteur (entiers) ---
+            // --- Fonction d'animation du compteur (entiers) (Modifiée pour Suffixe) ---
             const animateCounter = (el, target) => {
                 let start = 0;
                 const duration = 1500; // 1.5 secondes
+                const suffix = el.dataset.suffix || ''; // Ajout du suffixe
                 const step = (timestamp) => {
                     if (!start) start = timestamp;
                     const progress = timestamp - start;
@@ -787,12 +813,12 @@
                     // Calculer la valeur en fonction du easing (easeOutQuint)
                     const easeOutVal = 1 - Math.pow(1 - percentage, 5);
                     
-                    el.innerText = Math.floor(easeOutVal * target).toLocaleString('fr-FR');
+                    el.innerText = Math.floor(easeOutVal * target).toLocaleString('fr-FR') + suffix; // Ajout du suffixe
                     
                     if (progress < duration) {
                         window.requestAnimationFrame(step);
                     } else {
-                        el.innerText = target.toLocaleString('fr-FR');
+                        el.innerText = target.toLocaleString('fr-FR') + suffix; // Ajout du suffixe
                     }
                 };
                 window.requestAnimationFrame(step);
