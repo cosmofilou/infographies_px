@@ -3,273 +3,533 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titre migré depuis [CODE À MIGRER] -->
     <title>Le Suivi de la Relève | Proxiserve</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- === DEBUT STACK TECHNIQUE : Intégralement conservée depuis [CODE DE RÉFÉRENCE] === -->
+    
+    <!-- Google Font 'Inter' (Contrainte) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- TailwindCSS (Contrainte) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome (Contrainte) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Chart.js (Contrainte - Conservé même si non utilisé par le contenu migré, fait partie de la charte) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    
+    <!-- Configuration Tailwind pour 'Inter' -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- CSS Personnalisé (Contrainte - Conservé Intégralement) -->
+    <style type="text/css">
         /* Style de base */
+        html {  
+            scroll-behavior: smooth;  
+            scroll-padding-top: 100px; /* Ajout global pour l'offset des ancres */
+        }  
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        
-        /* Style pour les accordéons interactifs */
-        details summary {
-            cursor: pointer;
-            list-style: none; /* Supprime la flèche par défaut */
-        }
-        details summary::-webkit-details-marker {
-            display: none;
-        }
-        details .icon {
-            transition: transform 0.3s ease-in-out;
-        }
-        details[open] .icon {
-            transform: rotate(90deg);
-        }
-        
-        /* Animation pour le contenu de l'accordéon */
-        details .content-wrapper {
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
 
-        /* Micro-interaction pour les cartes d'information */
+        /* Composant .info-card (Contrainte) */
         .info-card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            background-color: #ffffff;
+            border-radius: 1rem; /* rounded-2xl */
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+            padding: 1.5rem; /* p-6 */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; 
         }
+
+        /* Hover (Contrainte) */
         .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+             transform: translateY(-4px); 
+             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); 
         }
-        .dark .info-card:hover {
-             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+
+        /* Styles Dark Mode pour la carte */
+        .dark .info-card {
+            background-color: #1e293b; /* dark:bg-slate-800 */
         }
-    </style>
-</head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-500">
-
-    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
-
-        <!-- En-tête -->
-        <header class="text-center mb-12">
-            <div class="inline-block p-4 bg-blue-100 dark:bg-blue-500/10 rounded-2xl mb-4">
-                <i class="fa-solid fa-magnifying-glass-chart fa-3x text-blue-500 dark:text-blue-400"></i>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-2">Le Suivi de la Relève : Votre Guide Simplifié</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-300">Comprenez comment les relevés de compteurs sont traités, de la planification à la mise à disposition de vos documents.</p>
-        </header>
         
-        <div class="text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12">
-             <p class="text-base text-slate-600 dark:text-slate-300">Cette infographie vous guide à travers les étapes clés du processus de suivi de la relève. Découvrez le parcours complet d'un index, depuis le terrain jusqu'à votre espace client.</p>
-        </div>
+        .dark .info-card:hover {
+             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Ombre pour dark mode */
+        }
+        
+        /* Barre de navigation (Contrainte) */
+        .main-nav {
+            position: sticky;
+            top: 36px; /* Hauteur du bandeau de confidentialité */
+            z-index: 40;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7); /* slate-200 avec alpha */
+        }
+        
+        .dark .main-nav {
+            background-color: rgba(15, 23, 42, 0.7); /* slate-900 avec alpha */
+            border-bottom: 1px solid rgba(51, 65, 85, 0.7); /* slate-700 avec alpha */
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 7xl;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+        }
+        
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b; /* slate-800 */
+        }
+        
+        .dark .nav-logo {
+            color: #e2e8f0; /* slate-200 */
+        }
 
-        <!-- Section principale -->
-        <main class="space-y-8">
+        /* Liens de navigation */
+        .nav-links ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569; /* slate-600 */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .dark .nav-links a {
+            color: #94a3b8; /* slate-400 */
+        }
+        .nav-links a:hover {
+            color: #1e293b; /* slate-800 */
+        }
+        .dark .nav-links a:hover {
+            color: #e2e8f0; /* slate-200 */
+        }
 
-            <!-- Flux Principal : Suivi de la Relève -->
-            <section id="processus-releve">
-                <h2 class="text-3xl font-bold mb-6 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-sitemap fa-fw mr-4 text-blue-500 dark:text-blue-400"></i>Flux Principal : Le Suivi de la Relève</h2>
-                <div class="space-y-4 relative pl-8 border-l-2 border-dashed border-slate-300 dark:border-slate-700">
-                    <!-- Étape 1 -->
-                    <div class="timeline-item">
-                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">1</div>
-                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-calendar-days fa-fw mr-3 text-slate-400"></i>Planification des Relevés</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                            <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-users fa-fw mr-2 text-blue-500"></i>Organisation des équipes</h4>
-                                        <p>Les relevés sont planifiés par semaine et par équipe pour optimiser les tournées et garantir une couverture efficace.</p>
-                                    </div>
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-mobile-screen-button fa-fw mr-2 text-blue-500"></i>Création des supports numériques</h4>
-                                        <p>Des supports (applications sur smartphones ou tablettes) sont préparés pour les releveurs, contenant toutes les informations nécessaires pour leur mission.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                    <!-- Étape 2 -->
-                     <div class="timeline-item">
-                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">2</div>
-                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-download fa-fw mr-3 text-slate-400"></i>Collecte des Données</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                            <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>La collecte des index s'effectue de deux manières complémentaires :</p>
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-person-walking fa-fw mr-2 text-green-500"></i>Sur le terrain (Mobilité)</h4>
-                                        <p>Nos releveurs équipés de leurs appareils mobiles saisissent directement les index des compteurs lors de leurs visites.</p>
-                                    </div>
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-tower-broadcast fa-fw mr-2 text-purple-500"></i>À distance (Télérelevé GPRS)</h4>
-                                        <p>Pour les compteurs équipés, les index sont collectés automatiquement via des capteurs et des réseaux dédiés, sans intervention humaine directe.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                    <!-- Étape 3 -->
-                    <div class="timeline-item">
-                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">3</div>
-                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-arrows-rotate fa-fw mr-3 text-slate-400"></i>Intégration des Index</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                            <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>Une fois les relevés effectués, les données sont transférées de manière sécurisée dans le système Licorne pour être intégrées automatiquement selon un calendrier précis.</p>
-                                     <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Fréquence d'intégration :</h4>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li><strong class="text-blue-600 dark:text-blue-400">Hebdomadaire :</strong> Chaque vendredi, les données des télérelevés sont automatiquement intégrées, assurant une mise à jour régulière.</li>
-                                            <li><strong class="text-blue-600 dark:text-blue-400">À date imposée :</strong> Dans certains cas spécifiques, une date précise est définie pour l'intégration des données, offrant une flexibilité accrue.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                    <!-- Étape 4 -->
-                     <div class="timeline-item">
-                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">4</div>
-                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-robot fa-fw mr-3 text-slate-400"></i>Validation Automatique</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                            <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <p>Pour garantir la fiabilité de vos données, Licorne vérifie automatiquement chaque relevé selon des règles strictes avant de le valider. Cela minimise les erreurs, accélère le traitement et assure la qualité des informations.</p>
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Critères clés vérifiés :</h4>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 mt-2">
-                                            <div class="flex items-start"><i class="fa-solid fa-file-circle-check fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Contrat valide :</strong> L'affaire est active.</span></div>
-                                            <div class="flex items-start"><i class="fa-solid fa-arrow-up-9-1 fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Index cohérent :</strong> Supérieur au précédent.</span></div>
-                                            <div class="flex items-start"><i class="fa-solid fa-ban-bug fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Pas d'anomalie :</strong> Absence de codes bloquants.</span></div>
-                                            <div class="flex items-start"><i class="fa-solid fa-droplet-slash fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Compteur non déposé :</strong> Le compteur général est en service.</span></div>
-                                            <div class="flex items-start"><i class="fa-solid fa-chart-simple fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Consommation normale :</strong> Sous les seuils d'alerte.</span></div>
-                                            <div class="flex items-start"><i class="fa-solid fa-lock-open fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Validation débloquée :</strong> Pas de blocage manuel activé.</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                    <!-- Étape 5 -->
-                     <div class="timeline-item">
-                        <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 flex items-center justify-center text-white font-bold">5</div>
-                        <details class="bg-white dark:bg-slate-800 shadow-md rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                            <summary class="p-5 flex justify-between items-center">
-                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white"><i class="fa-solid fa-file-arrow-up fa-fw mr-3 text-slate-400"></i>Dépôt des Documents (Éditiques)</h3>
-                                <i class="fa-solid fa-chevron-right icon text-slate-500"></i>
-                            </summary>
-                            <div class="content-wrapper">
-                                <div class="px-5 pb-5 space-y-4 text-slate-600 dark:text-slate-300">
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-cloud-arrow-up fa-fw mr-2 text-blue-500"></i>Sur Accès Pro</h4>
-                                        <p>Une fois les relevés validés, les documents officiels (relevés, factures...) sont automatiquement déposés sur votre espace client sécurisé Accès Pro, accessible 24h/24 et 7j/7.</p>
-                                    </div>
-                                    <div class="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg">
-                                        <h4 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 flex items-center"><i class="fa-solid fa-file-invoice fa-fw mr-2 text-blue-500"></i>Fichiers EDI</h4>
-                                        <p>Si votre compte est configuré pour l'Échange de Données Informatisé, un fichier EDI est généré et déposé sur Accès Pro pour une intégration directe dans vos systèmes.</p>
-                                    </div>
-                                     <div class="border-l-4 border-green-400 bg-green-50 dark:bg-green-500/10 dark:border-green-500/50 p-4 rounded-r-lg">
-                                        <h4 class="font-bold text-green-800 dark:text-green-200">Adieu les e-mails !</h4>
-                                        <p class="text-green-700 dark:text-green-300">Pour une meilleure sécurité et traçabilité, l'envoi des éditiques par e-mail est remplacé par le dépôt direct sur Accès Pro.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-            </section>
+        /* Masquer les liens sur mobile */
+        @media (max-width: 767px) {
+            .nav-links { display: none; }
+        }
 
-            <!-- Section Anomalies -->
-            <section id="anomalies" class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
-                <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-triangle-exclamation fa-fw mr-3 text-yellow-500 dark:text-yellow-400"></i>Gestion des Anomalies</h2>
-                <div class="space-y-4 text-slate-600 dark:text-slate-300">
-                    <p>Que se passe-t-il si la validation automatique échoue ou en cas de traitement manuel ?</p>
-                    <div class="border-l-4 border-red-400 bg-red-50 dark:bg-red-500/10 dark:border-red-500/50 p-4 rounded-r-lg flex items-start">
-                        <i class="fa-solid fa-circle-stop fa-lg text-red-500 dark:text-red-400 mr-4 mt-1"></i>
-                        <div>
-                            <h4 class="font-bold text-red-800 dark:text-red-200">Validation KO (Critères Non OK)</h4>
-                            <p class="text-red-700 dark:text-red-300">Si un critère de validation n'est pas respecté, le relevé est marqué "Validation Auto KO". Il ne sera pas validé et nécessitera une révision et une intervention manuelle par nos équipes pour corriger l'anomalie.</p>
-                        </div>
-                    </div>
-                    <div class="border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-500/10 dark:border-yellow-500/50 p-4 rounded-r-lg flex items-start">
-                        <i class="fa-solid fa-pencil fa-lg text-yellow-500 dark:text-yellow-400 mr-4 mt-1"></i>
-                        <div>
-                            <h4 class="font-bold text-yellow-800 dark:text-yellow-200">Traitement manuel</h4>
-                            <p class="text-yellow-700 dark:text-yellow-400">Même si une demande de travail (DT) est traitée manuellement en dehors du processus automatique, soyez assuré que l'éditique final sera quand même déposé sur Accès Pro une fois le cas résolu.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-        </main>
+        /* Style pour le bouton dark mode DANS la nav */
+        .nav-theme-toggle {
+            background-color: #e2e8f0; /* bg-slate-200 */
+            color: #334155; /* text-slate-700 */
+            border-radius: 9999px; /* rounded-full */
+            width: 2.5rem; /* w-10 */
+            height: 2.5rem; /* h-10 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .dark .nav-theme-toggle {
+            background-color: #334155; /* dark:bg-slate-700 */
+            color: #e2e8f0; /* dark:text-slate-200 */
+        }
+        .nav-theme-toggle:hover {
+            background-color: #cbd5e1; /* hover:bg-slate-300 */
+        }
+        .dark .nav-theme-toggle:hover {
+            background-color: #475569; /* dark:hover:bg-slate-600 */
+        }
+        /* Fin styles Nav */
 
-        <!-- Pied de page -->
-        <footer class="text-center mt-16 pt-8 border-t border-slate-200 dark:border-slate-700">
-            <p class="text-sm text-slate-500 dark:text-slate-400">Proposé par la Direction Technique</p>
-            <p class="text-sm text-slate-500 dark:text-slate-400">© 2025 Groupe Proxiserve Prox-Hydro | Tous droits réservés. Reproduction interdite.</p>
-        </footer>
 
+        /* Styles pour l'icône de l'en-tête (Contrainte) */
+        .header-icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 5rem; /* w-20 */
+            height: 5rem; /* h-20 */
+            background-color: #e0e7ff; /* bg-indigo-100 */
+            border-radius: 9999px; /* rounded-full */
+            margin: 0 auto 1.5rem auto; /* mx-auto mb-6 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .dark .header-icon-container {
+            background-color: #3730a3; /* dark:bg-indigo-900 */
+        }
+
+        /* Fond "Vivant" Aurora (Contrainte) */
+        .aurora-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px); 
+            opacity: 0.2; 
+            will-change: transform, opacity;
+        }
+
+        .aurora-blob-1 {
+            width: 600px;
+            height: 600px;
+            background: #4f46e5; /* indigo-600 */
+            animation: animate-blob-1 25s infinite alternate;
+        }
+
+        .aurora-blob-2 {
+            width: 500px;
+            height: 500px;
+            background: #e11d48; /* rose-600 */
+            animation: animate-blob-2 30s infinite alternate;
+        }
+            
+        @keyframes animate-blob-1 {
+            0% { transform: translate(10vw, 10vh) scale(1); }
+            100% { transform: translate(40vw, 60vh) scale(1.2); }
+        }
+
+        @keyframes animate-blob-2 {
+            0% { transform: translate(80vw, 70vh) scale(1.2); }
+            100% { transform: translate(20vw, 30vh) scale(0.8); }
+        }
+        /* Fin Fond Aurora */
+
+        /* Animation au défilement (Contrainte) */
+        .hidden-initial {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Styles pour l'accordéon (Conservé, même si non utilisé) */
+        #projection-chevron {
+            transition: transform 0.3s ease;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+    </style>
+    <!-- === FIN STACK TECHNIQUE [CODE DE RÉFÉRENCE] === -->
+</head>
+
+<!-- Body avec classes de base (Contrainte) -->
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+
+    <!-- Fond "Vivant" Aurora (Contrainte) -->
+    <div class="aurora-background">
+        <div class="aurora-blob aurora-blob-1"></div>
+        <div class="aurora-blob aurora-blob-2"></div>
     </div>
 
+    <!-- Bandeau de confidentialité (Contrainte) -->
+    <div class="bg-amber-100 dark:bg-amber-900 border-b border-amber-200 dark:border-amber-700 text-amber-800 dark:text-amber-200 text-center py-2 px-4 text-sm font-semibold sticky top-0 z-50">
+        <i class="fas fa-exclamation-triangle mr-2"></i> Document interne à usage exclusif. Toute reproduction est interdite.
+    </div>
+    
+    <!-- Barre de navigation (Contrainte) - Contenu adapté depuis [CODE À MIGRER] -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <!-- Logo corrigé (retour au modèle) -->
+            <span class="nav-logo"><i class="fas fa-cloud-arrow-up mr-2"></i> PROJET LICORNE</span>
+            <!-- Liens adaptés (conservés) -->
+            <div class="nav-links">
+                 <ul>
+                    <li><a href="#processus-releve">Processus</a></li>
+                    <li><a href="#anomalies">Anomalies</a></li>
+                 </ul>
+            </div>
+            <button id="theme-toggle" type="button" class="nav-theme-toggle">
+                <i class="fas fa-moon text-lg hidden dark:block" id="theme-toggle-dark-icon"></i>
+                <i class="fas fa-sun text-lg dark:hidden" id="theme-toggle-light-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- Conteneur principal (Contrainte) -->
+    <div class="container relative z-10 mx-auto max-w-7xl p-4 pt-8 md:p-8">
+
+        <!-- === BLOC 1: TITRE ET CONTEXTE === -->
+        <!-- Structure de [CODE DE RÉFÉRENCE] -->
+        <!-- Contenu de [CODE À MIGRER] -->
+        <header id="top" class="text-center mb-10 hidden-initial">
+            <!-- Icone migrée -->
+            <div class="header-icon-container">
+                <i class="fa-solid fa-magnifying-glass-chart text-4xl text-indigo-600 dark:text-indigo-400"></i>
+            </div>
+            <!-- Titre migré -->
+            <h1 class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400">
+                Le Suivi de la Relève : Votre Guide Simplifié
+            </h1>
+            <!-- Sous-titre migré -->
+            <p class="text-xl text-slate-600 dark:text-slate-400 mt-2">
+                Comprenez comment les relevés de compteurs sont traités, de la planification à la mise à disposition de vos documents.</p>
+       </header>
+            
+        <!-- Contexte Objectif (Style .info-card de Référence, Contenu de Migration) -->
+        <div class="info-card text-center bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-12 hidden-initial">
+           <p class="text-base text-slate-600 dark:text-slate-300">Cette infographie vous guide à travers les étapes clés du processus de suivi de la relève. Découvrez le parcours complet d'un index, depuis le terrain jusqu'à votre espace client.</p>
+        </div>
+
+        <!-- Les sections KPIs, Flux, Analyse, Stratégie, Projection de la RÉFÉRENCE sont SUPPRIMÉES car sans équivalent dans le CODE À MIGRER -->
+
+        <!-- === BLOC 2: FLUX PRINCIPAL (Contenu de Migration) === -->
+        <!-- Style de la section #roadmap (Timeline) de la RÉFÉRENCE appliqué au contenu #processus-releve de la MIGRATION -->
+        <section id="processus-releve" class="info-card mb-12 hidden-initial"> 
+            <!-- Titre et icône migrés -->
+            <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+                <i class="fa-solid fa-sitemap mr-2"></i> Flux Principal : Le Suivi de la Relève
+            </h2>
+            
+            <!-- Structure de Timeline (ol) de la RÉFÉRENCE -->
+            <ol class="relative border-l border-gray-200 dark:border-gray-700 ml-4">                  
+                
+                <!-- Étape 1 Migrée -->
+                <li class="mb-10 ml-6">            
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-calendar-days text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">1. Planification des Relevés</h3>
+                    <!-- Pas de <time> dans le contenu migré -->
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+                        <strong>Organisation des équipes :</strong> Les relevés sont planifiés par semaine et par équipe pour optimiser les tournées et garantir une couverture efficace.
+                    </p>
+                    <p class="mt-2 text-base font-normal text-gray-500 dark:text-gray-400">
+                        <strong>Création des supports numériques :</strong> Des supports (applications sur smartphones ou tablettes) sont préparés pour les releveurs, contenant toutes les informations nécessaires pour leur mission.
+                    </p>
+                </li>
+                
+                <!-- Étape 2 Migrée -->
+                <li class="mb-10 ml-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-download text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">2. Collecte des Données</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">La collecte des index s'effectue de deux manières complémentaires :</p>
+                    <ul class="list-none mt-2 space-y-2 text-base font-normal text-gray-500 dark:text-gray-400">
+                        <li><i class="fa-solid fa-person-walking fa-fw mr-2 text-green-500"></i><strong class="text-slate-800 dark:text-slate-200">Sur le terrain (Mobilité) :</strong> Nos releveurs équipés de leurs appareils mobiles saisissent directement les index.</li>
+                        <li><i class="fa-solid fa-tower-broadcast fa-fw mr-2 text-purple-500"></i><strong class="text-slate-800 dark:text-slate-200">À distance (Télérelevé GPRS) :</strong> Pour les compteurs équipés, les index sont collectés automatiquement.</li>
+                    </ul>
+                </li>
+                
+                <!-- Étape 3 Migrée -->
+                <li class="mb-10 ml-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-arrows-rotate text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">3. Intégration des Index</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Les données sont transférées dans le système Licorne. Fréquence d'intégration :</p>
+                     <ul class="list-disc list-inside mt-2 space-y-1 text-base font-normal text-gray-500 dark:text-gray-400">
+                        <li><strong class="text-blue-600 dark:text-blue-400">Hebdomadaire :</strong> Chaque vendredi, les données des télérelevés sont automatiquement intégrées.</li>
+                        <li><strong class="text-blue-600 dark:text-blue-400">À date imposée :</strong> Dans certains cas spécifiques, une date précise est définie pour l'intégration.</li>
+                    </ul>
+                </li>
+
+                <!-- Étape 4 Migrée -->
+                <li class="mb-10 ml-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-robot text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">4. Validation Automatique</h3>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Licorne vérifie automatiquement chaque relevé. Critères clés vérifiés :</p>
+                    <!-- Grille 2 colonnes migrée -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 mt-3 text-sm text-gray-500 dark:text-gray-400">
+                        <div class="flex items-start"><i class="fa-solid fa-file-circle-check fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Contrat valide :</strong> L'affaire est active.</span></div>
+                        <div class="flex items-start"><i class="fa-solid fa-arrow-up-9-1 fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Index cohérent :</strong> Supérieur au précédent.</span></div>
+                        <div class="flex items-start"><i class="fa-solid fa-ban-bug fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Pas d'anomalie :</strong> Absence de codes bloquants.</span></div>
+                        <div class="flex items-start"><i class="fa-solid fa-droplet-slash fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Compteur non déposé :</strong> Le compteur général est en service.</span></div>
+                        <div class="flex items-start"><i class="fa-solid fa-chart-simple fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Consommation normale :</strong> Sous les seuils d'alerte.</span></div>
+                        <div class="flex items-start"><i class="fa-solid fa-lock-open fa-fw text-green-500 mt-1 mr-2"></i><span><strong class="text-slate-700 dark:text-slate-200">Validation débloquée :</strong> Pas de blocage manuel activé.</span></div>
+                    </div>
+                </li>
+
+                <!-- Étape 5 Migrée (Dernier item de la timeline) -->
+                <li class="ml-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
+                        <i class="fa-solid fa-file-arrow-up text-blue-800 dark:text-blue-300 text-xs"></i>
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-slate-900 dark:text-white">5. Dépôt des Documents (Éditiques)</h3>
+                    <ul class="list-disc list-inside mt-2 space-y-1 text-base font-normal text-gray-500 dark:text-gray-400">
+                        <li><strong class="text-blue-600 dark:text-blue-400">Sur Accès Pro :</strong> Une fois les relevés validés, les documents officiels sont automatiquement déposés sur votre espace client.</li>
+                        <li><strong class="text-blue-600 dark:text-blue-400">Fichiers EDI :</strong> Si configuré, un fichier EDI est généré et déposé sur Accès Pro.</li>
+                    </ul>
+                    <!-- Info Box (style adapté de la Réf. Stratégie) -->
+                    <div class="mt-4 border-l-4 border-green-400 bg-green-50 dark:bg-green-900/50 dark:border-green-500 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-green-800 dark:text-green-200">Adieu les e-mails !</h4>
+                        <p class="text-sm text-green-700 dark:text-green-300">Pour une meilleure sécurité et traçabilité, l'envoi des éditiques par e-mail est remplacé par le dépôt direct sur Accès Pro.</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+
+        <!-- === BLOC 3: GESTION DES ANOMALIES (Contenu de Migration) === -->
+        <!-- Style .info-card de la RÉFÉRENCE appliqué au contenu #anomalies de la MIGRATION -->
+        <section id="anomalies" class="info-card mb-12 hidden-initial">
+             <h2 class="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white"><i class="fa-solid fa-triangle-exclamation fa-fw mr-3 text-yellow-500 dark:text-yellow-400"></i>Gestion des Anomalies</h2>
+             <div class="space-y-4 text-slate-600 dark:text-slate-300">
+                 <p>Que se passe-t-il si la validation automatique échoue ou en cas de traitement manuel ?</p>
+                 
+                 <!-- Info Box Rouge -->
+                 <div class="border-l-4 border-red-400 bg-red-50 dark:bg-red-900/50 dark:border-red-500 p-4 rounded-r-lg flex items-start">
+                     <i class="fa-solid fa-circle-stop fa-lg text-red-500 dark:text-red-400 mr-4 mt-1"></i>
+                     <div>
+                         <h4 class="font-bold text-red-800 dark:text-red-200">Validation KO (Critères Non OK)</h4>
+                         <p class="text-sm text-red-700 dark:text-red-300">Si un critère de validation n'est pas respecté, le relevé est marqué "Validation Auto KO". Il ne sera pas validé et nécessitera une révision et une intervention manuelle par nos équipes pour corriger l'anomalie.</p>
+                     </div>
+                 </div>
+                 
+                 <!-- Info Box Jaune -->
+                 <div class="border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-900/50 dark:border-yellow-500 p-4 rounded-r-lg flex items-start">
+                     <i class="fa-solid fa-pencil fa-lg text-yellow-500 dark:text-yellow-400 mr-4 mt-1"></i>
+                     <div>
+                         <h4 class="font-bold text-yellow-800 dark:text-yellow-200">Traitement manuel</h4>
+                         <p class="text-sm text-yellow-700 dark:text-yellow-400">Même si une demande de travail (DT) est traitée manuellement en dehors du processus automatique, soyez assuré que l'éditique final sera quand même déposé sur Accès Pro une fois le cas résolu.</p>
+                     </div>
+                 </div>
+             </div>
+        </section>
+        
+        <!-- Séparateur (Contrainte) -->
+        <hr class="border-slate-200 dark:border-slate-700 my-8">
+
+        <!-- === FOOTER === -->
+        <!-- Style de la RÉFÉRENCE, contenu adapté de la MIGRATION -->
+        <footer class="text-center text-sm text-slate-500 dark:text-slate-400 mt-12 pb-8">
+            <!-- Ligne Auteur (Restaurée depuis le modèle de référence) -->
+            <p class="font-semibold text-slate-600 dark:text-slate-300 mb-2">Infographie réalisée par Aurélien DA COSTA, Chef de Projet MOA</p>
+            <p>Proposé par la Direction Technique</p>
+            <p class="mt-4">© 2025 Groupe Proxiserve Prox-Hydro | Tous droits réservés. Reproduction interdite.</p>
+        </footer>
+
+    </div> <!-- Fin du conteneur -->
+
+    <!-- === SCRIPTS === -->
+    <!-- Logique JS de la RÉFÉRENCE, adaptée au contenu migré -->
     <script>
-        // Script pour la gestion du mode sombre/clair et les animations
-        document.addEventListener('DOMContentLoaded', function () {
+        // === GESTION DU DARK MODE (Contrainte JS - Conservé) ===
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const docElement = document.documentElement;
+
+        // Fonction pour appliquer le thème
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                docElement.classList.add('dark');
+            } else {
+                docElement.classList.remove('dark');
+            }
+            localStorage.setItem('theme', theme);
+            // Déclenche un événement personnalisé (conservé du template de référence)
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDark: theme === 'dark' } }));
+        }
+
+        // Gestionnaire de clic
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = docElement.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(currentTheme);
+        });
+
+        // Appliquer le thème au chargement de la page
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (prefersDark) {
+            applyTheme('dark');
+        } else {
+            applyTheme('light');
+        }
+
+        // === GESTION DES GRAPHIQUES ET ANIMATIONS (Adapté) ===
+        document.addEventListener('DOMContentLoaded', () => {
             
-            // Gestion du thème (respecte les préférences système)
-            const updateTheme = () => {
-                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
+            // --- Logique Chart.js (Supprimée) ---
+            // Le contenu migré n'inclut pas de graphiques.
+            // Tenter d'initialiser les graphiques de la référence (pilotDonutChart, failuresBarChart) causerait des erreurs JS.
+
+            // --- Écouteur 'themeChanged' (Supprimé) ---
+            // Cet écouteur était destiné à mettre à jour les graphiques, qui n'existent plus.
+            
+            // === AXE 2 : ANIMATION AU DÉFILEMENT (Adapté) ===
+            
+            // --- Fonctions de compteur (Supprimées) ---
+            // Le contenu migré n'utilise pas les compteurs animés (.kpi-counter).
+            
+            // --- Configuration de l'IntersectionObserver (Conservé) ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // Déclenche quand 10% de l'élément est visible
             };
-            
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
-            updateTheme();
 
-            // Gestion des accordéons pour une animation fluide
-            const detailsElements = document.querySelectorAll('details');
-            detailsElements.forEach((details) => {
-                const summary = details.querySelector('summary');
-                const content = details.querySelector('.content-wrapper');
-
-                summary.addEventListener('click', (event) => {
-                    // Empêche le comportement par défaut pour gérer l'animation nous-mêmes
-                    event.preventDefault();
-                    
-                    if (details.hasAttribute('open')) {
-                        // Fermeture
-                        const closingAnimation = content.animate({ maxHeight: [content.scrollHeight + 'px', 0] }, { duration: 300, easing: 'ease-out' });
-                        closingAnimation.onfinish = () => {
-                            details.removeAttribute('open');
-                        };
-                    } else {
-                        // Ouverture
-                        details.setAttribute('open', '');
-                        content.animate({ maxHeight: [0, content.scrollHeight + 'px'] }, { duration: 400, easing: 'ease-in-out' });
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        
+                        // Cas spécial pour l'accordéon de la référence (projection) supprimé.
+                        
+                        // On applique simplement l'animation de visibilité
+                        target.classList.add('is-visible');
+                        
+                        // Les appels aux compteurs animés sont supprimés car non applicables.
+                        
+                        observer.unobserve(target); // N'observer qu'une seule fois
                     }
                 });
-            });
+            };
+
+            // --- Initialisation de l'Observer (Conservé) ---
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            const targets = document.querySelectorAll('.hidden-initial');
+            targets.forEach(target => observer.observe(target));
+
+            // --- Logique pour l'accordéon #projection (Supprimée) ---
+            // Le contenu migré n'utilise pas ce composant spécifique.
         });
     </script>
-
+    
 </body>
 </html>
+
+
