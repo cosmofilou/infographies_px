@@ -422,7 +422,7 @@
             </div>
         </section>
 
-        <!-- === BLOC 4: NARRATIF STRATÉGIQUE (Données Mises à Jour) === --><section id="strategie" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"> <!-- Suppression du padding/margin d'offset --><!-- Learnings (Modifié) --><div class="info-card hidden-initial">
+        <!-- === BLOC 4: NARRATIF STRATÉGIQUE (Données Mises à Jour) === --><section id="strategie" class="grid grid-cols-1 md:grid-cols-2 gap-6 my-12"> <!-- Marge verticale rétablie --><!-- Learnings (Modifié) --><div class="info-card hidden-initial">
                 <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
                     <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Learnings & Actions
                 </h2>
@@ -431,9 +431,11 @@
                 </p>
                 <p class="mt-4 mb-2 font-semibold text-slate-700 dark:text-slate-300">Gains & Pistes d'Optimisation :</p>
                 <ul class="list-disc list-inside space-y-2">
-                    <li>
-                        <span class="font-semibold text-green-600 dark:text-green-400">Gain ETP (V1) :</span>
-                        <span class="text-sm text-slate-500 dark:text-slate-400"> L'économie (autom. ~10 clics/envoi) est estimée à <strong>+7h de travail</strong> sur ce pilote.</span>
+                    <!-- Gain ETP mis en évidence --><li class="!list-none my-4">
+                        <div class="bg-green-50 dark:bg-green-900/50 border border-green-200 dark:border-green-700 rounded-lg p-3">
+                            <span class="font-semibold text-green-700 dark:text-green-300">Gain Pilote (V1) :</span>
+                            <span class="text-sm text-green-800 dark:text-green-200 block"> L'économie (autom. ~10 clics/envoi) est estimée à <strong>+7h de travail</strong> sur ce pilote (179 succès).</span>
+                        </div>
                     </li>
                     <li>
                         <span class="font-semibold text-red-600 dark:text-red-400">44.6% (78) : "95% non atteint".</span>
@@ -515,7 +517,7 @@
             </div>
         </section>
         
-        <!-- === BLOC 5: ROADMAP PROJECTION (Modifié) === --><section id="roadmap" class="info-card mb-12 hidden-initial"> <!-- Suppression du padding/margin d'offset --><h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+        <!-- === BLOC 5: ROADMAP PROJECTION (Modifié) === --><section id="roadmap" class="info-card mb-12 hidden-initial"> <!-- Marge verticale rétablie --><h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
                 <i class="fas fa-map-signs mr-2"></i> Historique et Projection
             </h2>
             <ol class="relative border-l border-gray-200 dark:border-gray-700 ml-4">                  
@@ -527,29 +529,29 @@
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Q1 - Q3 2025</time>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">Cadrage MOA, développement DSI, recette et mise en production réussie du pilote Agence Ouest (Lancé le 15/09).</p>
                 </li>
-                <!-- Jalon Présentation Ajouté --><li class="mb-10 ml-6">            
+                <!-- Jalon Présentation Pilote (Corrigé) --><li class="mb-10 ml-6">            
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-green-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-green-900">
+                        <i class="fas fa-check-circle text-green-800 dark:text-green-300 text-xs"></i>
+                    </span>
+                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Octobre 2025 : Présentation Pilote Agences <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300 ml-3">Terminé</span></h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">29 Octobre 2025</time>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Restitution des résultats et learnings du pilote aux Agences & Directions.</p>
+                </li>
+                <!-- NOUVEAU Jalon Présentation CODIF --><li class="mb-10 ml-6">            
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-yellow-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-yellow-900">
                         <i class="fas fa-presentation text-yellow-800 dark:text-yellow-300 text-xs"></i>
                     </span>
-                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Novembre 2025 : Présentation Pilote <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300 ml-3">Aujourd'hui</span></h3>
-                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">13 Novembre 2025</time>
-                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Restitution des résultats et learnings du pilote (période 15/09 - 13/11) aux Agences & Directions.</p>
+                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Novembre 2025 : Présentation CODIR <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300 ml-3">Aujourd'hui</span></h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">19 Novembre 2025</time>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Présentation des résultats consolidés et des projections à la Direction Nationale.</p>
                 </li>
-                <li class="mb-10 ml-6">
+                <!-- Jalon Fusionné et Condensé --><li class="mb-10 ml-6">
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
                         <i class="fas fa-shipping-fast text-blue-800 dark:text-blue-300 text-xs"></i>
                     </span>
-                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Q4 2025 : Déploiement National <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">En Cours</span></h3>
-                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">À partir de Novembre 2025</time>
-                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Au regard du succès du pilote, élargissement aux agences Est, Nord et Centre-Est.</p>
-                </li>
-                 <!-- POINT MODIFIÉ (Ajout Commerciaux) --><li class="mb-10 ml-6">
-                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-blue-900">
-                        <i class="fas fa-chart-line text-blue-800 dark:text-blue-300 text-xs"></i>
-                    </span>
-                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Fin 2025 : Finalisation V1 & Support Commercial <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">Planifié</span></h3>
-                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Courant Novembre - Décembre 2025</time>
-                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Rattachement des rapports de suivi aux plannings (dispo. Nov). Amélioration KPIs par la DT pour pilotage 100% Licorne (fin d'année). <strong class="text-indigo-600 dark:text-indigo-400">Création d'un support de communication pour les Commerciaux</strong> afin d'appuyer l'onboarding client Accès Pro.</p>
+                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Q4 2025 : Déploiement & Finalisation V1 <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">En Cours</span></h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Novembre - Décembre 2025</time>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Déploiement national (Est, Nord, Centre-Est), finalisation des rapports de suivi et création du support commercial.</p>
                 </li>
                  <!-- POINT MODIFIÉ (Détail V2) --><li class="mb-10 ml-6">
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-purple-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-purple-900">
@@ -557,18 +559,18 @@
                     </span>
                     <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Projection 2026 : Validation Auto V2 <span class="bg-purple-100 text-purple-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300 ml-3">Vision</span></h3>
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Courant 2026</time>
-                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Itération basée sur learnings V1 : affinage tolérances, révision seuils, <strong class="text-purple-600 dark:text-purple-400">contrôle inversion ECS/EF</strong>, <strong class="text-purple-600 dark:text-purple-400">intégration CET</strong> (sous conditions), exclusion "IJ" ? Objectif : augmenter le taux de succès.</p>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">V2 : Affinage des règles (seuils, inversion ECS/EF, intégration CET) pour augmenter le taux de succès.</p>
                 </li>
                  <!-- POINT AJOUTÉ --><li class="ml-6">
                     <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-100 rounded-full -left-3 ring-8 ring-white dark:ring-slate-800 dark:bg-teal-900">
                         <i class="fas fa-brain text-teal-800 dark:text-teal-300 text-xs"></i>
                     </span>
-                    <h3 class_of_color="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Vision 2026/2027 : Validation Assistée par IA <span class="bg-teal-100 text-teal-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-teal-900 dark:text-teal-300 ml-3">Vision</span></h3>
+                    <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900 dark:text-white">Vision 2026/2027 : Validation Assistée par IA <span class="bg-teal-100 text-teal-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-teal-900 dark:text-teal-300 ml-3 font-bold">Vision</span></h3>
                     <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Horizon 2026 - 2027</time>
-                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">Transition d'un système basé sur des règles simples vers une IA capable d'analyser les données, de proposer, voire d'appliquer des corrections intelligentes. Objectif : maximiser le taux de délivrabilité automatique et fiabiliser les cas complexes.</p>
+                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">V3 : Passage à une IA d'analyse et de correction automatique pour maximiser la délivrabilité.</p>
                 </li>
             </ol>
-            <!-- CTA Ajouté (Suggestion Forme) --><div class="mt-8 text-center">
+            <!-- CTA Rétabli --><div class="mt-8 text-center">
                 <button type="button" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg opacity-75 cursor-not-allowed" disabled>
                     <i class="fas fa-chart-line mr-2"></i> Consulter le Dashboard de Suivi (Fin 2025)
                 </button>
